@@ -239,6 +239,77 @@ body {
   background: rgba(0, 0, 0, 0.2);
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
+
+/* Cursor sparkles */
+.cursor-sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: white;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  animation: cursor-sparkle-fade 1s forwards;
+}
+
+@keyframes cursor-sparkle-fade {
+  0% {
+    opacity: 1;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+/* Volume control */
+.volume-control {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+}
+
+.volume-slider {
+  -webkit-appearance: none;
+  width: 100px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
 </style>
 <link rel="icon" href="https://files.catbox.moe/9kp7pc.png" type="image/png">
 </head>
@@ -299,6 +370,15 @@ body {
   </div>
 
   <div class="member-url">conceal.lol/mikey</div>
+</div>
+
+<div class="volume-control">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+  </svg>
+  <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider" id="volume-slider">
 </div>
 
 <audio id="background-music" loop autoplay>
@@ -404,6 +484,32 @@ function createSparkles() {
 // Initialize sparkles
 createSparkles();
 
+// Cursor sparkles
+document.addEventListener('mousemove', function(e) {
+  if (Math.random() > 0.9) { // Only create sparkles occasionally for performance
+    const sparkle = document.createElement('div');
+    sparkle.className = 'cursor-sparkle';
+    sparkle.style.left = `${e.clientX}px`;
+    sparkle.style.top = `${e.clientY}px`;
+    
+    // Random size
+    const size = Math.random() * 4 + 2;
+    sparkle.style.width = `${size}px`;
+    sparkle.style.height = `${size}px`;
+    
+    // White sparkles for Mikey's page
+    sparkle.style.backgroundColor = 'white';
+    sparkle.style.boxShadow = '0 0 5px white';
+    
+    document.body.appendChild(sparkle);
+    
+    // Remove sparkle after animation completes
+    setTimeout(() => {
+      sparkle.remove();
+    }, 1000);
+  }
+});
+
 // Force audio to play
 window.onload = function() {
   const backgroundMusic = document.getElementById('background-music');
@@ -428,7 +534,22 @@ window.onload = function() {
       backgroundMusic.play();
     }
   });
+  
+  // Request fullscreen
+  if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen().catch(err => {
+      console.log('Error attempting to enable fullscreen:', err);
+    });
+  }
 };
+
+// Volume control
+const volumeSlider = document.getElementById('volume-slider');
+const backgroundMusic = document.getElementById('background-music');
+
+volumeSlider.addEventListener('input', function() {
+  backgroundMusic.volume = this.value;
+});
 </script>
 </body>
 </html>
