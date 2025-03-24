@@ -83,6 +83,20 @@ text-transform: uppercase;
 font-weight: bold;
 color: #fff;
 position: relative;
+text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+0% {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+50% {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+100% {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
 }
 
 .enter-title::after {
@@ -165,6 +179,43 @@ display: none;
 .enter-title:hover + .glitch-effect {
 display: block;
 }
+
+/* Particles */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: float 15s infinite linear;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(100px);
+    opacity: 0;
+  }
+}
 </style>
 <link rel="icon" href="https://files.catbox.moe/9kp7pc.png" type="image/png">
 </head>
@@ -172,6 +223,7 @@ display: block;
 <div id="enter-screen">
 <div class="noise"></div>
 <div class="vignette"></div>
+<div class="particles" id="particles"></div>
 <h1 class="enter-title">CONCEAL.LOL</h1>
 <div class="glitch-effect"></div>
 <p class="enter-subtitle">life is a fleeting, symbolic representation or a mere echo of something else, rather than a concrete or real entity.</p>
@@ -212,12 +264,41 @@ if (
 }
 });
 
+// Create particles
+(function createParticles() {
+  const particlesContainer = document.getElementById('particles');
+  const particleCount = 50;
+  
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    
+    // Random positioning
+    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.top = `${Math.random() * 100}%`;
+    
+    // Random size
+    const size = Math.random() * 2 + 1;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    
+    // Random opacity
+    particle.style.opacity = Math.random() * 0.5 + 0.1;
+    
+    // Random animation duration and delay
+    const duration = Math.random() * 20 + 10;
+    particle.style.animationDuration = `${duration}s`;
+    particle.style.animationDelay = `${Math.random() * 10}s`;
+    
+    particlesContainer.appendChild(particle);
+  }
+})();
+
 // Enter button functionality
 document.getElementById('enter-button').addEventListener('click', function() {
-// Start playing music immediately
-document.getElementById('members-music').play().catch(function(error) {
-  console.log('Audio playback prevented: User interaction required');
-});
+// Don't play music yet - we'll play it on the members page
+// Just store the flag that we want to play music
+localStorage.setItem('musicStarted', 'true');
 
 // Fade out enter screen
 document.getElementById('enter-screen').style.opacity = '0';
@@ -226,11 +307,6 @@ document.getElementById('enter-screen').style.opacity = '0';
 setTimeout(function() {
   window.location.href = 'members.html';
 }, 1500);
-});
-
-// Store music state in localStorage to continue on other pages
-document.getElementById('enter-button').addEventListener('click', function() {
-localStorage.setItem('musicStarted', 'true');
 });
 
 // Add hover effect to title
