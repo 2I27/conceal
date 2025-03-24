@@ -113,29 +113,35 @@ body {
   z-index: 2;
 }
 
-.sparkle {
-  position: absolute;
-  background-color: #ec4899;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  opacity: 0;
-  z-index: 1;
-  animation: sparkle-animation 2s infinite;
+.heart-dot {
+  display: inline-block;
+  color: #ec4899;
+  font-size: 1.2rem;
+  position: relative;
+  top: -0.2rem;
 }
 
-@keyframes sparkle-animation {
+.heart {
+  position: absolute;
+  color: #ec4899;
+  font-size: 1rem;
+  opacity: 0;
+  z-index: 1;
+  animation: heart-animation 3s infinite;
+}
+
+@keyframes heart-animation {
   0% {
     opacity: 0;
-    transform: scale(0);
+    transform: scale(0) rotate(0deg);
   }
   50% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) rotate(10deg);
   }
   100% {
     opacity: 0;
-    transform: scale(0);
+    transform: scale(0) rotate(20deg);
   }
 }
 
@@ -198,7 +204,7 @@ body {
   color: rgb(249, 168, 212);
 }
 
-.heart {
+.falling-heart {
   position: fixed;
   color: #ec4899;
   z-index: -1;
@@ -215,6 +221,77 @@ body {
     transform: translateY(100vh);
     opacity: 0;
   }
+}
+
+/* Cursor sparkles */
+.cursor-sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: #ec4899;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  animation: cursor-sparkle-fade 1s forwards;
+}
+
+@keyframes cursor-sparkle-fade {
+  0% {
+    opacity: 1;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+/* Volume control */
+.volume-control {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(236, 72, 153, 0.2);
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+}
+
+.volume-slider {
+  -webkit-appearance: none;
+  width: 100px;
+  height: 4px;
+  background: rgba(236, 72, 153, 0.1);
+  border-radius: 2px;
+  outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: #ec4899;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: #ec4899;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
 }
 </style>
 <link rel="icon" href="https://files.catbox.moe/5qp7rp.png" type="image/png">
@@ -235,8 +312,8 @@ body {
     </div>
     <div class="profile-info">
       <div class="profile-name-container">
-        <div class="profile-name" title="UID: 2">carm♥</div>
-        <div id="sparkles-container"></div>
+        <div class="profile-name" title="UID: 2">carm<span class="heart-dot">♥</span></div>
+        <div id="hearts-container"></div>
       </div>
       <div class="profile-bio">digital princess</div>
     </div>
@@ -272,6 +349,15 @@ body {
       <span>TikTok</span>
     </a>
   </div>
+</div>
+
+<div class="volume-control">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+  </svg>
+  <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider" id="volume-slider">
 </div>
 
 <audio id="background-music" loop autoplay>
@@ -330,10 +416,43 @@ document.addEventListener('keydown', function(e) {
   viewCountElement.textContent = count;
 })();
 
+// Create hearts around name
+function createHearts() {
+  const nameElement = document.querySelector('.profile-name');
+  const heartsContainer = document.getElementById('hearts-container');
+  const heartCount = 12;
+  
+  // Clear existing hearts
+  heartsContainer.innerHTML = '';
+  
+  for (let i = 0; i < heartCount; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = '♥';
+    
+    // Position hearts around the name
+    const angle = Math.random() * Math.PI * 2;
+    const distance = Math.random() * 40 + 20;
+    const x = Math.cos(angle) * distance;
+    const y = Math.sin(angle) * distance;
+    
+    heart.style.left = `calc(50% + ${x}px)`;
+    heart.style.top = `calc(50% + ${y}px)`;
+    
+    // Random delay for animation
+    heart.style.animationDelay = `${Math.random() * 3}s`;
+    
+    heartsContainer.appendChild(heart);
+  }
+}
+
+// Initialize hearts
+createHearts();
+
 // Falling hearts
-function createHeart() {
+function createFallingHeart() {
   const heart = document.createElement('div');
-  heart.className = 'heart';
+  heart.className = 'falling-heart';
   heart.innerHTML = '♥';
   heart.style.left = Math.random() * 100 + 'vw';
   heart.style.fontSize = Math.random() * 1.5 + 0.5 + 'rem';
@@ -346,49 +465,33 @@ function createHeart() {
   }, 5000);
 }
 
-setInterval(createHeart, 300);
+setInterval(createFallingHeart, 300);
 
-// Create sparkles around name
-function createSparkles() {
-  const nameElement = document.querySelector('.profile-name');
-  const sparklesContainer = document.getElementById('sparkles-container');
-  const nameRect = nameElement.getBoundingClientRect();
-  const sparkleCount = 15;
-  
-  // Clear existing sparkles
-  sparklesContainer.innerHTML = '';
-  
-  for (let i = 0; i < sparkleCount; i++) {
+// Cursor sparkles
+document.addEventListener('mousemove', function(e) {
+  if (Math.random() > 0.9) { // Only create sparkles occasionally for performance
     const sparkle = document.createElement('div');
-    sparkle.className = 'sparkle';
-    
-    // Position sparkles around the name
-    const angle = Math.random() * Math.PI * 2;
-    const distance = Math.random() * 30 + 20;
-    const x = Math.cos(angle) * distance;
-    const y = Math.sin(angle) * distance;
-    
-    sparkle.style.left = `calc(50% + ${x}px)`;
-    sparkle.style.top = `calc(50% + ${y}px)`;
-    
-    // Random delay for animation
-    sparkle.style.animationDelay = `${Math.random() * 2}s`;
+    sparkle.className = 'cursor-sparkle';
+    sparkle.style.left = `${e.clientX}px`;
+    sparkle.style.top = `${e.clientY}px`;
     
     // Random size
-    const size = Math.random() * 3 + 1;
+    const size = Math.random() * 4 + 2;
     sparkle.style.width = `${size}px`;
     sparkle.style.height = `${size}px`;
     
-    // Pink sparkles for Carmi
+    // Pink sparkles for Carmi's page
     sparkle.style.backgroundColor = '#ec4899';
-    sparkle.style.boxShadow = '0 0 3px #ec4899';
+    sparkle.style.boxShadow = '0 0 5px #ec4899';
     
-    sparklesContainer.appendChild(sparkle);
+    document.body.appendChild(sparkle);
+    
+    // Remove sparkle after animation completes
+    setTimeout(() => {
+      sparkle.remove();
+    }, 1000);
   }
-}
-
-// Initialize sparkles
-createSparkles();
+});
 
 // Force audio to play
 window.onload = function() {
@@ -414,7 +517,22 @@ window.onload = function() {
       backgroundMusic.play();
     }
   });
+  
+  // Request fullscreen
+  if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen().catch(err => {
+      console.log('Error attempting to enable fullscreen:', err);
+    });
+  }
 };
+
+// Volume control
+const volumeSlider = document.getElementById('volume-slider');
+const backgroundMusic = document.getElementById('background-music');
+
+volumeSlider.addEventListener('input', function() {
+  backgroundMusic.volume = this.value;
+});
 </script>
 </body>
 </html>
