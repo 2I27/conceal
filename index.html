@@ -144,40 +144,6 @@
     .select-none { user-select: none; }
 
     /* Animations */
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      40%, 60% { opacity: 0; }
-    }
-
-    @keyframes sparkle-animation {
-      0% {
-        transform: scale(0) rotate(0deg);
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: scale(1) rotate(45deg);
-        opacity: 0;
-      }
-    }
-
-    @keyframes pulse {
-      0% {
-        opacity: 0.3;
-        transform: scale(0.8);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1.2);
-      }
-      100% {
-        opacity: 0.3;
-        transform: scale(0.8);
-      }
-    }
-
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -189,61 +155,8 @@
     }
 
     @keyframes scaleUp {
-      from { transform: scale(0.8); opacity: 0; }
+      from { transform: scale(0.95); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
-    }
-
-    @keyframes glitch {
-      0% {
-        text-shadow: 0.05em 0 0 rgba(255, 255, 255, 0.75),
-                    -0.05em -0.025em 0 rgba(255, 255, 255, 0.75),
-                    -0.025em 0.05em 0 rgba(255, 255, 255, 0.75);
-      }
-      14% {
-        text-shadow: 0.05em 0 0 rgba(255, 255, 255, 0.75),
-                    -0.05em -0.025em 0 rgba(255, 255, 255, 0.75),
-                    -0.025em 0.05em 0 rgba(255, 255, 255, 0.75);
-      }
-      15% {
-        text-shadow: -0.05em -0.025em 0 rgba(255, 255, 255, 0.75),
-                    0.025em 0.025em 0 rgba(255, 255, 255, 0.75),
-                    -0.05em -0.05em 0 rgba(255, 255, 255, 0.75);
-      }
-      49% {
-        text-shadow: -0.05em -0.025em 0 rgba(255, 255, 255, 0.75),
-                    0.025em 0.025em 0 rgba(255, 255, 255, 0.75),
-                    -0.05em -0.05em 0 rgba(255, 255, 255, 0.75);
-      }
-      50% {
-        text-shadow: 0.025em 0.05em 0 rgba(255, 255, 255, 0.75),
-                    0.05em 0 0 rgba(255, 255, 255, 0.75),
-                    0 -0.05em 0 rgba(255, 255, 255, 0.75);
-      }
-      99% {
-        text-shadow: 0.025em 0.05em 0 rgba(255, 255, 255, 0.75),
-                    0.05em 0 0 rgba(255, 255, 255, 0.75),
-                    0 -0.05em 0 rgba(255, 255, 255, 0.75);
-      }
-      100% {
-        text-shadow: -0.025em 0 0 rgba(255, 255, 255, 0.75),
-                    -0.025em -0.025em 0 rgba(255, 255, 255, 0.75),
-                    -0.025em -0.05em 0 rgba(255, 255, 255, 0.75);
-      }
-    }
-
-    @keyframes flicker {
-      0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
-        opacity: 0.99;
-      }
-      20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
-        opacity: 0.4;
-      }
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-      20%, 40%, 60%, 80% { transform: translateX(5px); }
     }
 
     @keyframes float {
@@ -251,68 +164,24 @@
       50% { transform: translateY(-10px); }
     }
 
-    @keyframes scanline {
-      0% { transform: translateY(-100%); }
-      100% { transform: translateY(100%); }
-    }
-
-    @keyframes borderFlash {
-      0%, 100% { border-color: rgba(255, 255, 255, 0.3); }
-      50% { border-color: rgba(255, 255, 255, 0.8); }
-    }
-
-    @keyframes textGlow {
-      0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
-      50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
-    }
-
-    @keyframes hueRotate {
-      0% { filter: grayscale(100%); }
-      50% { filter: grayscale(100%); }
-      100% { filter: grayscale(100%); }
-    }
-
-    @keyframes glitchShake {
-      0%, 100% { transform: translate(0); }
-      10% { transform: translate(-5px, -5px); }
-      20% { transform: translate(5px, 5px); }
-      30% { transform: translate(-3px, 3px); }
-      40% { transform: translate(3px, -3px); }
-      50% { transform: translate(-2px, -2px); }
-      60% { transform: translate(2px, 2px); }
-      70% { transform: translate(-1px, 1px); }
-      80% { transform: translate(1px, -1px); }
-      90% { transform: translate(-1px, -1px); }
-    }
-
-    @keyframes distort {
+    @keyframes pulse {
       0% {
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-      }
-      25% {
-        clip-path: polygon(0% 5%, 100% 0%, 100% 95%, 0% 100%);
+        opacity: 0.6;
+        transform: scale(0.95);
       }
       50% {
-        clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
-      }
-      75% {
-        clip-path: polygon(0% 0%, 100% 5%, 95% 100%, 5% 95%);
+        opacity: 1;
+        transform: scale(1);
       }
       100% {
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        opacity: 0.6;
+        transform: scale(0.95);
       }
     }
 
-    .animate-blink {
-      animation: blink 1.5s ease-in-out infinite;
-    }
-
-    .animate-sparkle {
-      animation: sparkle-animation 500ms forwards;
-    }
-
-    .animate-pulse {
-      animation: pulse 200ms ease-in-out;
+    @keyframes subtleGlow {
+      0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+      50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
     }
 
     .animate-fade-in {
@@ -324,54 +193,26 @@
     }
 
     .animate-scale-up {
-      animation: scaleUp 0.5s ease-out forwards;
-    }
-
-    .animate-glitch {
-      animation: glitch 2s infinite;
-    }
-
-    .animate-flicker {
-      animation: flicker 5s infinite;
-    }
-
-    .animate-shake {
-      animation: shake 0.5s ease-in-out;
+      animation: scaleUp 0.8s ease-out forwards;
     }
 
     .animate-float {
       animation: float 6s ease-in-out infinite;
     }
 
-    .animate-scanline {
-      animation: scanline 8s linear infinite;
+    .animate-pulse {
+      animation: pulse 3s infinite;
     }
 
-    .animate-border-flash {
-      animation: borderFlash 2s infinite;
-    }
-
-    .animate-text-glow {
-      animation: textGlow 2s infinite;
-    }
-
-    .animate-hue-rotate {
-      animation: hueRotate 10s infinite;
-    }
-
-    .animate-glitch-shake {
-      animation: glitchShake 0.5s infinite;
-    }
-
-    .animate-distort {
-      animation: distort 5s infinite;
+    .animate-subtle-glow {
+      animation: subtleGlow 3s infinite;
     }
 
     /* Custom styles */
     #profile-card {
-      transition: transform 0.2s ease-out;
+      transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
       transform-style: preserve-3d;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
       position: relative;
       overflow: visible;
       will-change: transform;
@@ -384,7 +225,7 @@
       left: -5px;
       right: -5px;
       bottom: -5px;
-      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
       z-index: -1;
       border-radius: 1rem;
       opacity: 0;
@@ -435,11 +276,6 @@
       pointer-events: none;
     }
 
-    .lightning {
-      position: absolute;
-      pointer-events: none;
-    }
-
     .typewriter-cursor {
       display: inline-block;
       animation: blink 1.5s ease-in-out infinite;
@@ -460,115 +296,60 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #000;
+      background-color: #050505;
+      background-image: 
+        radial-gradient(circle at 20% 30%, #111 0%, transparent 20%),
+        radial-gradient(circle at 80% 70%, #111 0%, transparent 20%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       z-index: 1000;
       transition: opacity 1.5s cubic-bezier(0.19, 1, 0.22, 1);
-      filter: grayscale(100%);
     }
 
     .enter-button {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       color: white;
       padding: 12px 30px;
-      font-size: 18px;
-      border-radius: 0;
+      font-size: 16px;
+      border-radius: 2px;
       cursor: pointer;
       transition: all 0.3s ease;
-      margin-top: 30px;
-      backdrop-filter: blur(5px);
+      margin-top: 40px;
       position: relative;
       overflow: hidden;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       text-transform: uppercase;
     }
 
     .enter-button:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-      letter-spacing: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
     }
 
     .enter-button:active {
-      transform: translateY(-1px);
-    }
-
-    .enter-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.2),
-        transparent
-      );
-      transition: 0.5s;
-    }
-
-    .enter-button:hover::before {
-      left: 100%;
+      transform: translateY(0);
     }
 
     .enter-title {
-      font-size: 3.5rem;
+      font-size: 3rem;
       margin-bottom: 1rem;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-      letter-spacing: 8px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      letter-spacing: 6px;
       text-transform: uppercase;
       font-weight: bold;
       color: #fff;
     }
 
     .enter-subtitle {
-      font-size: 1.2rem;
+      font-size: 1rem;
       margin-bottom: 2rem;
       opacity: 0.7;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .glitch-effect {
-      position: relative;
-      animation: glitch 2s infinite;
-    }
-
-    .scanline {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        to bottom,
-        transparent 50%,
-        rgba(255, 255, 255, 0.1) 51%
-      );
-      background-size: 100% 4px;
-      z-index: 999;
-      pointer-events: none;
-      opacity: 0.15;
-    }
-
-    .active-scanline {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 5px;
-      background: rgba(255, 255, 255, 0.3);
-      z-index: 999;
-      pointer-events: none;
-      opacity: 0.5;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.7);
     }
 
     .noise {
@@ -578,26 +359,9 @@
       width: 100%;
       height: 100%;
       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAFVklEQVR4XpWWB67c2BUFb3g557T/hRo9/WUMZHlgr4Bg8Z4qQgQJlHI4A8SzFVrapvmTF9O7dmYRFZ60YiBhJRCgh1FYhiLAmdvX0CzTOpNE77ME0Zty/nWWzchDtiqrmQDeuv3powQ5ta2eN0FY0InkqDD73lT9c9lEzwUNqgFHs9VQce3TVClFCQrSTfOiYkVJQBmpbq2L6iZavPnAPcoU0dSw0SUTqz/GtrGuXfbyyBniKykOWQWGqwwMA7QiYAxi+IlPdqo+hYHnUt5ZPfnsHJyNiDtnpJyayNBkF6cWoYGAMY92U2hXHF/C1M8uP/ZtYdiuj26UdAdQQSXQErwSOMzt/XWRWAz5GuSBIkwG1H3FabJ2OsUOUhGC6tK4EMtJO0ttC6IBD3kM0ve0tJwMdSfjZo+EEISaeTr9P3wYrGjXqyC1krcKdhMpxEnt5JetoulscpyzhXN5FRpuPHvbeQaKxFAEB6EN+cYN6xD7RYGpXpNndMmZgM5Dcs3YSNFDHUo2LGfZuukSWyUYirJAdYbF3MfqEKmjM+I2EfhA94iG3L7uKrR+GdWD73ydlIB+6hgref1QTlmgmbM3/LeX5GI1Ux1RWpgxpLuZ2+I+IjzZ8wqE4nilvQdkUdfhzI5QDWy+kw5Wgg2pGpeEVeCCA7b85BO3F9DzxB3cdqvBzWcmzbyMiqhzuYqtHRVG2y4x+KOlnyqla8AoWWpuBoYRxzXrfKuILl6SfiWCbjxoZJUaCBj1CjH7GIaDbc9kqBY3W-Rgjda1iqQcOJu2WW+76pZC9QG7M00dffe9hNnseupFL53r8F7YHSwJWUKP2q+k7RdsxyOB11n0xtOvnW4irMMFNV4H0uqwS5ExsmP9AxbDTc9JwgneAT5vTiUSm1E7BSflSt3bfa1tv8Di3R8n3Af7MNWzs49hmauE2wP+ttrq+AsWpFG2awvsuOqbipWHgtuvuaAE+A1Z/7gC9hesnr+7wqCwG8c5yAg3AL1fm8T9AZtp/bbJGwl1pNrE7RuOX7PeMRUERVaPpEs+yqeoSmuOlokqw49pgomjLeh7icHNlG19yjs6XXOMedYm5xH2YxpV2tc0Ro2jJfxC50ApuxGob7lMsxfTbeUv07TyYxpeLucEH1gNd4IKH2LAg5TdVhlCafZvpskfncCfx8pOhJzd76bJWeYFnFciwcYfubRc12Ip/ppIhA1/mSZ/RxjFDrJC5xifFjJpY2Xl5zXdguFqYyTR1zSp1Y9p+tktDYYSNflcxI0iyO4TPBdlRcpeqjK/piF5bklq77VSEaA+z8qmJTFzIWiitbnzR794USKBUaT0NTEsVjZqLaFVqJoPN9ODG70IPbfBHKK+/q/AWR0tJzYHRULOa4MP+W/H");
-      opacity: 0.2;
+      opacity: 0.05;
       z-index: 998;
       pointer-events: none;
-    }
-
-    .crt-lines {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0.15) 1px,
-        transparent 1px,
-        transparent 2px
-      );
-      pointer-events: none;
-      z-index: 997;
     }
 
     .vignette {
@@ -609,348 +373,6 @@
       box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.7);
       pointer-events: none;
       z-index: 996;
-    }
-
-    /* System alert box */
-    .system-alert {
-      background: rgba(20, 20, 20, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 20px;
-      max-width: 500px;
-      position: relative;
-      margin-bottom: 30px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-    }
-
-    .system-alert::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, transparent 49%, rgba(255, 255, 255, 0.3) 50%, transparent 51%);
-      background-size: 4px 4px;
-      opacity: 0.1;
-      pointer-events: none;
-    }
-
-    .system-alert-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .system-alert-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .system-alert-status {
-      font-size: 0.8rem;
-      background: rgba(255, 255, 255, 0.2);
-      padding: 3px 8px;
-      border-radius: 2px;
-      animation: blink 2s infinite;
-    }
-
-    .system-alert-content {
-      font-family: 'Courier New', monospace;
-      line-height: 1.6;
-    }
-
-    .system-alert-footer {
-      margin-top: 15px;
-      padding-top: 10px;
-      border-top: 1px solid rgba(255, 255, 255, 0.3);
-      font-size: 0.8rem;
-      opacity: 0.7;
-      text-align: right;
-    }
-
-    /* User info panel */
-    .user-info-panel {
-      background: rgba(20, 20, 20, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 15px;
-      margin-bottom: 30px;
-      width: 100%;
-      max-width: 500px;
-      font-family: 'Courier New', monospace;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .user-info-panel::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, transparent 49%, rgba(255, 255, 255, 0.1) 50%, transparent 51%);
-      background-size: 4px 4px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .user-info-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
-      z-index: 1;
-    }
-
-    .user-info-row:last-child {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: none;
-    }
-
-    .user-info-label {
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 0.9rem;
-    }
-
-    .user-info-value {
-      color: white;
-      font-size: 0.9rem;
-    }
-
-    /* Terminal text effect */
-    .terminal-text {
-      overflow: hidden;
-      border-right: 0.15em solid rgba(255, 255, 255, 0.8);
-      white-space: nowrap;
-      margin: 0 auto;
-      letter-spacing: 0.15em;
-      animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-    }
-
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-
-    @keyframes blink-caret {
-      from, to { border-color: transparent }
-      50% { border-color: rgba(255, 255, 255, 0.8) }
-    }
-
-    /* Audio controls */
-    #audio-controls {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 100;
-      display: none;
-    }
-
-    /* Volume control */
-    .volume-control {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 8px 12px;
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-    }
-
-    .volume-slider {
-      -webkit-appearance: none;
-      width: 80px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.2);
-      outline: none;
-      margin: 0 10px;
-    }
-
-    .volume-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 12px;
-      height: 12px;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    .volume-slider::-moz-range-thumb {
-      width: 12px;
-      height: 12px;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    .mute-button {
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-      padding: 0;
-      margin-left: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .mute-button:hover {
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    /* External link button */
-    .external-link {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: rgba(0, 0, 0, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: white;
-      padding: 8px 15px;
-      font-size: 0.9rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      z-index: 1001;
-    }
-
-    .external-link:hover {
-      background: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-    }
-
-    /* Hide audio element */
-    audio {
-      display: none;
-    }
-
-    /* Social links */
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 10px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .social-link {
-      color: white;
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
-      transition: all 0.3s ease;
-      position: relative;
-      font-size: 0.8rem;
-    }
-
-    .social-link:hover {
-      transform: translateY(-3px);
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .social-link::before {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 1px;
-      background-color: rgba(255, 255, 255, 0.8);
-      transition: width 0.3s ease;
-    }
-
-    .social-link:hover::before {
-      width: 100%;
-    }
-
-    /* Warning tape */
-    .warning-tape {
-      position: absolute;
-      background: repeating-linear-gradient(
-        45deg,
-        rgba(0, 0, 0, 0.8),
-        rgba(0, 0, 0, 0.8) 10px,
-        rgba(255, 255, 255, 0.8) 10px,
-        rgba(255, 255, 255, 0.8) 20px
-      );
-      height: 20px;
-      width: 150%;
-      transform: rotate(-5deg);
-      left: -25%;
-      top: 20px;
-      z-index: 5;
-      opacity: 0.7;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .warning-tape::before {
-      content: 'RESTRICTED ACCESS';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: black;
-      font-weight: bold;
-      font-size: 10px;
-      text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
-      letter-spacing: 2px;
-    }
-
-    /* Glitch overlay */
-    .glitch-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        45deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.1) 25%,
-        transparent 50%,
-        rgba(255, 255, 255, 0.1) 75%,
-        transparent 100%
-      );
-      pointer-events: none;
-      z-index: 995;
-      opacity: 0.3;
-      mix-blend-mode: overlay;
-    }
-
-    /* Broken glass effect */
-    .broken-glass {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0,50 L50,0 L100,50 L50,100 Z" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/><path d="M0,0 L100,100 M100,0 L0,100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></svg>');
-      background-size: 100px 100px;
-      pointer-events: none;
-      z-index: 994;
-      opacity: 0.1;
     }
 
     /* Members icon */
@@ -1002,106 +424,212 @@
     .members-icon:hover .members-tooltip {
       opacity: 1;
     }
+
+    /* Canvas background */
+    #background-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    /* Social links */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .social-link {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+      position: relative;
+      font-size: 0.8rem;
+    }
+
+    .social-link:hover {
+      transform: translateY(-3px);
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .social-link::before {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.8);
+      transition: width 0.3s ease;
+    }
+
+    .social-link:hover::before {
+      width: 100%;
+    }
+
+    /* Enter screen decorative elements */
+    .decorative-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      pointer-events: none;
+    }
+
+    .circle-1 {
+      width: 300px;
+      height: 300px;
+      top: 20%;
+      left: 10%;
+      opacity: 0.3;
+    }
+
+    .circle-2 {
+      width: 200px;
+      height: 200px;
+      bottom: 15%;
+      right: 15%;
+      opacity: 0.2;
+    }
+
+    .circle-3 {
+      width: 100px;
+      height: 100px;
+      top: 30%;
+      right: 25%;
+      opacity: 0.15;
+    }
+
+    .decorative-line {
+      position: absolute;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      height: 1px;
+      width: 80%;
+      left: 10%;
+      pointer-events: none;
+    }
+
+    .line-1 {
+      top: 30%;
+      opacity: 0.2;
+    }
+
+    .line-2 {
+      bottom: 30%;
+      opacity: 0.2;
+    }
+
+    /* Audio controls */
+    #audio-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      display: none;
+    }
+
+    /* Volume control */
+    .volume-control {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 8px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    .volume-slider {
+      -webkit-appearance: none;
+      width: 80px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      outline: none;
+      margin: 0 10px;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .volume-slider::-moz-range-thumb {
+      width: 12px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .mute-button {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 0;
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mute-button:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Hide audio element */
+    audio {
+      display: none;
+    }
   </style>
 </head>
 <body class="select-none">
-  <!-- Enter Screen -->
+  <!-- Enter Screen - Calmer but still dark and unique -->
   <div id="enter-screen" class="select-none">
-    <div class="scanline"></div>
-    <div class="active-scanline animate-scanline"></div>
     <div class="noise"></div>
-    <div class="crt-lines"></div>
     <div class="vignette"></div>
-    <div class="glitch-overlay"></div>
-    <div class="broken-glass"></div>
     
-    <a href="https://personality.neocities.org/" target="_blank" class="external-link animate-border-flash">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-        <polyline points="15 3 21 3 21 9"></polyline>
-        <line x1="10" y1="14" x2="21" y2="3"></line>
-      </svg>
-      PREVIOUS PROJECT
-    </a>
+    <!-- Decorative elements -->
+    <div class="decorative-circle circle-1 animate-pulse"></div>
+    <div class="decorative-circle circle-2 animate-pulse"></div>
+    <div class="decorative-circle circle-3 animate-pulse"></div>
+    <div class="decorative-line line-1"></div>
+    <div class="decorative-line line-2"></div>
     
-    <div class="warning-tape"></div>
-    
-    <h1 class="enter-title glitch-effect animate-flicker animate-glitch-shake">CONCEAL.LOL</h1>
-    <p class="enter-subtitle animate-text-glow animate-distort">// SYSTEM COMPROMISED //</p>
-    
-    <div class="flex gap-4 mb-8">
-      <div class="w-4 h-4 bg-white/20 animate-pulse" style="animation-delay: 0s;"></div>
-      <div class="w-4 h-4 bg-white/20 animate-pulse" style="animation-delay: 0.2s;"></div>
-      <div class="w-4 h-4 bg-white/20 animate-pulse" style="animation-delay: 0.4s;"></div>
-    </div>
-    
-    <div class="user-info-panel mb-4 animate-border-flash">
-      <div class="user-info-row">
-        <div class="user-info-label">IP ADDRESS:</div>
-        <div class="user-info-value" id="user-ip">SCANNING...</div>
-      </div>
-      <div class="user-info-row">
-        <div class="user-info-label">LOCATION:</div>
-        <div class="user-info-value" id="user-location">SCANNING...</div>
-      </div>
-      <div class="user-info-row">
-        <div class="user-info-label">DEVICE:</div>
-        <div class="user-info-value" id="user-device">SCANNING...</div>
-      </div>
-      <div class="user-info-row">
-        <div class="user-info-label">LOCAL TIME:</div>
-        <div class="user-info-value" id="user-time">SCANNING...</div>
-      </div>
-      <div class="user-info-row">
-        <div class="user-info-label">BROWSER:</div>
-        <div class="user-info-value" id="user-browser">SCANNING...</div>
-      </div>
-      <div class="user-info-row">
-        <div class="user-info-label">STATUS:</div>
-        <div class="user-info-value text-white animate-blink">UNAUTHORIZED</div>
-      </div>
-    </div>
-    
-    <div class="system-alert animate-hue-rotate">
-      <div class="system-alert-header">
-        <div class="system-alert-title animate-text-glow">SECURITY BREACH</div>
-        <div class="system-alert-status">CRITICAL</div>
-      </div>
-      <div class="system-alert-content">
-        <p class="mb-2">WARNING: Unauthorized access detected.</p>
-        <p class="mb-2">This profile contains classified information. Proceed with extreme caution.</p>
-        <p>Biometric scan required for further access. Proceed at your own risk.</p>
-      </div>
-      <div class="system-alert-footer">
-        SYS://KERNEL.OVERRIDE.443 - TIMESTAMP: <span id="timestamp"></span>
-      </div>
-    </div>
+    <h1 class="enter-title animate-subtle-glow">CONCEAL.LOL</h1>
+    <p class="enter-subtitle">digital sanctuary</p>
     
     <button id="enter-button" class="enter-button animate-float">
-      INITIATE ACCESS
+      Enter
     </button>
   </div>
 
   <canvas id="background-canvas" class="absolute inset-0 z-0"></canvas>
-
-  <!-- Moon in top corner -->
-  <div class="absolute top-6 right-6 z-10 text-white/80">
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-    </svg>
-  </div>
-
-  <!-- Lightning flash effect container -->
-  <div id="lightning-container" class="absolute inset-0 bg-white/10 z-20 pointer-events-none" style="display: none;"></div>
-
-  <!-- Mouse sparkle container -->
-  <div id="mouse-sparkle-container" class="fixed inset-0 pointer-events-none z-30"></div>
 
   <div id="profile-card" class="relative z-10 bg-black/80 backdrop-blur-sm rounded-xl overflow-visible w-full max-w-md mx-4 transition-all duration-500 hover:shadow-lg hover:shadow-white/20 opacity-0">
     <!-- Members icon in the corner -->
     <a href="members.html" class="members-icon">
       <div class="members-tooltip">View Members</div>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>  stroke-linejoin="round">
         <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
         <circle cx="9" cy="7" r="4"></circle>
         <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -1148,32 +676,12 @@
               </svg>
             </div>
 
-            <!-- Globe emoji -->
-            <div class="emoji-container px-1.5 py-0.5 z-30 relative cursor-pointer" data-tooltip="Known">
-              <div class="tooltip">Known</div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="2" x2="22" y1="12" y2="12"></line>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-              </svg>
-            </div>
-
             <!-- Crown emoji -->
             <div class="emoji-container px-1.5 py-0.5 z-40 relative cursor-pointer" data-tooltip="Owner">
               <div class="tooltip">Owner</div>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
                 <path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7z"></path>
                 <path d="M4 22h16"></path>
-              </svg>
-            </div>
-
-            <!-- Computer emoji -->
-            <div class="emoji-container px-1.5 py-0.5 z-40 relative cursor-pointer" data-tooltip="Developer">
-              <div class="tooltip">Developer</div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                <line x1="8" y1="21" x2="16" y2="21"></line>
-                <line x1="12" y1="17" x2="12" y2="21"></line>
               </svg>
             </div>
           </div>
@@ -1230,7 +738,6 @@
   <!-- Volume control with mute button -->
   <div class="volume-control" style="display: none;">
     <svg id="volume-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
-      <polygon points="  stroke-linecap="round" stroke-linejoin="round" class="text-white">
       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
       <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
       <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
@@ -1249,9 +756,6 @@
 
   <!-- Audio controls -->
   <div id="audio-controls">
-    <audio id="intro-music" loop>
-      <source src="/placeholder.svg" type="audio/mpeg">
-    </audio>
     <audio id="background-music" loop>
       <source src="https://files.catbox.moe/55hjrt.mp3" type="audio/mpeg">
     </audio>
@@ -1261,7 +765,6 @@
     // Prevent inspect element, ctrl+u, and F12
     document.addEventListener('contextmenu', event => event.preventDefault());
 
-    // Fix the keydown event listener that has a syntax error
     document.addEventListener('keydown', function(event) {
       if (event.keyCode === 123) { // F12
         event.preventDefault();
@@ -1300,72 +803,6 @@
       }
     })();
 
-    // User information detection
-    (function() {
-      // Get user's IP address
-      fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById('user-ip').textContent = data.ip;
-        })
-        .catch(() => {
-          document.getElementById('user-ip').textContent = "UNKNOWN";
-        });
-      
-      // Get user's location (approximate)
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      document.getElementById('user-location').textContent = timezone.replace('/', ', ');
-      
-      // Get user's device info
-      const userAgent = navigator.userAgent;
-      let deviceInfo = "Unknown";
-      
-      if (/Android/i.test(userAgent)) {
-        deviceInfo = "Android Device";
-      } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
-        deviceInfo = "iOS Device";
-      } else if (/Windows/i.test(userAgent)) {
-        deviceInfo = "Windows PC";
-      } else if (/Mac/i.test(userAgent)) {
-        deviceInfo = "Mac";
-      } else if (/Linux/i.test(userAgent)) {
-        deviceInfo = "Linux";
-      }
-      
-      document.getElementById('user-device').textContent = deviceInfo;
-      
-      // Get user's browser
-      let browserInfo = "Unknown";
-      
-      if (/Chrome/i.test(userAgent) && !/Edge|Edg/i.test(userAgent)) {
-        browserInfo = "Chrome";
-      } else if (/Firefox/i.test(userAgent)) {
-        browserInfo = "Firefox";
-      } else if (/Safari/i.test(userAgent) && !/Chrome/i.test(userAgent)) {
-        browserInfo = "Safari";
-      } else if (/Edge|Edg/i.test(userAgent)) {
-        browserInfo = "Edge";
-      } else if (/Opera|OPR/i.test(userAgent)) {
-        browserInfo = "Opera";
-      }
-      
-      document.getElementById('user-browser').textContent = browserInfo;
-      
-      // Update local time
-      function updateLocalTime() {
-        const now = new Date();
-        const timeString = now.toLocaleTimeString();
-        document.getElementById('user-time').textContent = timeString;
-        
-        // Also update timestamp in footer
-        const timestampFormat = now.toISOString().replace('T', ' ').substring(0, 19);
-        document.getElementById('timestamp').textContent = timestampFormat;
-      }
-      
-      updateLocalTime();
-      setInterval(updateLocalTime, 1000);
-    })();
-
     // View counter
     (function() {
       const viewCountElement = document.getElementById('view-count');
@@ -1398,20 +835,17 @@
       const volumeSlider = document.getElementById('volume-slider');
       const muteButton = document.getElementById('mute-button');
       const volumeIcon = document.getElementById('volume-icon');
-      const introMusic = document.getElementById('intro-music');
       const backgroundMusic = document.getElementById('background-music');
       
       let previousVolume = 0.5;
       let isMuted = false;
       
       // Set initial volume
-      introMusic.volume = 0.5;
       backgroundMusic.volume = 0.5;
       
       // Update volume when slider changes
       volumeSlider.addEventListener('input', () => {
         const volume = volumeSlider.value;
-        introMusic.volume = volume;
         backgroundMusic.volume = volume;
         previousVolume = volume;
         
@@ -1431,10 +865,8 @@
         
         if (isMuted) {
           previousVolume = volumeSlider.value;
-          introMusic.volume = 0;
           backgroundMusic.volume = 0;
         } else {
-          introMusic.volume = previousVolume;
           backgroundMusic.volume = previousVolume;
         }
         
@@ -1467,71 +899,45 @@
       });
     })();
 
-    // Update the Enter screen functionality with seamless music transition
-    // Enter screen functionality with seamless music transition
+    // Enter screen functionality with music
     (function() {
       const enterScreen = document.getElementById('enter-screen');
       const enterButton = document.getElementById('enter-button');
       const profileCard = document.getElementById('profile-card');
-      const introMusic = document.getElementById('intro-music');
       const backgroundMusic = document.getElementById('background-music');
       const volumeSlider = document.getElementById('volume-slider');
       const volumeControl = document.querySelector('.volume-control');
       
-      // Try to play intro music when page loads
-      document.addEventListener('DOMContentLoaded', function() {
-        // Try to play the intro music
-        introMusic.volume = 0.5;
-        introMusic.play().catch(error => {
-          console.log("Audio autoplay was prevented. Please interact with the page first.");
-        });
-      });
-      
       enterButton.addEventListener('click', () => {
-        // Try playing intro music again if it wasn't started
-        if (introMusic.paused) {
-          introMusic.play().catch(error => {
-            console.log("Failed to play intro music:", error);
-          });
-        }
+        // Add subtle animation to button
+        enterButton.style.transform = 'scale(0.95)';
         
-        // Add shake animation to button
-        enterButton.classList.add('animate-shake');
+        setTimeout(() => {
+          enterButton.style.transform = 'scale(1)';
+        }, 200);
         
         // Preload the background music
         backgroundMusic.load();
         
-        // Fade out enter screen with a cleaner transition
+        // Fade out enter screen with a smooth transition
         setTimeout(() => {
           enterScreen.style.opacity = '0';
           
-          // Fade out intro music
-          let introVolume = parseFloat(introMusic.volume);
-          const fadeOutInterval = setInterval(() => {
-            introVolume -= 0.05;
-            if (introVolume <= 0) {
-              clearInterval(fadeOutInterval);
-              introMusic.pause();
-              
-              // Start background music
-              backgroundMusic.play().catch(error => {
-                console.log("Failed to play background music:", error);
-              });
-              
-              // Fade in background music
-              let bgVolume = 0;
-              backgroundMusic.volume = bgVolume;
-              const fadeInInterval = setInterval(() => {
-                bgVolume += 0.05;
-                if (bgVolume >= parseFloat(volumeSlider.value)) {
-                  clearInterval(fadeInInterval);
-                  backgroundMusic.volume = parseFloat(volumeSlider.value);
-                } else {
-                  backgroundMusic.volume = bgVolume;
-                }
-              }, 100);
+          // Start background music
+          backgroundMusic.play().catch(error => {
+            console.log("Failed to play background music:", error);
+          });
+          
+          // Fade in background music
+          let bgVolume = 0;
+          backgroundMusic.volume = bgVolume;
+          const fadeInInterval = setInterval(() => {
+            bgVolume += 0.05;
+            if (bgVolume >= parseFloat(volumeSlider.value)) {
+              clearInterval(fadeInInterval);
+              backgroundMusic.volume = parseFloat(volumeSlider.value);
             } else {
-              introMusic.volume = introVolume;
+              backgroundMusic.volume = bgVolume;
             }
           }, 100);
           
@@ -1543,23 +949,12 @@
             
             // Show volume control
             volumeControl.style.display = 'flex';
-            
-            // Request fullscreen
-            if (document.documentElement.requestFullscreen) {
-              document.documentElement.requestFullscreen().catch(err => {
-                console.log("Error attempting to enable fullscreen:", err);
-              });
-            } else if (document.documentElement.webkitRequestFullscreen) {
-              document.documentElement.webkitRequestFullscreen();
-            } else if (document.documentElement.msRequestFullscreen) {
-              document.documentElement.msRequestFullscreen();
-            }
           }, 1500);
-        }, 500);
+        }, 300);
       });
     })();
 
-    // Canvas background with rain effect
+    // Canvas background with subtle particles
     (function() {
       const canvas = document.getElementById('background-canvas');
       const ctx = canvas.getContext('2d');
@@ -1573,16 +968,18 @@
       setCanvasSize();
       window.addEventListener('resize', setCanvasSize);
 
-      // Rain effect
-      const raindrops = [];
+      // Particles
+      const particles = [];
+      const particleCount = 50;
 
-      // Create initial raindrops
-      for (let i = 0; i < 100; i++) {
-        raindrops.push({
+      // Create initial particles
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          length: Math.random() * 15 + 5,
-          speed: Math.random() * 5 + 3,
+          radius: Math.random() * 2 + 0.5,
+          speed: Math.random() * 0.5 + 0.1,
+          opacity: Math.random() * 0.5 + 0.1,
         });
       }
 
@@ -1592,28 +989,27 @@
 
         // Background gradient
         const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        gradient.addColorStop(0, '#111111');
-        gradient.addColorStop(1, '#000000');
+        gradient.addColorStop(0, '#050505');
+        gradient.addColorStop(1, '#0a0a0a');
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Draw raindrops
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
-        ctx.lineWidth = 1;
+        // Draw particles
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
 
-        raindrops.forEach((drop) => {
+        particles.forEach((particle) => {
           ctx.beginPath();
-          ctx.moveTo(drop.x, drop.y);
-          ctx.lineTo(drop.x, drop.y + drop.length);
-          ctx.stroke();
+          ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`;
+          ctx.fill();
 
-          // Move raindrop
-          drop.y += drop.speed;
+          // Move particle
+          particle.y += particle.speed;
 
-          // Reset raindrop when it goes off screen
-          if (drop.y > canvas.height) {
-            drop.y = -drop.length;
-            drop.x = Math.random() * canvas.width;
+          // Reset particle when it goes off screen
+          if (particle.y > canvas.height) {
+            particle.y = -particle.radius;
+            particle.x = Math.random() * canvas.width;
           }
         });
 
@@ -1623,19 +1019,18 @@
       animate();
     })();
 
-    // Fixed card hover effect
+    // Card hover effect
     (function() {
       const card = document.getElementById('profile-card');
       
-      // Simple hover effect that doesn't rely on mouse position
       card.addEventListener('mouseenter', () => {
-        card.style.transform = 'scale(1.05)';
-        card.style.boxShadow = '0 0 40px rgba(255, 255, 255, 0.3)';
+        card.style.transform = 'scale(1.02)';
+        card.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.1)';
       });
       
       card.addEventListener('mouseleave', () => {
         card.style.transform = 'scale(1)';
-        card.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.1)';
+        card.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.05)';
       });
     })();
 
@@ -1653,146 +1048,7 @@
       });
     })();
 
-    // Sparkle effect following mouse cursor
-    (function() {
-      const sparkleContainer = document.getElementById('sparkle-container');
-      const mouseSparkleContainer = document.getElementById('mouse-sparkle-container');
-      
-      function createSparkle(container, x, y) {
-        const sparkle = document.createElement('span');
-        sparkle.classList.add('sparkle', 'absolute', 'animate-sparkle', 'text-white');
-        
-        // Random size
-        const size = (Math.random() * 5 + 5) / 10; // Size between 0.5 and 1em
-        
-        if (container === mouseSparkleContainer) {
-          // Position at mouse coordinates
-          sparkle.style.top = `${y}px`;
-          sparkle.style.left = `${x}px`;
-        } else {
-          // Random position for name sparkles
-          sparkle.style.top = `${Math.random() * 140 - 20}%`;
-          sparkle.style.left = `${Math.random() * 140 - 20}%`;
-        }
-        
-        sparkle.style.opacity = Math.random() * 0.7 + 0.3;
-        sparkle.style.transform = `rotate(${Math.random() * 360}deg) scale(${Math.random() * 0.6 + 0.4})`;
-        sparkle.style.zIndex = 2;
-        
-        // Sparkle SVG
-        sparkle.innerHTML = `
-          <svg width="${size}em" height="${size}em" viewBox="0 0 160 160" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M80 0C80 0 84.2846 41.2925 101.496 58.504C118.707 75.7154 160 80 160 80C160 80 118.707 84.2846 101.496 101.496C84.2846 118.707 80 160 80 160C80 160 75.7154 118.707 58.504 101.496C41.2925 84.2846 0 80 0 80C0 80 41.2925 75.7154 58.504 58.504C75.7154 41.2925 80 0 80 0Z" />
-          </svg>
-        `;
-        
-        container.appendChild(sparkle);
-        
-        // Remove sparkle after animation completes
-        setTimeout(() => {
-          sparkle.remove();
-        }, 400);
-      }
-      
-      // Create sparkles at intervals for name
-      setInterval(() => {
-        createSparkle(sparkleContainer);
-      }, 150);
-      
-      // Create sparkles following mouse
-      document.addEventListener('mousemove', (e) => {
-        if (Math.random() > 0.7) { // Only create sparkles occasionally
-          createSparkle(mouseSparkleContainer, e.clientX, e.clientY);
-        }
-      });
-    })();
-
-    // Lightning effect
-    (function() {
-      const lightningContainer = document.getElementById('lightning-container');
-      
-      function createLightning() {
-        lightningContainer.innerHTML = ''; // Clear previous lightning
-        lightningContainer.style.display = 'block';
-        
-        // Create random lightning bolts
-        const numBolts = Math.floor(Math.random() * 3) + 2; // 2-4 bolts
-        
-        for (let i = 0; i < numBolts; i++) {
-          const bolt = document.createElement('div');
-          bolt.classList.add('lightning', 'absolute');
-          
-          // Random position and rotation
-          bolt.style.left = `${Math.random() * 100}%`;
-          bolt.style.top = `${Math.random() * 100}%`;
-          bolt.style.transform = `rotate(${Math.random() * 360}deg)`;
-          
-          // Lightning SVG
-          const size = Math.random() * 40 + 20; // Random size
-          bolt.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-pulse" style="filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));">
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
-            </svg>
-          `;
-          
-          lightningContainer.appendChild(bolt);
-        }
-        
-        // Hide lightning after a short time
-        setTimeout(() => {
-          lightningContainer.style.display = 'none';
-        }, 200);
-      }
-      
-      // Random lightning at intervals
-      setInterval(() => {
-        if (Math.random() > 0.7) { // 30% chance of lightning
-          createLightning();
-        }
-      }, 3000);
-    })();
-
-    // Improved eye blinking
-    (function() {
-      const eyeIcon = document.getElementById('eye-icon');
-      
-      function toggleEye(isOpen) {
-        if (isOpen) {
-          eyeIcon.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white">
-              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-              <circle cx="12" cy="12" r="3"></circle>
-            </svg>
-          `;
-        } else {
-          eyeIcon.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white">
-              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-              <path d="M12 9v6"></path>
-              <path d="M9 12h6"></path>
-            </svg>
-          `;
-        }
-      }
-      
-      // Improved blinking at random intervals
-      function blink() {
-        toggleEye(false);
-        
-        setTimeout(() => {
-          toggleEye(true);
-          
-          // Schedule next blink at random interval (2-6 seconds)
-          const nextBlink = Math.random() * 4000 + 2000;
-          setTimeout(blink, nextBlink);
-        }, 200);
-      }
-      
-      // Start blinking after a short delay
-      setTimeout(blink, 3000);
-    })();
-
-    // Typewriter and rotating bio with updated phrases and current time
+    // Typewriter and rotating bio
     (function() {
       const typewriterText = document.getElementById('typewriter-text');
       let bioTexts = ["crypto trillionaire", "selfmade art", "you arent invited", "life is a mystery"];
@@ -1849,4 +1105,3 @@
   </script>
 </body>
 </html>
-
