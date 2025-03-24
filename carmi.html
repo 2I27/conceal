@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>conceal.lol - carmi</title>
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Courier New', monospace;
+      cursor: crosshair; /* Change cursor to cross */
+    }
+
+    body {
+      background-color: #050505;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-image: 
+        radial-gradient(circle at 20% 30%, #1e0a14 0%, transparent 20%),
+        radial-gradient(circle at 80% 70%, #1e0a14 0%, transparent 20%);
+    }
+
+    /* Utility classes */
+    .relative { position: relative; }
+    .absolute { position: absolute; }
+    .fixed { position: fixed; }
+    .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+    .flex { display: flex; }
+    .items-center { align-items: center; }
+    .justify-center { justify-content: center; }
+    .justify-end { justify-content: flex-end; }
+    .justify-between { justify-content: space-between; }
+    .flex-col { flex-direction: column; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-4 { gap: 1rem; }
+    .w-full { width: 100%; }
+    .max-w-md { max-width: 28rem; }
+    .max-w-lg { max-width: 32rem; }
+    .mx-4 { margin-left: 1rem; margin-right: 1rem; }
+    .mt-1 { margin-top: 0.25rem; }
+    .mb-2 { margin-bottom: 0.5rem; }
+    .mb-4 { margin-bottom: 1rem; }
+    .mb-8 { margin-bottom: 2rem; }
+    .p-3 { padding: 0.75rem; }
+    .p-6 { padding: 1.5rem; }
+    .px-1\.5 { padding-left: 0.375rem; padding-right: 0.375rem; }
+    .py-0\.5 { padding-top: 0.125rem; padding-bottom: 0.125rem; }
+    .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+    .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+    .px-4 { padding-left: 1rem; padding-right: 1rem; }
+    .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+    .rounded { border-radius: 0.25rem; }
+    .rounded-md { border-radius: 0.375rem; }
+    .rounded-xl { border-radius: 0.75rem; }
+    .rounded-full { border-radius: 9999px; }
+    .border { border-width: 1px; }
+    .border-t { border-top-width: 1px; }
+    .border-r { border-right-width: 1px; }
+    .border-b { border-bottom-width: 1px; }
+    .border-gray-800 { border-color: rgb(31, 41, 55); }
+    .border-zinc-800 { border-color: rgb(39, 39, 42); }
+    .border-white\/30 { border-color: rgba(255, 255, 255, 0.3); }
+    .border-pink-500\/30 { border-color: rgba(236, 72, 153, 0.3); }
+    .bg-black { background-color: #000; }
+    .bg-black\/80 { background-color: rgba(0, 0, 0, 0.8); }
+    .bg-white\/10 { background-color: rgba(255, 255, 255, 0.1); }
+    .bg-pink-500\/20 { background-color: rgba(236, 72, 153, 0.2); }
+    .bg-pink-900\/30 { background-color: rgba(131, 24, 67, 0.3); }
+    .text-white { color: #fff; }
+    .text-white\/80 { color: rgba(255, 255, 255, 0.8); }
+    .text-gray-300 { color: rgb(209, 213, 219); }
+    .text-pink-300 { color: rgb(249, 168, 212); }
+    .text-pink-500 { color: rgb(236, 72, 153); }
+    .text-xs { font-size: 0.75rem; }
+    .text-sm { font-size: 0.875rem; }
+    .text-base { font-size: 1rem; }
+    .text-lg { font-size: 1.125rem; }
+    .text-2xl { font-size: 1.5rem; }
+    .text-4xl { font-size: 2.5rem; }
+    .font-medium { font-weight: 500; }
+    .font-bold { font-weight: 700; }
+    .whitespace-nowrap { white-space: nowrap; }
+    .z-0 { z-index: 0; }
+    .z-10 { z-index: 10; }
+    .z-20 { z-index: 20; }
+    .z-30 { z-index: 30; }
+    .z-40 { z-index: 40; }
+    .z-50 { z-index: 50; }
+    .z-100 { z-index: 100; }
+    .z-1000 { z-index: 1000; }
+    .overflow-hidden { overflow: hidden; }
+    .overflow-visible { overflow: visible; }
+    .pointer-events-none { pointer-events: none; }
+    .cursor-pointer { cursor: pointer; }
+    .inline-block { display: inline-block; }
+    .h-2 { height: 0.5rem; }
+    .h-4 { height: 1rem; }
+    .h-5 { height: 1.25rem; }
+    .h-6 { height: 1.5rem; }
+    .h-8 { height: 2rem; }
+    .h-20 { height: 5rem; }
+    .w-2 { width: 0.5rem; }
+    .w-4 { width: 1rem; }
+    .w-5 { width: 1.25rem; }
+    .w-8 { width: 2rem; }
+    .w-20 { width: 5rem; }
+    .min-h-screen { min-height: 100vh; }
+    .top-6 { top: 1.5rem; }
+    .right-6 { right: 1.5rem; }
+    .bottom-6 { bottom: 1.5rem; }
+    .left-6 { left: 1.5rem; }
+    .-top-10 { top: -2.5rem; }
+    .-top-12 { top: -3rem; }
+    .-bottom-1 { bottom: -0.25rem; }
+    .left-1\/2 { left: 50%; }
+    .transform { transform: translateX(-50%); }
+    .-translate-x-1\/2 { transform: translateX(-50%); }
+    .rotate-45 { transform: rotate(45deg); }
+    .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+    .shadow-pink-500\/20 { box-shadow: 0 0 20px rgba(236, 72, 153, 0.2); }
+    .backdrop-blur-sm { backdrop-filter: blur(4px); }
+    .transition-all { transition-property: all; }
+    .transition-opacity { transition-property: opacity; }
+    .transition-transform { transition-property: transform; }
+    .duration-200 { transition-duration: 200ms; }
+    .duration-300 { transition-duration: 300ms; }
+    .duration-500 { transition-duration: 500ms; }
+    .duration-1000 { transition-duration: 1000ms; }
+    .ease-in-out { transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+    .ease-out { transition-timing-function: cubic-bezier(0, 0, 0.2, 1); }
+    .-space-x-1 > * + * { margin-left: -0.25rem; }
+    .hover\:shadow-lg:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+    .hover\:shadow-pink-500\/20:hover { box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2); }
+    .text-center { text-align: center; }
+    .items-center { align-items: center; }
+    .justify-center { justify-center: center; }
+    .flex-col { flex-direction: column; }
+    .opacity-0 { opacity: 0; }
+    .opacity-100 { opacity: 1; }
+    .select-none { user-select: none; }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    @keyframes scaleUp {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: 0.6;
+        transform: scale(0.95);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0.6;
+        transform: scale(0.95);
+      }
+    }
+
+    @keyframes subtleGlow {
+      0%, 100% { text-shadow: 0 0 5px rgba(236, 72, 153, 0.3); }
+      50% { text-shadow: 0 0 15px rgba(236, 72, 153, 0.5); }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    .animate-fade-out {
+      animation: fadeOut 1s ease-in-out forwards;
+    }
+
+    .animate-scale-up {
+      animation: scaleUp 0.8s ease-out forwards;
+    }
+
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .animate-pulse {
+      animation: pulse 3s infinite;
+    }
+
+    .animate-subtle-glow {
+      animation: subtleGlow 3s infinite;
+    }
+
+    /* Custom styles */
+    #profile-card {
+      transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+      transform-style: preserve-3d;
+      box-shadow: 0 0 30px rgba(236, 72, 153, 0.1);
+      position: relative;
+      overflow: visible;
+      will-change: transform;
+    }
+
+    #profile-card::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background: linear-gradient(45deg, transparent, rgba(236, 72, 153, 0.1), transparent);
+      z-index: -1;
+      border-radius: 1rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    #profile-card:hover::before {
+      opacity: 1;
+    }
+
+    .tooltip {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: black;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+      z-index: 50;
+      border: 1px solid rgb(39, 39, 42);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .tooltip::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 8px;
+      height: 8px;
+      background-color: black;
+      border-right: 1px solid rgb(39, 39, 42);
+      border-bottom: 1px solid rgb(39, 39, 42);
+    }
+
+    .emoji-container:hover .tooltip {
+      opacity: 1;
+    }
+
+    .sparkle {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .typewriter-cursor {
+      display: inline-block;
+      animation: blink 1.5s ease-in-out infinite;
+    }
+
+    /* Profile image */
+    .profile-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    /* Canvas background */
+    #background-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    /* Social links */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px 0;
+      border-top: 1px solid rgba(236, 72, 153, 0.2);
+    }
+
+    .social-link {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+      position: relative;
+      font-size: 0.8rem;
+    }
+
+    .social-link:hover {
+      transform: translateY(-3px);
+      color: rgba(236, 72, 153, 0.8);
+    }
+
+    .social-link::before {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 1px;
+      background-color: rgba(236, 72, 153, 0.8);
+      transition: width 0.3s ease;
+    }
+
+    .social-link:hover::before {
+      width: 100%;
+    }
+
+    /* Back button */
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(236, 72, 153, 0.3);
+      color: white;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 100;
+    }
+
+    .back-button:hover {
+      background: rgba(236, 72, 153, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
+    }
+
+    /* Noise effect */
+    .noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAFVklEQVR4XpWWB67c2BUFb3g557T/hRo9/WUMZHlgr4Bg8Z4qQgQJlHI4A8SzFVrapvmTF9O7dmYRFZ60YiBhJRCgh1FYhiLAmdvX0CzTOpNE77ME0Zty/nWWzchDtiqrmQDeuv3powQ5ta2eN0FY0InkqDD73lT9c9lEzwUNqgFHs9VQce3TVClFCQrSTfOiYkVJQBmpbq2L6iZavPnAPcoU0dSw0SUTqz/GtrGuXfbyyBniKykOWQWGqwwMA7QiYAxi+IlPdqo+hYHnUt5ZPfnsHJyNiDtnpJyayNBkF6cWoYGAMY92U2hXHF/C1M8uP/ZtYdiuj26UdAdQQSXQErwSOMzt/XWRWAz5GuSBIkwG1H3FabJ2OsUOUhGC6tK4EMtJO0ttC6IBD3kM0ve0tJwMdSfjZo+EEISaeTr9P3wYrGjXqyC1krcKdhMpxEnt5JetoulscpyzhXN5FRpuPHvbeQaKxFAEB6EN+cYN6xD7RYGpXpNndMmZgM5Dcs3YSNFDHUo2LGfZuukSWyUYirJAdYbF3MfqEKmjM+I2EfhA94iG3L7uKrR+GdWD73ydlIB+6hgref1QTlmgmbM3/LeX5GI1Ux1RWpgxpLuZ2+I+IjzZ8wqE4nilvQdkUdfhzI5QDWy+kw5Wgg2pGpeEVeCCA7b85BO3F9DzxB3cdqvBzWcmzbyMiqhzuYqtHRVG2y4x+KOlnyqla8AoWWpuBoYRxzXrfKuILl6SfiWCbjxoZJUaCBj1CjH7GIaDbc9kqBY3W-Rgjda1iqQcOJu2WW+76pZC9QG7M00dffe9hNnseupFL53r8F7YHSwJWUKP2q+k7RdsxyOB11n0xtOvnW4irMMFNV4H0uqwS5ExsmP9AxbDTc9JwgneAT5vTiUSm1E7BSflSt3bfa1tv8Di3R8n3Af7MNWzs49hmauE2wP+ttrq+AsWpFG2awvsuOqbipWHgtuvuaAE+A1Z/7gC9hesnr+7wqCwG8c5yAg3AL1fm8T9AZtp/bbJGwl1pNrE7RuOX7PeMRUERVaPpEs+yqeoSmuOlokqw49pgomjLeh7icHNlG19yjs6XXOMedYm5xH2YxpV2tc0Ro2jJfxC50ApuxGob7lMsxfTbeUv07TyYxpeLucEH1gNd4IKH2LAg5TdVhlCafZvpskfncCfx8pOhJzd76bJWeYFnFciwcYfubRc12Ip/ppIhA1/mSZ/RxjFDrJC5xifFjJpY2Xl5zXdguFqYyTR1zSp1Y9p+tktDYYSNflcxI0iyO4TPBdlRcpeqjK/piF5bklq77VSEaA+z8qmJTFzIWiitbnzR794USKBUaT0NTEsVjZqLaFVqJoPN9ODG70IPbfBHKK+/q/AWR0tJzYHRULOa4MP+W/H");
+      opacity: 0.05;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .vignette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.7);
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    /* Decorative elements */
+    .decorative-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(236, 72, 153, 0.1);
+      pointer-events: none;
+    }
+
+    .circle-1 {
+      width: 300px;
+      height: 300px;
+      top: 20%;
+      left: 10%;
+      opacity: 0.2;
+    }
+
+    .circle-2 {
+      width: 200px;
+      height: 200px;
+      bottom: 15%;
+      right: 15%;
+      opacity: 0.15;
+    }
+
+    .decorative-line {
+      position: absolute;
+      background: linear-gradient(90deg, transparent, rgba(236, 72, 153, 0.1), transparent);
+      height: 1px;
+      width: 80%;
+      left: 10%;
+      pointer-events: none;
+    }
+
+    .line-1 {
+      top: 30%;
+      opacity: 0.1;
+    }
+
+    .line-2 {
+      bottom: 30%;
+      opacity: 0.1;
+    }
+
+    /* Princess badge */
+    .princess-badge {
+      background: rgba(236, 72, 153, 0.1);
+      border: 1px solid rgba(236, 72, 153, 0.3);
+      color: rgba(236, 72, 153, 0.9);
+    }
+  </style>
+</head>
+<body class="select-none">
+  <!-- Background effects -->
+  <div class="noise"></div>
+  <div class="vignette"></div>
+  
+  <!-- Decorative elements -->
+  <div class="decorative-circle circle-1 animate-pulse"></div>
+  <div class="decorative-circle circle-2 animate-pulse"></div>
+  <div class="decorative-line line-1"></div>
+  <div class="decorative-line line-2"></div>
+
+  <!-- Back button -->
+  <a href="members.html" class="back-button">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m12 19-7-7 7-7"></path>
+      <path d="M19 12H5"></path>
+    </svg>
+    BACK
+  </a>
+
+  <canvas id="background-canvas" class="absolute inset-0 z-0"></canvas>
+
+  <div id="profile-card" class="relative z-10 bg-black/80 backdrop-blur-sm rounded-xl overflow-visible w-full max-w-md mx-4 transition-all duration-500 hover:shadow-lg hover:shadow-pink-500/20 animate-scale-up">
+    <div class="flex items-center gap-4 p-6">
+      <div class="relative">
+        <div class="w-20 h-20 rounded-full bg-black overflow-hidden">
+          <img src="/placeholder.svg?height=200&width=200" alt="Profile" class="profile-image">
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <div class="flex items-center gap-2">
+          <div class="relative" id="name-container">
+            <div id="name-tooltip" class="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-black text-white px-4 py-2 rounded-md shadow-lg whitespace-nowrap z-10 text-base font-medium border border-zinc-800" style="display: none;">
+              UID 2
+              <div class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-black rotate-45 border-r border-b border-zinc-800"></div>
+            </div>
+            <h2 class="text-pink-300 text-2xl font-bold cursor-pointer relative">
+              carmi
+              <div id="sparkle-container" class="absolute inset-0 pointer-events-none overflow-visible"></div>
+            </h2>
+          </div>
+
+          <!-- Emoji container with black background and pink outline -->
+          <div class="flex -space-x-1 bg-black border border-pink-500/30 rounded-md p-0.5 relative">
+            <!-- Star emoji -->
+            <div class="emoji-container px-1.5 py-0.5 z-10 relative cursor-pointer" data-tooltip="Verified">
+              <div class="tooltip">Verified</div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pink-300">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
+
+            <!-- Heart emoji -->
+            <div class="emoji-container px-1.5 py-0.5 z-20 relative cursor-pointer" data-tooltip="Loved">
+              <div class="tooltip">Loved</div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pink-300">
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+              </svg>
+            </div>
+
+            <!-- Crown emoji -->
+            <div class="emoji-container px-1.5 py-0.5 z-40 relative cursor-pointer" data-tooltip="Princess">
+              <div class="tooltip">Princess</div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pink-300">
+                <path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7z"></path>
+                <path d="M4 22h16"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div id="bio-container" class="h-6 text-gray-300">
+          <span id="typewriter-text" class="inline-block"></span>
+          <span class="animate-blink">|</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-end p-3 border-t border-gray-800">
+      <div class="flex items-center gap-2">
+        <div id="eye-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-pink-300">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+        </div>
+        <span id="view-count" class="text-pink-300 font-medium">0</span>
+      </div>
+    </div>
+
+    <!-- Social links section -->
+    <div class="social-links">
+      <a href="#" class="social-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+        </svg>
+        <span>Instagram</span>
+      </a>
+      <a href="#" class="social-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
+          <path d="M15 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
+          <path d="M15 8v8a4 4 0 0 1-4 4"></path>
+          <line x1="9" y1="12" x2="9" y2="20"></line>
+          <path d="M12 16v-8a4 4 0 0 1 4-4"></path>
+        </svg>
+        <span>TikTok</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Prevent inspect element, ctrl+u, and F12
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    document.addEventListener('keydown', function(event) {
+      if (event.keyCode === 123) { // F12
+        event.preventDefault();
+        return false;
+      } else if ((event.ctrlKey && event.shiftKey && event.keyCode === 73) || // Ctrl+Shift+I
+                (event.ctrlKey && event.shiftKey && event.keyCode === 74) || // Ctrl+Shift+J
+                (event.ctrlKey && event.keyCode === 85)) { // Ctrl+U
+        event.preventDefault();
+        return false;
+      }
+    });
+
+    // Tab title rotation
+    (function() {
+      const titles = ["conceal.lol", "carmi", "princess", "digital sanctuary"];
+      let currentTitleIndex = 0;
+      
+      setInterval(() => {
+        document.title = titles[currentTitleIndex];
+        currentTitleIndex = (currentTitleIndex + 1) % titles.length;
+      }, 3000);
+    })();
+
+    // View counter
+    (function() {
+      const viewCountElement = document.getElementById('view-count');
+      let count = 0;
+      
+      // Check if count exists in localStorage
+      if (localStorage.getItem('carmiViewCount')) {
+        count = parseInt(localStorage.getItem('carmiViewCount'));
+      }
+      
+      // Increment count
+      count++;
+      localStorage.setItem('carmiViewCount', count);
+      
+      // Animate count from 0 to current value
+      let displayCount = 0;
+      const interval = setInterval(() => {
+        viewCountElement.textContent = displayCount;
+        displayCount++;
+        
+        if (displayCount > count) {
+          clearInterval(interval);
+        }
+      }, 50);
+    })();
+
+    // Canvas background with subtle particles
+    (function() {
+      const canvas = document.getElementById('background-canvas');
+      const ctx = canvas.getContext('2d');
+
+      // Set canvas dimensions to match window
+      function setCanvasSize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      setCanvasSize();
+      window.addEventListener('resize', setCanvasSize);
+
+      // Particles
+      const particles = [];
+      const particleCount = 50;
+
+      // Create initial particles
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 2 + 0.5,
+          speed: Math.random() * 0.5 + 0.1,
+          opacity: Math.random() * 0.5 + 0.1,
+          color: `rgba(236, 72, 153, ${Math.random() * 0.5 + 0.1})`,
+        });
+      }
+
+      // Animation loop
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Background gradient
+        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, '#0a0208');
+        gradient.addColorStop(1, '#0a0208');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw particles
+        particles.forEach((particle) => {
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+          ctx.fillStyle = particle.color;
+          ctx.fill();
+
+          // Move particle
+          particle.y += particle.speed;
+
+          // Reset particle when it goes off screen
+          if (particle.y > canvas.height) {
+            particle.y = -particle.radius;
+            particle.x = Math.random() * canvas.width;
+          }
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    })();
+
+    // Card hover effect
+    (function() {
+      const card = document.getElementById('profile-card');
+      
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'scale(1.02)';
+        card.style.boxShadow = '0 0 30px rgba(236, 72, 153, 0.2)';
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'scale(1)';
+        card.style.boxShadow = '0 0 30px rgba(236, 72, 153, 0.1)';
+      });
+    })();
+
+    // Name tooltip
+    (function() {
+      const nameContainer = document.getElementById('name-container');
+      const nameTooltip = document.getElementById('name-tooltip');
+
+      nameContainer.addEventListener('mouseenter', () => {
+        nameTooltip.style.display = 'block';
+      });
+
+      nameContainer.addEventListener('mouseleave', () => {
+        nameTooltip.style.display = 'none';
+      });
+    })();
+
+    // Typewriter and rotating bio
+    (function() {
+      const typewriterText = document.getElementById('typewriter-text');
+      let bioTexts = ["digital princess", "creative director", "aesthetic queen", "pink lover"];
+      let currentBioIndex = 0;
+      let currentCharIndex = 0;
+      let isTyping = true;
+      
+      function typeNextChar() {
+        if (isTyping && currentCharIndex < bioTexts[currentBioIndex].length) {
+          typewriterText.textContent += bioTexts[currentBioIndex][currentCharIndex];
+          currentCharIndex++;
+          setTimeout(typeNextChar, 100);
+        }
+      }
+      
+      function rotateBio() {
+        // Fade out
+        typewriterText.style.opacity = 0;
+        
+        // Change text after fade out
+        setTimeout(() => {
+          // Reset for next bio
+          currentBioIndex = (currentBioIndex + 1) % bioTexts.length;
+          currentCharIndex = 0;
+          typewriterText.textContent = '';
+          
+          // Fade in
+          typewriterText.style.opacity = 1;
+          
+          // Start typing new bio
+          typeNextChar();
+        }, 300);
+      }
+      
+      // Start initial typing
+      typeNextChar();
+      
+      // Rotate bio at intervals
+      setInterval(rotateBio, 4000);
+    })();
+  </script>
+</body>
+</html>
+
