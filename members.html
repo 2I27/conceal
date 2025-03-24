@@ -32,6 +32,17 @@ justify-content: space-between;
 align-items: center;
 border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 margin-bottom: 3rem;
+position: relative;
+}
+
+.header::after {
+content: '';
+position: absolute;
+bottom: -1px;
+left: 0;
+width: 100%;
+height: 1px;
+background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
 }
 
 .header-title {
@@ -39,6 +50,7 @@ font-size: 1.8rem;
 font-weight: bold;
 letter-spacing: 6px;
 text-transform: uppercase;
+text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 .back-button {
@@ -78,6 +90,18 @@ overflow: hidden;
 width: 280px;
 transition: all 0.3s ease;
 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+position: relative;
+}
+
+.member-card::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+height: 1px;
+background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+z-index: 1;
 }
 
 .member-card:hover {
@@ -267,6 +291,7 @@ pointer-events: none;
   align-items: center;
   gap: 10px;
   z-index: 100;
+  backdrop-filter: blur(5px);
 }
 
 .volume-slider {
@@ -369,9 +394,6 @@ pointer-events: none;
   <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider" id="volume-slider">
 </div>
 
-<audio id="  max="1" step="0.01" value="0.5" class="volume-slider" id="volume-slider">
-</div>
-
 <audio id="background-music" loop>
 <source src="https://files.catbox.moe/b0f1bu.mp3" type="audio/mpeg">
 </audio>
@@ -400,8 +422,8 @@ if (
 }
 });
 
-// Rain effect
-(function() {
+// Rain effect - synced with music rhythm
+function createRainEffect() {
   const rainContainer = document.getElementById('rain');
   const rainDropCount = 150; // Increased count
   
@@ -423,12 +445,16 @@ if (
     const width = Math.random() * 1.5 + 0.5;
     drop.style.width = `${width}px`;
     
-    // Random animation duration
-    const duration = Math.random() * 1 + 0.5;
+    // Animation duration synced with music rhythm (approximately 120 BPM)
+    // Using multiples of 0.5s (half a beat)
+    const durationBase = 0.5; // Half a beat at 120 BPM
+    const durationMultiplier = Math.floor(Math.random() * 4) + 1; // 1-4 multiplier
+    const duration = durationBase * durationMultiplier;
     drop.style.animationDuration = `${duration}s`;
     
-    // Random delay
-    drop.style.animationDelay = `${Math.random() * 2}s`;
+    // Random delay - also synced to rhythm
+    const delayMultiplier = Math.floor(Math.random() * 8); // 0-7 multiplier
+    drop.style.animationDelay = `${delayMultiplier * durationBase}s`;
     
     // Random opacity
     const opacity = Math.random() * 0.4 + 0.3;
@@ -436,29 +462,34 @@ if (
     
     rainContainer.appendChild(drop);
   }
-})();
-
-// Play audio immediately if coming from index page
-window.onload = function() {
-if (localStorage.getItem('musicStarted') === 'true') {
-  const backgroundMusic = document.getElementById('background-music');
-  const rainSound = document.getElementById('rain-sound');
-  
-  backgroundMusic.play().catch(function(error) {
-    console.log('Audio playback prevented: User interaction required');
-    
-    // Create a silent audio context to unlock audio
-    const silentAudio = new Audio("data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV");
-    silentAudio.play().then(() => {
-      backgroundMusic.play();
-      rainSound.play();
-      rainSound.volume = 0.3;
-    });
-  });
-  
-  // Set rain sound volume lower to balance with music
-  rainSound.volume = 0.3;
 }
+
+// Play audio when page loads if coming from index page
+window.onload = function() {
+  if (localStorage.getItem('musicStarted') === 'true') {
+    const backgroundMusic = document.getElementById('background-music');
+    const rainSound = document.getElementById('rain-sound');
+    
+    // Create rain effect
+    createRainEffect();
+    
+    // Play music and rain sounds
+    Promise.all([
+      backgroundMusic.play().catch(error => console.log('Audio playback prevented: User interaction required')),
+      rainSound.play().catch(error => console.log('Rain sound playback prevented: User interaction required'))
+    ]).catch(() => {
+      // If autoplay fails, create a silent audio context to unlock audio on first interaction
+      const silentAudio = new Audio("data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV");
+      silentAudio.play().then(() => {
+        backgroundMusic.play();
+        rainSound.play();
+        rainSound.volume = 0.3;
+      });
+    });
+    
+    // Set rain sound volume lower to balance with music
+    rainSound.volume = 0.3;
+  }
 };
 
 // Volume control
@@ -474,6 +505,9 @@ volumeSlider.addEventListener('input', function() {
 
 // Play audio on interaction if not already playing
 document.addEventListener('click', function() {
+  const backgroundMusic = document.getElementById('background-music');
+  const rainSound = document.getElementById('rain-sound');
+  
   if (backgroundMusic.paused) {
     backgroundMusic.play();
   }
@@ -491,14 +525,28 @@ document.querySelectorAll('.member-link').forEach(link => {
     const href = this.getAttribute('href');
     
     // Request fullscreen before navigating
-    if (document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().then(() => {
+    const docElm = document.documentElement;
+    
+    try {
+      if (docElm.requestFullscreen) {
+        docElm.requestFullscreen().then(() => {
+          window.location.href = href;
+        }).catch(() => {
+          window.location.href = href;
+        });
+      } else if (docElm.mozRequestFullScreen) { /* Firefox */
+        docElm.mozRequestFullScreen();
+        setTimeout(() => { window.location.href = href; }, 100);
+      } else if (docElm.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        docElm.webkitRequestFullscreen();
+        setTimeout(() => { window.location.href = href; }, 100);
+      } else if (docElm.msRequestFullscreen) { /* IE/Edge */
+        docElm.msRequestFullscreen();
+        setTimeout(() => { window.location.href = href; }, 100);
+      } else {
         window.location.href = href;
-      }).catch(() => {
-        // If fullscreen fails, still navigate
-        window.location.href = href;
-      });
-    } else {
+      }
+    } catch (err) {
       // Fallback for browsers that don't support fullscreen
       window.location.href = href;
     }
