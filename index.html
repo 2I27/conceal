@@ -5,229 +5,229 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>conceal.lol</title>
 <style>
-  /* Base styles */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Courier New', monospace;
-    cursor: crosshair; /* Change cursor to cross */
-  }
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Courier New', monospace;
+  cursor: crosshair; /* Change cursor to cross */
+}
 
-  body {
-    background-color: #000;
-    color: #fff;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
+body {
+  background-color: #000;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
 
-  /* Enter screen */
-  #enter-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #050505;
-    background-image: 
-      radial-gradient(circle at 20% 30%, #111 0%, transparent 20%),
-      radial-gradient(circle at 80% 70%, #111 0%, transparent 20%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    transition: opacity 1.5s cubic-bezier(0.19, 1, 0.22, 1);
-  }
+/* Enter screen */
+#enter-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #050505;
+  background-image: 
+    radial-gradient(circle at 20% 30%, #111 0%, transparent 20%),
+    radial-gradient(circle at 80% 70%, #111 0%, transparent 20%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: opacity 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
 
-  .enter-button {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    padding: 12px 30px;
-    font-size: 16px;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 40px;
-    position: relative;
-    overflow: hidden;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
+.enter-button {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 12px 30px;
+  font-size: 16px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 40px;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
 
-  .enter-button:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-  }
+.enter-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
 
-  .enter-button:active {
-    transform: translateY(0);
-  }
+.enter-button:active {
+  transform: translateY(0);
+}
 
-  .enter-title {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    font-weight: bold;
-    color: #fff;
-  }
+.enter-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #fff;
+}
 
-  .enter-subtitle {
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    opacity: 0.7;
-    letter-spacing: 2px;
-    color: rgba(255, 255, 255, 0.7);
-    max-width: 80%;
-    text-align: center;
-    line-height: 1.5;
-  }
+.enter-subtitle {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  opacity: 0.7;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 80%;
+  text-align: center;
+  line-height: 1.5;
+}
 
-  .noise {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAFVklEQVR4XpWWB67c2BUFb3g557T/hRo9/WUMZHlgr4Bg8Z4qQgQJlHI4A8SzFVrapvmTF9O7dmYRFZ60YiBhJRCgh1FYhiLAmdvX0CzTOpNE77ME0Zty/nWWzchDtiqrmQDeuv3powQ5ta2eN0FY0InkqDD73lT9c9lEzwUNqgFHs9VQce3TVClFCQrSTfOiYkVJQBmpbq2L6iZavPnAPcoU0dSw0SUTqz/GtrGuXfbyyBniKykOWQWGqwwMA7QiYAxi+IlPdqo+hYHnUt5ZPfnsHJyNiDtnpJyayNBkF6cWoYGAMY92U2hXHF/C1M8uP/ZtYdiuj26UdAdQQSXQErwSOMzt/XWRWAz5GuSBIkwG1H3FabJ2OsUOUhGC6tK4EMtJO0ttC6IBD3kM0ve0tJwMdSfjZo+EEISaeTr9P3wYrGjXqyC1krcKdhMpxEnt5JetoulscpyzhXN5FRpuPHvbeQaKxFAEB6EN+cYN6xD7RYGpXpNndMmZgM5Dcs3YSNFDHUo2LGfZuukSWyUYirJAdYbF3MfqEKmjM+I2EfhA94iG3L7uKrR+GdWD73ydlIB+6hgref1QTlmgmbM3/LeX5GI1Ux1RWpgxpLuZ2+I+IjzZ8wqE4nilvQdkUdfhzI5QDWy+kw5Wgg2pGpeEVeCCA7b85BO3F9DzxB3cdqvBzWcmzbyMiqhzuYqtHRVG2y4x+KOlnyqla8AoWWpuBoYRxzXrfKuILl6SfiWCbjxoZJUaCBj1CjH7GIaDbc9kqBY3W-Rgjda1iqQcOJu2WW+76pZC9QG7M00dffe9hNnseupFL53r8F7YHSwJWUKP2q+k7RdsxyOB11n0xtOvnW4irMMFNV4H0uqwS5ExsmP9AxbDTc9JwgneAT5vTiUSm1E7BSflSt3bfa1tv8Di3R8n3Af7MNWzs49hmauE2wP+ttrq+AsWpFG2awvsuOqbipWHgtuvuaAE+A1Z/7gC9hesnr+7wqCwG8c5yAg3AL1fm8T9AZtp/bbJGwl1pNrE7RuOX7PeMRUERVaPpEs+yqeoSmuOlokqw49pgomjLeh7icHNlG19yjs6XXOMedYm5xH2YxpV2tc0Ro2jJfxC50ApuxGob7lMsxfTbeUv07TyYxpeLucEH1gNd4IKH2LAg5TdVhlCafZvpskfncCfx8pOhJzd76bJWeYFnFciwcYfubRc12Ip/ppIhA1/mSZ/RxjFDrJC5xifFjJpY2Xl5zXdguFqYyTR1zSp1Y9p+tktDYYSNflcxI0iyO4TPBdlRcpeqjK_piF5bklq77VSEaA+z8qmJTFzIWiitbnzR794USKBUaT0NTEsVjZqLaFVqJoPN9ODG70IPbfBHKK+/q/AWR0tJzYHRULOa4MP+W/H");
-    opacity: 0.05;
-    z-index: 998;
-    pointer-events: none;
-  }
+.noise {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAFVklEQVR4XpWWB67c2BUFb3g557T/hRo9/WUMZHlgr4Bg8Z4qQgQJlHI4A8SzFVrapvmTF9O7dmYRFZ60YiBhJRCgh1FYhiLAmdvX0CzTOpNE77ME0Zty/nWWzchDtiqrmQDeuv3powQ5ta2eN0FY0InkqDD73lT9c9lEzwUNqgFHs9VQce3TVClFCQrSTfOiYkVJQBmpbq2L6iZavPnAPcoU0dSw0SUTqz/GtrGuXfbyyBniKykOWQWGqwwMA7QiYAxi+IlPdqo+hYHnUt5ZPfnsHJyNiDtnpJyayNBkF6cWoYGAMY92U2hXHF/C1M8uP/ZtYdiuj26UdAdQQSXQErwSOMzt/XWRWAz5GuSBIkwG1H3FabJ2OsUOUhGC6tK4EMtJO0ttC6IBD3kM0ve0tJwMdSfjZo+EEISaeTr9P3wYrGjXqyC1krcKdhMpxEnt5JetoulscpyzhXN5FRpuPHvbeQaKxFAEB6EN+cYN6xD7RYGpXpNndMmZgM5Dcs3YSNFDHUo2LGfZuukSWyUYirJAdYbF3MfqEKmjM+I2EfhA94iG3L7uKrR+GdWD73ydlIB+6hgref1QTlmgmbM3/LeX5GI1Ux1RWpgxpLuZ2+I+IjzZ8wqE4nilvQdkUdfhzI5QDWy+kw5Wgg2pGpeEVeCCA7b85BO3F9DzxB3cdqvBzWcmzbyMiqhzuYqtHRVG2y4x+KOlnyqla8AoWWpuBoYRxzXrfKuILl6SfiWCbjxoZJUaCBj1CjH7GIaDbc9kqBY3W-Rgjda1iqQcOJu2WW+76pZC9QG7M00dffe9hNnseupFL53r8F7YHSwJWUKP2q+k7RdsxyOB11n0xtOvnW4irMMFNV4H0uqwS5ExsmP9AxbDTc9JwgneAT5vTiUSm1E7BSflSt3bfa1tv8Di3R8n3Af7MNWzs49hmauE2wP+ttrq+AsWpFG2awvsuOqbipWHgtuvuaAE+A1Z/7gC9hesnr+7wqCwG8c5yAg3AL1fm8T9AZtp/bbJGwl1pNrE7RuOX7PeMRUERVaPpEs+yqeoSmuOlokqw49pgomjLeh7icHNlG19yjs6XXOMedYm5xH2YxpV2tc0Ro2jJfxC50ApuxGob7lMsxfTbeUv07TyYxpeLucEH1gNd4IKH2LAg5TdVhlCafZvpskfncCfx8pOhJzd76bJWeYFnFciwcYfubRc12Ip/ppIhA1/mSZ/RxjFDrJC5xifFjJpY2Xl5zXdguFqYyTR1zSp1Y9p+tktDYYSNflcxI0iyO4TPBdlRcpeqjK_piF5bklq77VSEaA+z8qmJTFzIWiitbnzR794USKBUaT0NTEsVjZqLaFVqJoPN9ODG70IPbfBHKK+/q/AWR0tJzYHRULOa4MP+W/H");
+  opacity: 0.05;
+  z-index: 998;
+  pointer-events: none;
+}
 
-  .vignette {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.7);
-    pointer-events: none;
-    z-index: 996;
-  }
+.vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+  z-index: 996;
+}
 
-  /* Decorative elements */
-  .decorative-circle {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    pointer-events: none;
-  }
+/* Decorative elements */
+.decorative-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
 
-  .circle-1 {
-    width: 300px;
-    height: 300px;
-    top: 20%;
-    left: 10%;
-    opacity: 0.3;
-  }
+.circle-1 {
+  width: 300px;
+  height: 300px;
+  top: 20%;
+  left: 10%;
+  opacity: 0.3;
+}
 
-  .circle-2 {
-    width: 200px;
-    height: 200px;
-    bottom: 15%;
-    right: 15%;
-    opacity: 0.2;
-  }
+.circle-2 {
+  width: 200px;
+  height: 200px;
+  bottom: 15%;
+  right: 15%;
+  opacity: 0.2;
+}
 
-  .circle-3 {
-    width: 100px;
-    height: 100px;
-    top: 30%;
-    right: 25%;
-    opacity: 0.15;
-  }
+.circle-3 {
+  width: 100px;
+  height: 100px;
+  top: 30%;
+  right: 25%;
+  opacity: 0.15;
+}
 
-  .decorative-line {
-    position: absolute;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    height: 1px;
-    width: 80%;
-    left: 10%;
-    pointer-events: none;
-  }
+.decorative-line {
+  position: absolute;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  height: 1px;
+  width: 80%;
+  left: 10%;
+  pointer-events: none;
+}
 
-  .line-1 {
-    top: 30%;
-    opacity: 0.2;
-  }
+.line-1 {
+  top: 30%;
+  opacity: 0.2;
+}
 
-  .line-2 {
-    bottom: 30%;
-    opacity: 0.2;
-  }
+.line-2 {
+  bottom: 30%;
+  opacity: 0.2;
+}
 
-  /* Animations */
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-  @keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-  }
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
 
-  @keyframes scaleUp {
-    from { transform: scale(0.95); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
+@keyframes scaleUp {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
 
-  @keyframes pulse {
-    0% {
-      opacity: 0.6;
-      transform: scale(0.95);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    100% {
-      opacity: 0.6;
-      transform: scale(0.95);
-    }
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.95);
   }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+}
 
-  @keyframes subtleGlow {
-    0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
-    50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
-  }
+@keyframes subtleGlow {
+  0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+  50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
+}
 
-  .animate-fade-in {
-    animation: fadeIn 1s ease-in-out forwards;
-  }
+.animate-fade-in {
+  animation: fadeIn 1s ease-in-out forwards;
+}
 
-  .animate-fade-out {
-    animation: fadeOut 1s ease-in-out forwards;
-  }
+.animate-fade-out {
+  animation: fadeOut 1s ease-in-out forwards;
+}
 
-  .animate-scale-up {
-    animation: scaleUp 0.8s ease-out forwards;
-  }
+.animate-scale-up {
+  animation: scaleUp 0.8s ease-out forwards;
+}
 
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
 
-  .animate-pulse {
-    animation: pulse 3s infinite;
-  }
+.animate-pulse {
+  animation: pulse 3s infinite;
+}
 
-  .animate-subtle-glow {
-    animation: subtleGlow 3s infinite;
-  }
+.animate-subtle-glow {
+  animation: subtleGlow 3s infinite;
+}
 </style>
 <link rel="icon" href="https://files.catbox.moe/9kp7pc.png" type="image/png">
 </head>
@@ -236,88 +236,88 @@
 <div id="enter-screen" class="select-none">
   <div class="noise"></div>
   <div class="vignette"></div>
-  
+
   <!-- Decorative elements -->
   <div class="decorative-circle circle-1 animate-pulse"></div>
   <div class="decorative-circle circle-2 animate-pulse"></div>
   <div class="decorative-circle circle-3 animate-pulse"></div>
   <div class="decorative-line line-1"></div>
   <div class="decorative-line line-2"></div>
-  
+
   <h1 class="enter-title animate-subtle-glow">CONCEAL.LOL</h1>
   <p class="enter-subtitle">life is a fleeting, symbolic representation or a mere echo of something else, rather than a concrete or real entity.</p>
-  
+
   <button id="enter-button" class="enter-button animate-float">
     Enter
   </button>
 </div>
 
 <script>
-  // Prevent inspect element, ctrl+u, and F12
-  document.addEventListener('contextmenu', event => event.preventDefault());
+// Prevent inspect element, ctrl+u, and F12
+document.addEventListener('contextmenu', event => event.preventDefault());
 
-  document.addEventListener('keydown', function(event) {
-    if (event.keyCode === 123) { // F12
-      event.preventDefault();
-      return false;
-    } else if ((event.ctrlKey && event.shiftKey && event.keyCode === 73) || // Ctrl+Shift+I
-              (event.ctrlKey && event.shiftKey && event.keyCode === 74) || // Ctrl+Shift+J
-              (event.ctrlKey && event.keyCode === 85)) { // Ctrl+U
-      event.preventDefault();
-      return false;
-    }
-  });
+document.addEventListener('keydown', function(event) {
+  if (event.keyCode === 123) { // F12
+    event.preventDefault();
+    return false;
+  } else if ((event.ctrlKey && event.shiftKey && event.keyCode === 73) || // Ctrl+Shift+I
+            (event.ctrlKey && event.shiftKey && event.keyCode === 74) || // Ctrl+Shift+J
+            (event.ctrlKey && event.keyCode === 85)) { // Ctrl+U
+    event.preventDefault();
+    return false;
+  }
+});
 
-  // Tab title rotation with IP address
-  (function() {
-    let userIP = "unknown";
-    
-    // Get user's IP address
-    fetch('https://api.ipify.org?format=json')
-      .then(response => response.json())
-      .then(data => {
-        userIP = data.ip;
-        startTitleRotation();
-      })
-      .catch(() => {
-        startTitleRotation();
-      });
-    
-    function startTitleRotation() {
-      const titles = ["conceal.lol", "owner", "toxic", `IP: ${userIP}`];
-      let currentTitleIndex = 0;
-      
-      setInterval(() => {
-        document.title = titles[currentTitleIndex];
-        currentTitleIndex = (currentTitleIndex + 1) % titles.length;
-      }, 3000);
-    }
-  })();
-
-  // Enter screen functionality - redirect to members page
-  (function() {
-    const enterScreen = document.getElementById('enter-screen');
-    const enterButton = document.getElementById('enter-button');
-    
-    enterButton.addEventListener('click', () => {
-      // Add subtle animation to button
-      enterButton.style.transform = 'scale(0.95)';
-      
-      setTimeout(() => {
-        enterButton.style.transform = 'scale(1)';
-      }, 200);
-      
-      // Fade out enter screen with a smooth transition
-      setTimeout(() => {
-        enterScreen.style.opacity = '0';
-        
-        // After fade out, redirect to members page
-        setTimeout(() => {
-          window.location.href = 'members.html';
-        }, 1500);
-      }, 300);
+// Tab title rotation with IP address
+(function() {
+  let userIP = "unknown";
+  
+  // Get user's IP address
+  fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => {
+      userIP = data.ip;
+      startTitleRotation();
+    })
+    .catch(() => {
+      startTitleRotation();
     });
-  })();
+  
+  function startTitleRotation() {
+    const titles = ["conceal.lol", "owner", "toxic", `IP: ${userIP}`];
+    let currentTitleIndex = 0;
+    
+    setInterval(() => {
+      document.title = titles[currentTitleIndex];
+      currentTitleIndex = (currentTitleIndex + 1) % titles.length;
+    }, 3000);
+  }
+})();
+
+// Enter screen functionality - redirect to members page
+(function() {
+  const enterScreen = document.getElementById('enter-screen');
+  const enterButton = document.getElementById('enter-button');
+  
+  enterButton.addEventListener('click', () => {
+    // Add subtle animation to button
+    enterButton.style.transform = 'scale(0.95)';
+    
+    setTimeout(() => {
+      enterButton.style.transform = 'scale(1)';
+    }, 200);
+    
+    // Fade out enter screen with a smooth transition
+    setTimeout(() => {
+      enterScreen.style.opacity = '0';
+      
+      // After fade out, redirect to members page
+      setTimeout(() => {
+        window.location.href = 'members.html';
+      }, 1500);
+    }, 300);
+  });
+})();
 </script>
 </body>
 </html>
