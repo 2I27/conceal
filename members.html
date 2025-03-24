@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>conceal.lol - Members</title>
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Courier New', monospace;
+      cursor: crosshair;
+    }
+
+    body {
+      background-color: #000;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .header {
+      width: 100%;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 10;
+    }
+
+    .header-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      animation: textGlow 2s infinite;
+    }
+
+    .back-button {
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .back-button:hover {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Members grid */
+    .members-container {
+      width: 100%;
+      max-width: 1200px;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .member-card {
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .member-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+    }
+
+    .member-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      filter: grayscale(80%);
+      transition: filter 0.3s ease;
+    }
+
+    .member-card:hover .member-image {
+      filter: grayscale(0%);
+    }
+
+    .member-info {
+      padding: 1rem;
+    }
+
+    .member-name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .member-role {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .member-bio {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .member-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .status-online {
+      background-color: #4ade80;
+      box-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+      animation: pulse 2s infinite;
+    }
+
+    .status-offline {
+      background-color: #f87171;
+    }
+
+    .status-idle {
+      background-color: #facc15;
+    }
+
+    .member-badge {
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      padding: 0.2rem 0.4rem;
+      font-size: 0.7rem;
+      color: white;
+      margin-right: 0.3rem;
+      display: inline-block;
+    }
+
+    .verified-badge {
+      border-color: rgba(74, 222, 128, 0.5);
+    }
+
+    .admin-badge {
+      border-color: rgba(239, 68, 68, 0.5);
+    }
+
+    .vip-badge {
+      border-color: rgba(234, 179, 8, 0.5);
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0% {
+        opacity: 0.6;
+        transform: scale(0.8);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+      100% {
+        opacity: 0.6;
+        transform: scale(0.8);
+      }
+    }
+
+    @keyframes textGlow {
+      0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+      50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
+    }
+
+    /* Background effects */
+    .scanline {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(255, 255, 255, 0.1) 51%
+      );
+      background-size: 100% 4px;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.15;
+    }
+
+    .noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAFVklEQVR4XpWWB67c2BUFb3g557T/hRo9/WUMZHlgr4Bg8Z4qQgQJlHI4A8SzFVrapvmTF9O7dmYRFZ60YiBhJRCgh1FYhiLAmdvX0CzTOpNE77ME0Zty/nWWzchDtiqrmQDeuv3powQ5ta2eN0FY0InkqDD73lT9c9lEzwUNqgFHs9VQce3TVClFCQrSTfOiYkVJQBmpbq2L6iZavPnAPcoU0dSw0SUTqz/GtrGuXfbyyBniKykOWQWGqwwMA7QiYAxi+IlPdqo+hYHnUt5ZPfnsHJyNiDtnpJyayNBkF6cWoYGAMY92U2hXHF/C1M8uP/ZtYdiuj26UdAdQQSXQErwSOMzt/XWRWAz5GuSBIkwG1H3FabJ2OsUOUhGC6tK4EMtJO0ttC6IBD3kM0ve0tJwMdSfjZo+EEISaeTr9P3wYrGjXqyC1krcKdhMpxEnt5JetoulscpyzhXN5FRpuPHvbeQaKxFAEB6EN+cYN6xD7RYGpXpNndMmZgM5Dcs3YSNFDHUo2LGfZuukSWyUYirJAdYbF3MfqEKmjM+I2EfhA94iG3L7uKrR+GdWD73ydlIB+6hgref1QTlmgmbM3/LeX5GI1Ux1RWpgxpLuZ2+I+IjzZ8wqE4nilvQdkUdfhzI5QDWy+kw5Wgg2pGpeEVeCCA7b85BO3F9DzxB3cdqvBzWcmzbyMiqhzuYqtHRVG2y4x+KOlnyqla8AoWWpuBoYRxzXrfKuILl6SfiWCbjxoZJUaCBj1CjH7GIaDbc9kqBY3W-Rgjda1iqQcOJu2WW+76pZC9QG7M00dffe9hNnseupFL53r8F7YHSwJWUKP2q+k7RdsxyOB11n0xtOvnW4irMMFNV4H0uqwS5ExsmP9AxbDTc9JwgneAT5vTiUSm1E7BSflSt3bfa1tv8Di3R8n3Af7MNWzs49hmauE2wP+ttrq+AsWpFG2awvsuOqbipWHgtuvuaAE+A1Z/7gC9hesnr+7wqCwG8c5yAg3AL1fm8T9AZtp/bbJGwl1pNrE7RuOX7PeMRUERVaPpEs+yqeoSmuOlokqw49pgomjLeh7icHNlG19yjs6XXOMedYm5xH2YxpV2tc0Ro2jJfxC50ApuxGob7lMsxfTbeUv07TyYxpeLucEH1gNd4IKH2LAg5TdVhlCafZvpskfncCfx8pOhJzd76bJWeYFnFciwcYfubRc12Ip/ppIhA1/mSZ/RxjFDrJC5xifFjJpY2Xl5zXdguFqYyTR1zSp1Y9p+tktDYYSNflcxI0iyO4TPBdlRcpeqjK/piF5bklq77VSEaA+z8qmJTFzIWiitbnzR794USKBUaT0NTEsVjZqLaFVqJoPN9ODG70IPbfBHKK+/q/AWR0tJzYHRULOa4MP+W/H");
+      opacity: 0.2;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .vignette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.7);
+      pointer-events: none;
+      z-index: -3;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .members-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        padding: 1rem;
+      }
+      
+      .header-title {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .members-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background effects -->
+  <div class="scanline"></div>
+  <div class="noise"></div>
+  <div class="vignette"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <h1 class="header-title">MEMBERS</h1>
+    <a href="index.html" class="back-button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m12 19-7-7 7-7"></path>
+        <path d="M19 12H5"></path>
+      </svg>
+      BACK
+    </a>
+  </header>
+
+  <!-- Members grid -->
+  <div class="members-container">
+    <!-- Member 1 -->
+    <div class="member-card">
+      <img src="https://files.catbox.moe/iygu2a.jpg" alt="m!key" class="member-image">
+      <div class="member-info">
+        <div class="member-name">
+          m!key
+          <span class="member-badge admin-badge">ADMIN</span>
+          <span class="member-badge verified-badge">VERIFIED</span>
+        </div>
+        <div class="member-role">FOUNDER / DEVELOPER</div>
+        <div class="member-bio">Crypto trillionaire. Self-made artist. The mastermind behind conceal.lol.</div>
+        <div class="member-status">
+          <div class="status-indicator status-online"></div>
+          Online
+        </div>
+      </div>
+    </div>
+
+    <!-- Member 2 -->
+    <div class="member-card">
+      <img src="/placeholder.svg?height=200&width=300" alt="ghost" class="member-image">
+      <div class="member-info">
+        <div class="member-name">
+          ghost
+          <span class="member-badge admin-badge">ADMIN</span>
+        </div>
+        <div class="member-role">SECURITY SPECIALIST</div>
+        <div class="member-bio">Network security expert. Responsible for all backend infrastructure and security protocols.</div>
+        <div class="member-status">
+          <div class="status-indicator status-offline"></div>
+          Offline
+        </div>
+      </div>
+    </div>
+
+    <!-- Member 3 -->
+    <div class="member-card">
+      <img src="/placeholder.svg?height=200&width=300" alt="void" class="member-image">
+      <div class="member-info">
+        <div class="member-name">
+          void
+          <span class="member-badge vip-badge">VIP</span>
+        </div>
+        <div class="member-role">DESIGNER</div>
+        <div class="member-bio">Visual artist and UI/UX designer. Creates all visual elements and branding materials.</div>
+        <div class="member-status">
+          <div class="status-indicator status-idle"></div>
+          Idle
+        </div>
+      </div>
+    </div>
+
+    <!-- Member 4 -->
+    <div class="member-card">
+      <img src="/placeholder.svg?height=200&width=300" alt="cipher" class="member-image">
+      <div class="member-info">
+        <div class="member-name">
+          cipher
+          <span class="member-badge verified-badge">VERIFIED</span>
+        </div>
+        <div class="member-role">CRYPTOGRAPHER</div>
+        <div class="member-bio">Encryption specialist. Develops secure communication protocols and data protection systems.</div>
+        <div class="member-status">
+          <div class="status-indicator status-online"></div>
+          Online
+        </div>
+      </div>
+    </div>
+
+    <!-- Member 5 -->
+    <div class="member-card">
+      <img src="/placeholder.svg?height=200&width=300" alt="echo" class="member-image">
+      <div class="member-info">
+        <div class="member-name">
+          echo
+        </div>
+        <div class="member-role">COMMUNITY MANAGER</div>
+        <div class="member-bio">Handles all community interactions and manages social media presence.</div>
+        <div class="member-status">
+          <div class="status-indicator status-offline"></div>
+          Offline
+        </div>
+      </div>
+    </div>
+
+    <!-- Member 6 -->
+    <div class="member-card">
+      <img src="/placeholder.svg?height=200&width=300" alt="glitch" class="member-image">
+      <div class="member-info">
+        <div class="member-name">
+          glitch
+          <span class="member-badge vip-badge">VIP</span>
+        </div>
+        <div class="member-role">CONTENT CREATOR</div>
+        <div class="member-bio">Creates digital art and multimedia content for the platform.</div>
+        <div class="member-status">
+          <div class="status-indicator status-idle"></div>
+          Idle
+        </div>
+      </div>
+    </div>
+
+    <!-- Member 7 -->
+    <div class="member-card">
+      <img src="/placeholder.svg?height=200&width=300" alt="shadow" class="member-image">
+      <div class="member-info">
+        <div class="member-name">
+          shadow
+        </div>
+        <div class="member-role">RESEARCHER</div>
+        <div class="member-bio">Conducts research on emerging technologies and security vulnerabilities.</div>
+        <div class="member-status">
+          <div class="status-indicator status-offline"></div>
+          Offline
+        </div>
+      </div>
+    </div>
+
+    <!-- Member 8 -->
+    <div class="member-card">
+      <img src="/placeholder.svg?height=200&width=300" alt="pulse" class="member-image">
+      <div class="member-info">
+        <div class="member-name">
+          pulse
+          <span class="member-badge verified-badge">VERIFIED</span>
+        </div>
+        <div class="member-role">AUDIO ENGINEER</div>
+        <div class="member-bio">Creates sound effects and music for the platform and related projects.</div>
+        <div class="member-status">
+          <div class="status-indicator status-online"></div>
+          Online
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Prevent inspect element, ctrl+u, and F12
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    document.addEventListener('keydown', function(event) {
+      if (event.keyCode === 123) { // F12
+        event.preventDefault();
+        return false;
+      } else if ((event.ctrlKey && event.shiftKey && event.keyCode === 73) || // Ctrl+Shift+I
+                (event.ctrlKey && event.shiftKey && event.keyCode === 74) || // Ctrl+Shift+J
+                (event.ctrlKey && event.keyCode === 85)) { // Ctrl+U
+        event.preventDefault();
+        return false;
+      }
+    });
+
+    // Tab title rotation
+    (function() {
+      const titles = ["conceal.lol", "members", "restricted", "access granted"];
+      let currentTitleIndex = 0;
+      
+      setInterval(() => {
+        document.title = titles[currentTitleIndex];
+        currentTitleIndex = (currentTitleIndex + 1) % titles.length;
+      }, 3000);
+    })();
+  </script>
+</body>
+</html>
+
