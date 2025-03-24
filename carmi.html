@@ -57,6 +57,8 @@ body {
   overflow: hidden;
   box-shadow: 0 0 30px rgba(236, 72, 153, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(236, 72, 153, 0.1);
 }
 
 .profile-card:hover {
@@ -67,17 +69,19 @@ body {
 .profile-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1.5rem;
+  gap: 1.5rem;
+  padding: 1.8rem;
+  background: rgba(236, 72, 153, 0.05);
 }
 
 .profile-image {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid rgba(236, 72, 153, 0.3);
   transition: transform 0.3s ease;
+  box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
 }
 
 .profile-image:hover {
@@ -94,13 +98,45 @@ body {
   flex: 1;
 }
 
+.profile-name-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
 .profile-name {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
   color: rgb(249, 168, 212);
-  margin-bottom: 0.5rem;
   position: relative;
   cursor: help;
+  z-index: 2;
+}
+
+.sparkle {
+  position: absolute;
+  background-color: #ec4899;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 1;
+  animation: sparkle-animation 2s infinite;
+}
+
+@keyframes sparkle-animation {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
 }
 
 .profile-name:hover::after {
@@ -127,7 +163,8 @@ body {
   display: flex;
   justify-content: flex-end;
   padding: 1rem 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .view-count {
@@ -140,9 +177,9 @@ body {
 .social-links {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
-  padding: 1rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 2rem;
+  padding: 1.5rem 0;
+  background: rgba(236, 72, 153, 0.03);
 }
 
 .social-link {
@@ -197,7 +234,10 @@ body {
       <img src="https://files.catbox.moe/x74b3x.jpg" alt="carmi">
     </div>
     <div class="profile-info">
-      <div class="profile-name" title="UID: 2">carm♥</div>
+      <div class="profile-name-container">
+        <div class="profile-name" title="UID: 2">carm♥</div>
+        <div id="sparkles-container"></div>
+      </div>
       <div class="profile-bio">digital princess</div>
     </div>
   </div>
@@ -234,7 +274,7 @@ body {
   </div>
 </div>
 
-<audio id="background-music" loop>
+<audio id="background-music" loop autoplay>
   <source src="https://files.catbox.moe/x9so10.mp3" type="audio/mpeg">
 </audio>
 
@@ -308,25 +348,73 @@ function createHeart() {
 
 setInterval(createHeart, 300);
 
-// Play audio immediately if coming from index page
-window.onload = function() {
-  if (localStorage.getItem('musicStarted') === 'true') {
-    document.getElementById('background-music').play().catch(function(error) {
-      console.log('Audio playback prevented: User interaction required');
-    });
+// Create sparkles around name
+function createSparkles() {
+  const nameElement = document.querySelector('.profile-name');
+  const sparklesContainer = document.getElementById('sparkles-container');
+  const nameRect = nameElement.getBoundingClientRect();
+  const sparkleCount = 15;
+  
+  // Clear existing sparkles
+  sparklesContainer.innerHTML = '';
+  
+  for (let i = 0; i < sparkleCount; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    
+    // Position sparkles around the name
+    const angle = Math.random() * Math.PI * 2;
+    const distance = Math.random() * 30 + 20;
+    const x = Math.cos(angle) * distance;
+    const y = Math.sin(angle) * distance;
+    
+    sparkle.style.left = `calc(50% + ${x}px)`;
+    sparkle.style.top = `calc(50% + ${y}px)`;
+    
+    // Random delay for animation
+    sparkle.style.animationDelay = `${Math.random() * 2}s`;
+    
+    // Random size
+    const size = Math.random() * 3 + 1;
+    sparkle.style.width = `${size}px`;
+    sparkle.style.height = `${size}px`;
+    
+    // Pink sparkles for Carmi
+    sparkle.style.backgroundColor = '#ec4899';
+    sparkle.style.boxShadow = '0 0 3px #ec4899';
+    
+    sparklesContainer.appendChild(sparkle);
   }
-};
+}
 
-// Play audio on interaction if not already playing
-document.addEventListener('click', function() {
+// Initialize sparkles
+createSparkles();
+
+// Force audio to play
+window.onload = function() {
   const backgroundMusic = document.getElementById('background-music');
   
-  if (backgroundMusic.paused) {
-    backgroundMusic.play().catch(function(error) {
-      console.log('Audio playback prevented: User interaction required');
+  // Set localStorage flag for music
+  localStorage.setItem('musicStarted', 'true');
+  
+  // Try to play music immediately
+  backgroundMusic.play().catch(function(error) {
+    console.log('Audio playback prevented: User interaction required');
+    
+    // Create a silent audio context to unlock audio
+    const silentAudio = new Audio("data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV");
+    silentAudio.play().then(() => {
+      backgroundMusic.play().catch(e => console.log('Still cannot play audio'));
     });
-  }
-});
+  });
+  
+  // Try to play again on any user interaction
+  document.addEventListener('click', function() {
+    if (backgroundMusic.paused) {
+      backgroundMusic.play();
+    }
+  });
+};
 </script>
 </body>
 </html>
