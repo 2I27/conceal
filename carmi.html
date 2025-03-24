@@ -40,6 +40,12 @@ body {
   align-items: center;
   gap: 0.5rem;
   z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
 }
 
 .profile-card {
@@ -50,6 +56,12 @@ body {
   margin: 0 1rem;
   overflow: hidden;
   box-shadow: 0 0 30px rgba(236, 72, 153, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 30px rgba(236, 72, 153, 0.2);
 }
 
 .profile-header {
@@ -64,6 +76,12 @@ body {
   height: 80px;
   border-radius: 50%;
   overflow: hidden;
+  border: 2px solid rgba(236, 72, 153, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.profile-image:hover {
+  transform: scale(1.05);
 }
 
 .profile-image img {
@@ -107,6 +125,14 @@ body {
   justify-content: center;
   gap: 1.5rem;
   padding: 1rem 0;
+  168,212);
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -118,6 +144,12 @@ body {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  transform: translateY(-3px);
+  color: rgb(249, 168, 212);
 }
 
 .heart {
@@ -247,6 +279,310 @@ function createHeart() {
 }
 
 setInterval(createHeart, 300);
+
+// Play audio on interaction
+document.addEventListener('click', function() {
+  document.getElementById('background-music').play().catch(function(error) {
+    console.log('Audio playback prevented: User interaction required');
+  });
+});
+</script>
+</body>
+</html>
+
+```html file="mikey.html"
+&lt;!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mikey</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Courier New', monospace;
+  cursor: crosshair;
+}
+
+body {
+  background-color: #050505;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.profile-card {
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 1rem;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 30px rgba(255, 255, 255, 0.2);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.profile-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.profile-image:hover {
+  transform: scale(1.05);
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.profile-bio {
+  color: rgb(209, 213, 219);
+  font-size: 0.9rem;
+}
+
+.profile-stats {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.view-count {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-link {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  transform: translateY(-3px);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.snow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.snow-flake {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: snow-fall linear infinite;
+}
+
+@keyframes snow-fall {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.member-url {
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+</style>
+<link rel="icon" href="https://files.catbox.moe/9kp7pc.png" type="image/png">
+</head>
+<body>
+<div id="snow" class="snow"></div>
+
+<a href="members.html" class="back-button">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m12 19-7-7 7-7"></path>
+    <path d="M19 12H5"></path>
+  </svg>
+  BACK
+</a>
+
+<div class="profile-card">
+  <div class="profile-header">
+    <div class="profile-image">
+      <img src="https://files.catbox.moe/iygu2a.jpg" alt="mikey">
+    </div>
+    <div class="profile-info">
+      <div class="profile-name">m!key</div>
+      <div class="profile-bio">founder / developer</div>
+    </div>
+  </div>
+  
+  <div class="profile-stats">
+    <div class="view-count">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+      </svg>
+      <span id="view-count">0</span>
+    </div>
+  </div>
+  
+  <div class="social-links">
+    <a href="https://www.instagram.com/asthoics/" target="_blank" class="social-link">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+      </svg>
+      <span>Instagram</span>
+    </a>
+    <a href="https://twitter.com/asthoics" target="_blank" class="social-link">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+      </svg>
+      <span>Twitter</span>
+    </a>
+    <a href="https://discord.gg/conceal" target="_blank" class="social-link">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
+        <path d="M15 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
+        <path d="M15 8v8a4 4 0 0 1-4 4"></path>
+        <line x1="9" y1="12" x2="9" y2="20"></line>
+        <path d="M12 16v-8a4 4 0 0 1 4-4"></path>
+      </svg>
+      <span>Discord</span>
+    </a>
+  </div>
+  
+  <div class="member-url">conceal.lol/mikey</div>
+</div>
+
+<audio id="background-music" loop>
+  <source src="https://files.catbox.moe/x9so10.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// View counter
+(function() {
+  const viewCountElement = document.getElementById('view-count');
+  let count = localStorage.getItem('mikeyViewCount') || 0;
+  count = parseInt(count) + 1;
+  localStorage.setItem('mikeyViewCount', count);
+  viewCountElement.textContent = count;
+})();
+
+// Snow effect
+(function() {
+  const snowContainer = document.getElementById('snow');
+  const snowFlakeCount = 100;
+  
+  for (let i = 0; i &lt; snowFlakeCount; i++) {
+    const flake = document.createElement('div');
+    flake.className = 'snow-flake';
+    
+    // Random sizing
+    const size = Math.random() * 3 + 1;
+    flake.style.width = `${size}px`;
+    flake.style.height = `${size}px`;
+    
+    // Random positioning
+    flake.style.left = `${Math.random() * 100}%`;
+    
+    // Random animation duration
+    const duration = Math.random() * 5 + 5;
+    flake.style.animationDuration = `${duration}s`;
+    
+    // Random delay
+    flake.style.animationDelay = `${Math.random() * 5}s`;
+    
+    snowContainer.appendChild(flake);
+  }
+})();
 
 // Play audio on interaction
 document.addEventListener('click', function() {
