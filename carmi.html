@@ -942,4 +942,17 @@
         `;
       }
     }
+    
+
+    
+    // Try to autoplay
+    document.addEventListener('DOMContentLoaded', function() {
+      backgroundMusic.play().catch(function(error) {
+        console.log('Autoplay prevented: User interaction required to play audio');
+      });
+    });
+  })();
+</script>
+</body>
+</html>
 
