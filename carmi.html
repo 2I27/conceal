@@ -6,533 +6,543 @@
 <title>carmi</title>
 <style>
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Courier New', monospace;
-  cursor: crosshair;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Courier New', monospace;
+cursor: crosshair;
 }
 
 body {
-  background-color: #050505;
-  color: #fff;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background-image: radial-gradient(circle at 20% 30%, #1e0a14 0%, transparent 20%);
+background-color: #050505;
+color: #fff;
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+background-image: radial-gradient(circle at 20% 30%, #1e0a14 0%, transparent 20%);
 }
 
 .back-button {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  background: rgba(236, 72, 153, 0.1);
-  border: 1px solid rgba(236, 72, 153, 0.3);
-  color: white;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  border-radius: 4px;
-  cursor: pointer;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  z-index: 100;
-  transition: all 0.3s ease;
+position: fixed;
+top: 20px;
+left: 20px;
+background: rgba(236, 72, 153, 0.1);
+border: 1px solid rgba(236, 72, 153, 0.3);
+color: white;
+padding: 0.5rem 1rem;
+font-size: 0.9rem;
+border-radius: 4px;
+cursor: pointer;
+text-decoration: none;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+z-index: 100;
+transition: all 0.3s ease;
 }
 
 .back-button:hover {
-  background: rgba(236, 72, 153, 0.2);
-  transform: translateY(-2px);
+background: rgba(236, 72, 153, 0.2);
+transform: translateY(-2px);
 }
 
 .profile-card {
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 12px;
-  width: 100%;
-  max-width: 380px;
-  margin: 0 1rem;
-  overflow: hidden;
-  box-shadow: 0 0 30px rgba(236, 72, 153, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(236, 72, 153, 0.1);
-  position: relative;
+background: rgba(0, 0, 0, 0.7);
+border-radius: 12px;
+width: 100%;
+max-width: 380px;
+margin: 0 1rem;
+overflow: hidden;
+box-shadow: 0 0 30px rgba(236, 72, 153, 0.1);
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+backdrop-filter: blur(10px);
+border: 1px solid rgba(236, 72, 153, 0.1);
+position: relative;
+}
+
+.profile-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 40px rgba(236, 72, 153, 0.2);
 }
 
 .profile-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(236, 72, 153, 0.6), transparent);
-  animation: shimmer 3s infinite;
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, rgba(236, 72, 153, 0.6), transparent);
+animation: shimmer 3s infinite;
 }
 
 @keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+0% {
+  transform: translateX(-100%);
+}
+100% {
+  transform: translateX(100%);
+}
 }
 
 .profile-header {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1.5rem;
-  background: rgba(236, 72, 153, 0.03);
-  border-bottom: 1px solid rgba(236, 72, 153, 0.05);
+display: flex;
+align-items: center;
+gap: 1.5rem;
+padding: 1.5rem;
+background: rgba(236, 72, 153, 0.03);
+border-bottom: 1px solid rgba(236, 72, 153, 0.05);
 }
 
 .profile-image {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid rgba(236, 72, 153, 0.3);
-  transition: transform 0.3s ease;
-  box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
+width: 90px;
+height: 90px;
+border-radius: 50%;
+overflow: hidden;
+border: 2px solid rgba(236, 72, 153, 0.3);
+transition: transform 0.3s ease;
+box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
 }
 
 .profile-image:hover {
-  transform: scale(1.05);
+transform: scale(1.05);
 }
 
 .profile-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+width: 100%;
+height: 100%;
+object-fit: cover;
 }
 
 .profile-info {
-  flex: 1;
+flex: 1;
 }
 
 .profile-name-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
+display: flex;
+align-items: center;
+gap: 0.75rem;
+margin-bottom: 0.5rem;
 }
 
 .profile-name-container {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 0.5rem;
+position: relative;
+display: inline-block;
+margin-bottom: 0.5rem;
 }
 
 .profile-name {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: rgb(249, 168, 212);
-  position: relative;
-  cursor: help;
-  z-index: 2;
+font-size: 1.8rem;
+font-weight: bold;
+color: rgb(249, 168, 212);
+position: relative;
+cursor: help;
+z-index: 2;
 }
 
 .heart-dot {
-  display: inline-block;
-  color: #ec4899;
-  font-size: 1.2rem;
-  position: relative;
-  top: -0.2rem;
+display: inline-block;
+color: #ec4899;
+font-size: 1.2rem;
+position: relative;
+top: -0.2rem;
 }
 
 .heart {
-  position: absolute;
-  color: #ec4899;
-  font-size: 1rem;
-  opacity: 0;
-  z-index: 1;
-  animation: heart-animation 3s infinite;
+position: absolute;
+color: #ec4899;
+font-size: 1rem;
+opacity: 0;
+z-index: 1;
+animation: heart-animation 3s infinite;
 }
 
 @keyframes heart-animation {
-  0% {
-    opacity: 0;
-    transform: scale(0) rotate(0deg);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1) rotate(10deg);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0) rotate(20deg);
-  }
+0% {
+  opacity: 0;
+  transform: scale(0) rotate(0deg);
+}
+50% {
+  opacity: 1;
+  transform: scale(1) rotate(10deg);
+}
+100% {
+  opacity: 0;
+  transform: scale(0) rotate(20deg);
+}
 }
 
 .profile-name:hover::after {
-  content: attr(title);
-  position: absolute;
-  top: -30px;
-  left: 0;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  white-space: nowrap;
-  z-index: 10;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+content: attr(title);
+position: absolute;
+top: -30px;
+left: 0;
+background: rgba(0, 0, 0, 0.8);
+color: white;
+padding: 5px 10px;
+border-radius: 4px;
+font-size: 0.8rem;
+white-space: nowrap;
+z-index: 10;
+border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .profile-bio {
-  color: rgb(209, 213, 219);
-  font-size: 0.9rem;
+color: rgb(209, 213, 219);
+font-size: 0.9rem;
 }
 
-.profile-stats {
-  display: flex;
-  justify-content: flex-end;
-  padding: 1rem 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  background: rgba(0, 0, 0, 0.2);
+.profile-badges {
+display: flex;
+gap: 0.3rem;
+}
+
+.profile-badge {
+background: rgba(0, 0, 0, 0.3);
+border: 1px solid rgba(236, 72, 153, 0.2);
+border-radius: 4px;
+width: 28px;
+height: 28px;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+transition: all 0.3s ease;
+}
+
+.profile-badge:hover {
+transform: translateY(-2px);
+background: rgba(236, 72, 153, 0.1);
+}
+
+.profile-badge:hover::after {
+content: attr(title);
+position: absolute;
+bottom: -30px;
+left: 50%;
+transform: translateX(-50%);
+background: rgba(0, 0, 0, 0.8);
+color: white;
+padding: 5px 10px;
+border-radius: 4px;
+font-size: 0.8rem;
+white-space: nowrap;
+z-index: 10;
+border: 1px solid rgba(236, 72, 153, 0.2);
+}
+
+.blinkie-container {
+margin-top: 0.75rem;
+}
+
+.blinkie {
+max-width: 100%;
+height: auto;
+}
+
+.icons-container {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 1rem 1.5rem;
+background: rgba(236, 72, 153, 0.03);
+border-top: 1px solid rgba(236, 72, 153, 0.05);
+}
+
+.social-icons {
+display: flex;
+gap: 1rem;
+}
+
+.icon-link {
+color: white;
+text-decoration: none;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.3s ease;
+}
+
+.icon-link:hover {
+transform: translateY(-2px);
+color: rgb(249, 168, 212);
 }
 
 .view-count {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: rgb(249, 168, 212);
+display: flex;
+align-items: center;
+gap: 0.5rem;
+color: rgb(249, 168, 212);
 }
 
-.social-links {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  padding: 1.5rem 0;
-  background: rgba(236, 72, 153, 0.03);
-}
-
-.social-link {
-  color: white;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8rem;
-  transition: all 0.3s ease;
-}
-
-.social-link:hover {
-  transform: translateY(-3px);
-  color: rgb(249, 168, 212);
+.copyright {
+text-align: center;
+font-size: 0.8rem;
+color: rgba(255, 255, 255, 0.6);
+margin-top: 1rem;
+padding: 1rem;
+background: rgba(236, 72, 153, 0.03);
+border-top: 1px solid rgba(236, 72, 153, 0.05);
 }
 
 .falling-heart {
-  position: fixed;
-  color: #ec4899;
-  z-index: -1;
-  pointer-events: none;
-  animation: heartFall linear forwards;
+position: fixed;
+color: #ec4899;
+z-index: -1;
+pointer-events: none;
+animation: heartFall linear forwards;
 }
 
 @keyframes heartFall {
-  0% {
-    transform: translateY(-10vh);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh);
-    opacity: 0;
-  }
+0% {
+  transform: translateY(-10vh);
+  opacity: 1;
+}
+100% {
+  transform: translateY(100vh);
+  opacity: 0;
+}
 }
 
 /* Cursor sparkles */
 .cursor-sparkle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background-color: #ec4899;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0;
-  animation: cursor-sparkle-fade 1s forwards;
+position: absolute;
+width: 4px;
+height: 4px;
+background-color: #ec4899;
+border-radius: 50%;
+pointer-events: none;
+z-index: 9999;
+opacity: 0;
+animation: cursor-sparkle-fade 1s forwards;
 }
 
 @keyframes cursor-sparkle-fade {
-  0% {
-    opacity: 1;
-    transform: scale(0);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0);
-  }
+0% {
+  opacity: 1;
+  transform: scale(0);
+}
+50% {
+  opacity: 1;
+  transform: scale(1);
+}
+100% {
+  opacity: 0;
+  transform: scale(0);
+}
 }
 
 /* Volume control */
 .volume-control {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(236, 72, 153, 0.2);
-  border-radius: 5px;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  z-index: 100;
+position: fixed;
+bottom: 20px;
+right: 20px;
+background: rgba(0, 0, 0, 0.5);
+border: 1px solid rgba(236, 72, 153, 0.2);
+border-radius: 5px;
+padding: 10px;
+display: flex;
+align-items: center;
+gap: 10px;
+z-index: 100;
 }
 
 .volume-slider {
-  -webkit-appearance: none;
-  width: 100px;
-  height: 4px;
-  background: rgba(236, 72, 153, 0.1);
-  border-radius: 2px;
-  outline: none;
+-webkit-appearance: none;
+width: 100px;
+height: 4px;
+background: rgba(236, 72, 153, 0.1);
+border-radius: 2px;
+outline: none;
 }
 
 .volume-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 12px;
-  height: 12px;
-  background: #ec4899;
-  border-radius: 50%;
-  cursor: pointer;
+-webkit-appearance: none;
+appearance: none;
+width: 12px;
+height: 12px;
+background: #ec4899;
+border-radius: 50%;
+cursor: pointer;
 }
 
 .volume-slider::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
-  background: #ec4899;
-  border-radius: 50%;
-  cursor: pointer;
-  border: none;
-}
-
-.profile-badges {
-  display: flex;
-  gap: 0.3rem;
-}
-
-.profile-badge {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(236, 72, 153, 0.2);
-  border-radius: 4px;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.profile-badge:hover {
-  transform: translateY(-2px);
-  background: rgba(236, 72, 153, 0.1);
-}
-
-.profile-badge:hover::after {
-  content: attr(title);
-  position: absolute;
-  bottom: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  white-space: nowrap;
-  z-index: 10;
-  border: 1px solid rgba(236, 72, 153, 0.2);
-}
-
-.blinkie-container {
-  margin-top: 0.75rem;
-}
-
-.blinkie {
-  max-width: 100%;
-  height: auto;
+width: 12px;
+height: 12px;
+background: #ec4899;
+border-radius: 50%;
+cursor: pointer;
+border: none;
 }
 </style>
 <link rel="icon" href="https://files.catbox.moe/5qp7rp.png" type="image/png">
 </head>
 <body>
 <a href="members.html" class="back-button">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="m12 19-7-7 7-7"></path>
-    <path d="M19 12H5"></path>
-  </svg>
-  BACK
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m12 19-7-7 7-7"></path>
+  <path d="M19 12H5"></path>
+</svg>
+BACK
 </a>
 
 <div class="profile-card">
-  <div class="profile-header">
-    <div class="profile-image">
-      <img src="https://files.catbox.moe/x74b3x.jpg" alt="carmi">
-    </div>
-    <div class="profile-info">
-      <div class="profile-name-wrapper">
-        <div class="profile-name-container">
-          <div class="profile-name" title="UID: 2" style="color: rgb(249, 168, 212);">carmi</div>
-          <div id="hearts-container"></div>
+<div class="profile-header">
+  <div class="profile-image">
+    <img src="https://files.catbox.moe/x74b3x.jpg" alt="carmi">
+  </div>
+  <div class="profile-info">
+    <div class="profile-name-wrapper">
+      <div class="profile-name-container">
+        <div class="profile-name" title="UID: 666" style="color: rgb(249, 168, 212);">carmi</div>
+        <div id="hearts-container"></div>
+      </div>
+      <div class="profile-badges">
+        <div class="profile-badge" title="Loved">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#ec4899" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+          </svg>
         </div>
-        <div class="profile-badges">
-          <div class="profile-badge" title="Loved">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#ec4899" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
-            </svg>
-          </div>
-          <div class="profile-badge" title="Verified">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-            </svg>
-          </div>
+        <div class="profile-badge" title="Verified">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
         </div>
       </div>
-      <div class="profile-bio">digital princess</div>
-      <div class="blinkie-container">
-        <img src="https://files.catbox.moe/85l5u5.gif" alt="blinkie" class="blinkie">
-      </div>
+    </div>
+    <div class="profile-bio">digital princess</div>
+    <div class="blinkie-container">
+      <img src="https://files.catbox.moe/85l5u5.gif" alt="blinkie" class="blinkie">
     </div>
   </div>
-  
-  <div class="profile-stats">
-    <div class="view-count">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-        <circle cx="12" cy="12" r="3"></circle>
-      </svg>
-      <span id="view-count">0</span>
-    </div>
-  </div>
-  
-  <div class="social-links">
-    <a href="https://www.instagram.com/crrmii/" target="_blank" class="social-link">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+</div>
+
+<div class="icons-container">
+  <div class="social-icons">
+    <a href="https://www.instagram.com/crrmii/" target="_blank" class="icon-link" title="Instagram">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
         <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
       </svg>
-      <span>Instagram</span>
     </a>
-    <a href="https://www.tiktok.com/@crrmii" target="_blank" class="social-link">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <a href="https://www.tiktok.com/@crrmii" target="_blank" class="icon-link" title="TikTok">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
         <path d="M15 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
         <path d="M15 8v8a4 4 0 0 1-4 4"></path>
         <line x1="9" y1="12" x2="9" y2="20"></line>
         <path d="M12 16v-8a4 4 0 0 1 4-4"></path>
       </svg>
-      <span>TikTok</span>
     </a>
+  </div>
+  <div class="view-count">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+      <circle cx="12" cy="12" r="3"></circle>
+    </svg>
+    <span id="view-count">0</span>
   </div>
 </div>
 
-<div class="volume-control">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-  </svg>
-  <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider" id="volume-slider">
+<div class="copyright">© Conceal.lol all rights reserved 2025</div>
 </div>
 
-<audio id="background-music" loop autoplay>
-  <source src="https://files.catbox.moe/x9so10.mp3" type="audio/mpeg">
+<div class="volume-control">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+  <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+</svg>
+<input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider" id="volume-slider">
+</div>
+
+<audio id="background-music" loop>
+<source src="https://files.catbox.moe/x9so10.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 // Disable right-click
 document.addEventListener('contextmenu', function(e) {
-  e.preventDefault();
-  return false;
+e.preventDefault();
+return false;
 });
 
 // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
 document.addEventListener('keydown', function(e) {
-  if (
-    e.keyCode === 123 || // F12
-    (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
-    (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
-    (e.ctrlKey && e.keyCode === 85) // Ctrl+U
-  ) {
-    e.preventDefault();
-    return false;
-  }
+if (
+  e.keyCode === 123 || // F12
+  (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
+  (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
+  (e.ctrlKey && e.keyCode === 85) // Ctrl+U
+) {
+  e.preventDefault();
+  return false;
+}
 });
 
 // Tab title rotation
 (function() {
-  const titles = ["carmi.lol", "conceal.lol", "digital princess"];
-  let currentTitleIndex = 0;
+const titles = ["carmi.lol", "conceal.lol", "digital princess"];
+let currentTitleIndex = 0;
 
-  setInterval(() => {
-    document.title = titles[currentTitleIndex];
-    currentTitleIndex = (currentTitleIndex + 1) % titles.length;
-  }, 3000);
+setInterval(() => {
+  document.title = titles[currentTitleIndex];
+  currentTitleIndex = (currentTitleIndex + 1) % titles.length;
+}, 3000);
 })();
 
 // Bio rotation
 (function() {
-  const bioElement = document.querySelector('.profile-bio');
-  const bios = ["fashion nigga", "haiii :3", "follow crrmii on all socials", "play roblox with me"];
-  let currentBioIndex = 0;
+const bioElement = document.querySelector('.profile-bio');
+const bios = ["fashion nigga", "haiii :3", "follow crrmii on all socials", "play roblox with me"];
+let currentBioIndex = 0;
 
-  setInterval(() => {
-    bioElement.textContent = bios[currentBioIndex];
-    currentBioIndex = (currentBioIndex + 1) % bios.length;
-  }, 3000);
+setInterval(() => {
+  bioElement.textContent = bios[currentBioIndex];
+  currentBioIndex = (currentBioIndex + 1) % bios.length;
+}, 3000);
 })();
 
 // View counter
 (function() {
-  const viewCountElement = document.getElementById('view-count');
-  let count = localStorage.getItem('carmiViewCount') || 0;
-  count = parseInt(count) + 1;
-  localStorage.setItem('carmiViewCount', count);
-  viewCountElement.textContent = count;
+const viewCountElement = document.getElementById('view-count');
+let count = localStorage.getItem('carmiViewCount') || 0;
+count = parseInt(count) + 1;
+localStorage.setItem('carmiViewCount', count);
+viewCountElement.textContent = count;
 })();
 
 // Create hearts around name
 function createHearts() {
-  const nameElement = document.querySelector('.profile-name');
-  const heartsContainer = document.getElementById('hearts-container');
-  const heartCount = 12;
+const nameElement = document.querySelector('.profile-name');
+const heartsContainer = document.getElementById('hearts-container');
+const heartCount = 12;
+
+// Clear existing hearts
+heartsContainer.innerHTML = '';
+
+for (let i = 0; i < heartCount; i++) {
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.innerHTML = '♥';
   
-  // Clear existing hearts
-  heartsContainer.innerHTML = '';
+  // Position hearts in a circle around the name
+  const angle = (i / heartCount) * Math.PI * 2;
+  const distance = 30;
+  const x = Math.cos(angle) * distance;
+  const y = Math.sin(angle) * distance;
   
-  for (let i = 0; i < heartCount; i++) {
-    const heart = document.createElement('div');
-    heart.className = 'heart';
-    heart.innerHTML = '♥';
-    
-    // Position hearts in a circle around the name
-    const angle = (i / heartCount) * Math.PI * 2;
-    const distance = 30;
-    const x = Math.cos(angle) * distance;
-    const y = Math.sin(angle) * distance;
-    
-    heart.style.left = `calc(50% + ${x}px)`;
-    heart.style.top = `calc(50% + ${y}px)`;
-    
-    // Random delay for animation
-    heart.style.animationDelay = `${Math.random() * 3}s`;
-    
-    heartsContainer.appendChild(heart);
-  }
+  heart.style.left = `calc(50% + ${x}px)`;
+  heart.style.top = `calc(50% + ${y}px)`;
+  
+  // Random delay for animation
+  heart.style.animationDelay = `${Math.random() * 3}s`;
+  
+  heartsContainer.appendChild(heart);
+}
 }
 
 // Initialize hearts
@@ -540,92 +550,77 @@ createHearts();
 
 // Falling hearts
 function createFallingHeart() {
-  const heart = document.createElement('div');
-  heart.className = 'falling-heart';
-  heart.innerHTML = '♥';
-  heart.style.left = Math.random() * 100 + 'vw';
-  heart.style.fontSize = Math.random() * 1.5 + 0.5 + 'rem';
-  heart.style.animationDuration = Math.random() * 3 + 2 + 's';
-  
-  document.body.appendChild(heart);
-  
-  setTimeout(() => {
-    heart.remove();
-  }, 5000);
+const heart = document.createElement('div');
+heart.className = 'falling-heart';
+heart.innerHTML = '♥';
+heart.style.left = Math.random() * 100 + 'vw';
+heart.style.fontSize = Math.random() * 1.5 + 0.5 + 'rem';
+heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+
+document.body.appendChild(heart);
+
+setTimeout(() => {
+  heart.remove();
+}, 5000);
 }
 
 setInterval(createFallingHeart, 300);
 
 // Cursor sparkles
 document.addEventListener('mousemove', function(e) {
-  if (Math.random() > 0.9) { // Only create sparkles occasionally for performance
-    const sparkle = document.createElement('div');
-    sparkle.className = 'cursor-sparkle';
-    sparkle.style.left = `${e.clientX}px`;
-    sparkle.style.top = `${e.clientY}px`;
-    
-    // Random size
-    const size = Math.random() * 4 + 2;
-    sparkle.style.width = `${size}px`;
-    sparkle.style.height = `${size}px`;
-    
-    // Pink sparkles for Carmi's page
-    sparkle.style.backgroundColor = '#ec4899';
-    sparkle.style.boxShadow = '0 0 5px #ec4899';
-    
-    document.body.appendChild(sparkle);
-    
-    // Remove sparkle after animation completes
-    setTimeout(() => {
-      sparkle.remove();
-    }, 1000);
-  }
+if (Math.random() > 0.9) { // Only create sparkles occasionally for performance
+  const sparkle = document.createElement('div');
+  sparkle.className = 'cursor-sparkle';
+  sparkle.style.left = `${e.clientX}px`;
+  sparkle.style.top = `${e.clientY}px`;
+  
+  // Random size
+  const size = Math.random() * 4 + 2;
+  sparkle.style.width = `${size}px`;
+  sparkle.style.height = `${size}px`;
+  
+  // Pink sparkles for Carmi's page
+  sparkle.style
+.backgroundColor = '#ec4899';
+  sparkle.style.boxShadow = '0 0 5px #ec4899';
+  
+  document.body.appendChild(sparkle);
+  
+  // Remove sparkle after animation completes
+  setTimeout(() => {
+    sparkle.remove();
+  }, 1000);
+}
 });
 
 // Force audio to play
 window.onload = function() {
-  const backgroundMusic = document.getElementById('background-music');
+const backgroundMusic = document.getElementById('background-music');
+
+// Set localStorage flag for music
+localStorage.setItem('musicStarted', 'true');
+
+// Try to play music immediately
+backgroundMusic.play().catch(function(error) {
+  console.log('Audio playback prevented: User interaction required');
   
-  // Set localStorage flag for music
-  localStorage.setItem('musicStarted', 'true');
-  
-  // Try to play music immediately
-  backgroundMusic.play().catch(function(error) {
-    console.log('Audio playback prevented: User interaction required');
-    
-    // Create a silent audio context to unlock audio
-    const silentAudio = new Audio("data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV");
-    silentAudio.play().then(() => {
-      backgroundMusic.play().catch(e => console.log('Still cannot play audio'));
-    });
+  // Create a silent audio context to unlock audio
+  const silentAudio = new Audio("data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV");
+  silentAudio.play().then(() => {
+    backgroundMusic.play().catch(e => console.log('Still cannot play audio'));
   });
-  
-  // Try to play again on any user interaction
-  document.addEventListener('click', function() {
-    if (backgroundMusic.paused) {
-      backgroundMusic.play();
-    }
-  });
-  
-  // Request fullscreen with a slight delay to ensure it works
-  setTimeout(() => {
-    if (!document.fullscreenElement) {
-      const docElm = document.documentElement;
-      if (docElm.requestFullscreen) {
-        docElm.requestFullscreen();
-      } else if (docElm.mozRequestFullScreen) { /* Firefox */
-        docElm.mozRequestFullScreen();
-      } else if (docElm.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-        docElm.webkitRequestFullscreen();
-      } else if (docElm.msRequestFullscreen) { /* IE/Edge */
-        docElm.msRequestFullscreen();
-      }
-    }
-  }, 1000);
-  
-  // Volume control initialization
-  const volumeSlider = document.getElementById('volume-slider');
-  backgroundMusic.volume = volumeSlider.value;
+});
+
+// Try to play again on any user interaction
+document.addEventListener('click', function() {
+  if (backgroundMusic.paused) {
+    backgroundMusic.play();
+  }
+});
+
+// Volume control initialization
+const volumeSlider = document.getElementById('volume-slider');
+backgroundMusic.volume = volumeSlider.value;
 };
 
 // Volume control
@@ -633,7 +628,7 @@ const volumeSlider = document.getElementById('volume-slider');
 const backgroundMusic = document.getElementById('background-music');
 
 volumeSlider.addEventListener('input', function() {
-  backgroundMusic.volume = this.value;
+backgroundMusic.volume = this.value;
 });
 </script>
 </body>
