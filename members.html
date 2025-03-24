@@ -6,277 +6,305 @@
 <title>conceal.lol - Members</title>
 <style>
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Courier New', monospace;
-  cursor: crosshair;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Courier New', monospace;
+cursor: crosshair;
 }
 
 body {
-  background-color: #050505;
-  color: #fff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
+background-color: #050505;
+color: #fff;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 3rem 2rem;
 }
 
 .header {
-  width: 100%;
-  max-width: 1000px;
-  padding: 1rem 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 2rem;
+width: 100%;
+max-width: 900px;
+padding: 0 0 1.5rem 0;
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+margin-bottom: 3rem;
 }
 
 .header-title {
-  font-size: 1.8rem;
-  font-weight: bold;
-  letter-spacing: 4px;
-  text-transform: uppercase;
+font-size: 1.8rem;
+font-weight: bold;
+letter-spacing: 6px;
+text-transform: uppercase;
 }
 
 .back-button {
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  border-radius: 2px;
-  cursor: pointer;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+background: rgba(0, 0, 0, 0.3);
+border: 1px solid rgba(255, 255, 255, 0.1);
+color: white;
+padding: 0.5rem 1rem;
+font-size: 0.9rem;
+border-radius: 2px;
+cursor: pointer;
+text-decoration: none;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+transition: all 0.3s ease;
+}
+
+.back-button:hover {
+background: rgba(255, 255, 255, 0.05);
+transform: translateY(-2px);
 }
 
 .members-container {
-  width: 100%;
-  max-width: 1000px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem;
+width: 100%;
+max-width: 900px;
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+gap: 3rem;
 }
 
 .member-card {
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
-  width: 300px;
-  transition: transform 0.3s ease;
+background: rgba(0, 0, 0, 0.3);
+border: 1px solid rgba(255, 255, 255, 0.05);
+border-radius: 8px;
+overflow: hidden;
+width: 280px;
+transition: all 0.3s ease;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .member-card:hover {
-  transform: translateY(-5px);
+transform: translateY(-5px);
+box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+border-color: rgba(255, 255, 255, 0.1);
 }
 
 .member-image-container {
-  position: relative;
-  height: 300px;
-  overflow: hidden;
+position: relative;
+height: 280px;
+overflow: hidden;
 }
 
 .member-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: transform 0.5s ease;
+}
+
+.member-card:hover .member-image {
+transform: scale(1.05);
 }
 
 .member-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.8) 100%);
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.8) 100%);
 }
 
 .member-info {
-  padding: 1.5rem;
-  position: relative;
+padding: 1.2rem;
+position: relative;
 }
 
 .member-name {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+font-size: 1.3rem;
+font-weight: bold;
+margin-bottom: 0.5rem;
+display: flex;
+align-items: center;
+gap: 0.5rem;
 }
 
 .member-role {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 0.5rem;
-}
-
-.member-url {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 1rem;
-}
-
-.member-status {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8rem;
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 0.3rem 0.6rem;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.status-indicator {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #4ade80;
+font-size: 0.75rem;
+color: rgba(255, 255, 255, 0.6);
+text-transform: uppercase;
+letter-spacing: 1px;
+margin-bottom: 1rem;
 }
 
 .member-badge {
-  background: rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-  padding: 0.2rem 0.4rem;
-  font-size: 0.7rem;
-  color: white;
-  margin-right: 0.3rem;
-  display: inline-block;
+background: rgba(0, 0, 0, 0.5);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 3px;
+padding: 0.15rem 0.3rem;
+font-size: 0.65rem;
+color: white;
+margin-left: 0.3rem;
+display: inline-block;
 }
 
 .admin-badge {
-  border-color: rgba(239, 68, 68, 0.5);
+border-color: rgba(239, 68, 68, 0.3);
 }
 
 .princess-badge {
-  border-color: rgba(236, 72, 153, 0.6);
-  background-color: rgba(236, 72, 153, 0.1);
-  color: rgba(236, 72, 153, 1);
+border-color: rgba(236, 72, 153, 0.3);
+background-color: rgba(236, 72, 153, 0.05);
+color: rgba(236, 72, 153, 0.9);
 }
 
 .member-link {
-  display: inline-block;
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
+display: inline-block;
+background: rgba(0, 0, 0, 0.3);
+border: 1px solid rgba(255, 255, 255, 0.1);
+color: white;
+padding: 0.5rem 1rem;
+border-radius: 3px;
+text-decoration: none;
+font-size: 0.8rem;
+transition: all 0.3s ease;
+margin-top: 0.5rem;
 }
 
 .member-link:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
+background: rgba(255, 255, 255, 0.05);
+transform: translateY(-2px);
 }
 
 .noise {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAFVklEQVR4XpWWB67c2BUFb3g557T/hRo9/WUMZHlgr4Bg8Z4qQgQJlHI4A8SzFVrapvmTF9O7dmYRFZ60YiBhJRCgh1FYhiLAmdvX0CzTOpNE77ME0Zty/nWWzchDtiqrmQDeuv3powQ5ta2eN0FY0InkqDD73lT9c9lEzwUNqgFHs9VQce3TVClFCQrSTfOiYkVJQBmpbq2L6iZavPnAPcoU0dSw0SUTqz/GtrGuXfbyyBniKykOWQWGqwwMA7QiYAxi+IlPdqo+hYHnUt5ZPfnsHJyNiDtnpJyayNBkF6cWoYGAMY92U2hXHF/C1M8uP/ZtYdiuj26UdAdQQSXQErwSOMzt/XWRWAz5GuSBIkwG1H3FabJ2OsUOUhGC6tK4EMtJO0ttC6IBD3kM0ve0tJwMdSfjZo+EEISaeTr9P3wYrGjXqyC1krcKdhMpxEnt5JetoulscpyzhXN5FRpuPHvbeQaKxFAEB6EN+cYN6xD7RYGpXpNndMmZgM5Dcs3YSNFDHUo2LGfZuukSWyUYirJAdYbF3MfqEKmjM+I2EfhA94iG3L7uKrR+GdWD73ydlIB+6hgref1QTlmgmbM3/LeX5GI1Ux1RWpgxpLuZ2+I+IjzZ8wqE4nilvQdkUdfhzI5QDWy+kw5Wgg2pGpeEVeCCA7b85BO3F9DzxB3cdqvBzWcmzbyMiqhzuYqtHRVG2y4x+KOlnyqla8AoWWpuBoYRxzXrfKuILl6SfiWCbjxoZJUaCBj1CjH7GIaDbc9kqBY3W-Rgjda1iqQcOJu2WW+76pZC9QG7M00dffe9hNnseupFL53r8F7YHSwJWUKP2q+k7RdsxyOB11n0xtOvnW4irMMFNV4H0uqwS5ExsmP9AxbDTc9JwgneAT5vTiUSm1E7BSflSt3bfa1tv8Di3R8n3Af7MNWzs49hmauE2wP+ttrq+AsWpFG2awvsuOqbipWHgtuvuaAE+A1Z/7gC9hesnr+7wqCwG8c5yAg3AL1fm8T9AZtp/bbJGwl1pNrE7RuOX7PeMRUERVaPpEs+yqeoSmuOlokqw49pgomjLeh7icHNlG19yjs6XXOMedYm5xH2YxpV2tc0Ro2jJfxC50ApuxGob7lMsxfTbeUv07TyYxpeLucEH1gNd4IKH2LAg5TdVhlCafZvpskfncCfx8pOhJzd76bJWeYFnFciwcYfubRc12Ip_ppIhA1/mSZ/RxjFDrJC5xifFjJpY2Xl5zXdguFqYyTR1zSp1Y9p+tktDYYSNflcxI0iyO4TPBdlRcpeqjK_piF5bklq77VSEaA+z8qmJTFzIWiitbnzR794USKBUaT0NTEsVjZqLaFVqJoPN9ODG70IPbfBHKK+/q/AWR0tJzYHRULOa4MP+W/H");
-  opacity: 0.05;
-  z-index: -1;
-  pointer-events: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAFVklEQVR4XpWWB67c2BUFb3g557T/hRo9/WUMZHlgr4Bg8Z4qQgQJlHI4A8SzFVrapvmTF9O7dmYRFZ60YiBhJRCgh1FYhiLAmdvX0CzTOpNE77ME0Zty/nWWzchDtiqrmQDeuv3powQ5ta2eN0FY0InkqDD73lT9c9lEzwUNqgFHs9VQce3TVClFCQrSTfOiYkVJQBmpbq2L6iZavPnAPcoU0dSw0SUTqz/GtrGuXfbyyBniKykOWQWGqwwMA7QiYAxi+IlPdqo+hYHnUt5ZPfnsHJyNiDtnpJyayNBkF6cWoYGAMY92U2hXHF/C1M8uP/ZtYdiuj26UdAdQQSXQErwSOMzt/XWRWAz5GuSBIkwG1H3FabJ2OsUOUhGC6tK4EMtJO0ttC6IBD3kM0ve0tJwMdSfjZo+EEISaeTr9P3wYrGjXqyC1krcKdhMpxEnt5JetoulscpyzhXN5FRpuPHvbeQaKxFAEB6EN+cYN6xD7RYGpXpNndMmZgM5Dcs3YSNFDHUo2LGfZuukSWyUYirJAdYbF3MfqEKmjM+I2EfhA94iG3L7uKrR+GdWD73ydlIB+6hgref1QTlmgmbM3/LeX5GI1Ux1RWpgxpLuZ2+I+IjzZ8wqE4nilvQdkUdfhzI5QDWy+kw5Wgg2pGpeEVeCCA7b85BO3F9DzxB3cdqvBzWcmzbyMiqhzuYqtHRVG2y4x+KOlnyqla8AoWWpuBoYRxzXrfKuILl6SfiWCbjxoZJUaCBj1CjH7GIaDbc9kqBY3W-Rgjda1iqQcOJu2WW+76pZC9QG7M00dffe9hNnseupFL53r8F7YHSwJWUKP2q+k7RdsxyOB11n0xtOvnW4irMMFNV4H0uqwS5ExsmP9AxbDTc9JwgneAT5vTiUSm1E7BSflSt3bfa1tv8Di3R8n3Af7MNWzs49hmauE2wP+ttrq+AsWpFG2awvsuOqbipWHgtuvuaAE+A1Z/7gC9hesnr+7wqCwG8c5yAg3AL1fm8T9AZtp/bbJGwl1pNrE7RuOX7PeMRUERVaPpEs+yqeoSmuOlokqw49pgomjLeh7icHNlG19yjs6XXOMedYm5xH2YxpV2tc0Ro2jJfxC50ApuxGob7lMsxfTbeUv07TyYxpeLucEH1gNd4IKH2LAg5TdVhlCafZvpskfncCfx8pOhJzd76bJWeYFnFciwcYfubRc12Ip_ppIhA1/mSZ/RxjFDrJC5xifFjJpY2Xl5zXdguFqYyTR1zSp1Y9p+tktDYYSNflcxI0iyO4TPBdlRcpeqjK_piF5bklq77VSEaA+z8qmJTFzIWiitbnzR794USKBUaT0NTEsVjZqLaFVqJoPN9ODG70IPbfBHKK+/q/AWR0tJzYHRULOa4MP+W/H");
+opacity: 0.05;
+z-index: -1;
+pointer-events: none;
 }
 
 .vignette {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.7);
-  pointer-events: none;
-  z-index: -2;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.7);
+pointer-events: none;
+z-index: -2;
 }
 
 /* Rain effect */
 .rain {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -3;
-  pointer-events: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: -3;
+pointer-events: none;
 }
 
 .raindrop {
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.3);
-  width: 1px;
-  height: 15px;
-  animation: rain-fall linear infinite;
+position: absolute;
+background-color: rgba(255, 255, 255, 0.3);
+width: 1px;
+height: 15px;
+animation: rain-fall linear infinite;
 }
 
 @keyframes rain-fall {
-  0% {
-    transform: translateY(-100px);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.5;
-  }
-  90% {
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateY(100vh);
-    opacity: 0;
-  }
+0% {
+  transform: translateY(-100px);
+  opacity: 0;
+}
+10% {
+  opacity: 0.5;
+}
+90% {
+  opacity: 0.5;
+}
+100% {
+  transform: translateY(100vh);
+  opacity: 0;
+}
 }
 
 /* Add CSS for UID tooltip in members page */
-  .member-name span:first-child {
-    cursor: help;
-    position: relative;
-  }
-  
-  .member-name span:first-child:hover::after {
-    content: attr(title);
-    position: absolute;
-    top: -30px;
-    left: 0;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    white-space: nowrap;
-    z-index: 10;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
+.member-name span:first-child {
+  cursor: help;
+  position: relative;
+}
+
+.member-name span:first-child:hover::after {
+  content: attr(title);
+  position: absolute;
+  top: -30px;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  z-index: 10;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Volume control */
+.volume-control {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+}
+
+.volume-slider {
+  -webkit-appearance: none;
+  width: 100px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
 
 @media (max-width: 768px) {
-  .members-container {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .header-title {
-    font-size: 1.4rem;
-  }
+.members-container {
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 1.4rem;
+}
 }
 </style>
 <link rel="icon" href="https://files.catbox.moe/9kp7pc.png" type="image/png">
@@ -287,149 +315,178 @@ body {
 <div id="rain" class="rain"></div>
 
 <header class="header">
-  <h1 class="header-title">MEMBERS</h1>
-  <a href="index.html" class="back-button">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="m12 19-7-7 7-7"></path>
-      <path d="M19 12H5"></path>
-    </svg>
-    BACK
-  </a>
+<h1 class="header-title">MEMBERS</h1>
+<a href="index.html" class="back-button">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m12 19-7-7 7-7"></path>
+    <path d="M19 12H5"></path>
+  </svg>
+  BACK
+</a>
 </header>
 
 <div class="members-container">
-  <!-- Member 1: m!key -->
-  <div class="member-card">
-    <div class="member-image-container">
-      <img src="https://files.catbox.moe/iygu2a.jpg" alt="m!key" class="member-image">
-      <div class="member-overlay"></div>
-    </div>
-    <div class="member-info">
-      <div class="member-status">
-        <div class="status-indicator"></div>
-        Online
-      </div>
-      
-  <div class="member-name">
-    <span title="UID: 1">m!key</span>
-    <span class="member-badge admin-badge">OWNER</span>
+<!-- Member 1: m!key -->
+<div class="member-card">
+  <div class="member-image-container">
+    <img src="https://files.catbox.moe/iygu2a.jpg" alt="m!key" class="member-image">
+    <div class="member-overlay"></div>
   </div>
-      <div class="member-role">FOUNDER / DEVELOPER</div>
-      <div class="member-url">living dead boy</div>
-      <a href="mikey.html" class="member-link">View Profile</a>
+  <div class="member-info">
+    <div class="member-name">
+      <span title="UID: 1">m!key</span>
+      <span class="member-badge admin-badge">ADMIN</span>
     </div>
-  </div>
-
-  <!-- Member 2: carmi -->
-  <div class="member-card">
-    <div class="member-image-container">
-      <img src="https://files.catbox.moe/x74b3x.jpg" alt="carmi" class="member-image">
-      <div class="member-overlay"></div>
-    </div>
-    <div class="member-info">
-      <div class="member-status">
-        <div class="status-indicator"></div>
-        Online
-      </div>
-      
-  <div class="member-name">
-    <span title="UID: 2">carmi</span>
-    <span class="member-badge princess-badge">PRINCESS</span>
-  </div>
-      <div class="member-role">FASHION ICON</div>
-      <div class="member-url">living dead girl</div>
-      <a href="carmi.html" class="member-link">View Profile</a>
-    </div>
+    <div class="member-role">FOUNDER / DEVELOPER</div>
+    <a href="mikey.html" class="member-link">View Profile</a>
   </div>
 </div>
 
+<!-- Member 2: carmi -->
+<div class="member-card">
+  <div class="member-image-container">
+    <img src="https://files.catbox.moe/x74b3x.jpg" alt="carmi" class="member-image">
+    <div class="member-overlay"></div>
+  </div>
+  <div class="member-info">
+    <div class="member-name">
+      <span title="UID: 2">carmi</span>
+      <span class="member-badge princess-badge">PRINCESS</span>
+    </div>
+    <div class="member-role">CREATIVE DIRECTOR</div>
+    <a href="carmi.html" class="member-link">View Profile</a>
+  </div>
+</div>
+</div>
+
+<div class="volume-control">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+  </svg>
+  <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider" id="volume-slider">
+</div>
+
+<audio id="  max="1" step="0.01" value="0.5" class="volume-slider" id="volume-slider">
+</div>
+
 <audio id="background-music" loop>
-  <source src="https://files.catbox.moe/b0f1bu.mp3" type="audio/mpeg">
+<source src="https://files.catbox.moe/b0f1bu.mp3" type="audio/mpeg">
 </audio>
 
 <audio id="rain-sound" loop>
-  <source src="https://files.catbox.moe/yab6kg.mp3" type="audio/mpeg">
+<source src="https://files.catbox.moe/yab6kg.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 // Disable right-click
 document.addEventListener('contextmenu', function(e) {
-  e.preventDefault();
-  return false;
+e.preventDefault();
+return false;
 });
 
 // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
 document.addEventListener('keydown', function(e) {
-  if (
-    e.keyCode === 123 || // F12
-    (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
-    (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
-    (e.ctrlKey && e.keyCode === 85) // Ctrl+U
-  ) {
-    e.preventDefault();
-    return false;
-  }
+if (
+  e.keyCode === 123 || // F12
+  (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
+  (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
+  (e.ctrlKey && e.keyCode === 85) // Ctrl+U
+) {
+  e.preventDefault();
+  return false;
+}
 });
 
 // Rain effect
 (function() {
-  const rainContainer = document.getElementById('rain');
-  const rainDropCount = 100;
+const rainContainer = document.getElementById('rain');
+const rainDropCount = 100;
+
+for (let i = 0; i < rainDropCount; i++) {
+  const drop = document.createElement('div');
+  drop.className = 'raindrop';
   
-  for (let i = 0; i < rainDropCount; i++) {
-    const drop = document.createElement('div');
-    drop.className = 'raindrop';
-    
-    // Random positioning
-    drop.style.left = `${Math.random() * 100}%`;
-    
-    // Random animation duration
-    const duration = Math.random() * 1 + 0.5;
-    drop.style.animationDuration = `${duration}s`;
-    
-    // Random delay
-    drop.style.animationDelay = `${Math.random() * 2}s`;
-    
-    rainContainer.appendChild(drop);
-  }
+  // Random positioning
+  drop.style.left = `${Math.random() * 100}%`;
+  
+  // Random animation duration
+  const duration = Math.random() * 1 + 0.5;
+  drop.style.animationDuration = `${duration}s`;
+  
+  // Random delay
+  drop.style.animationDelay = `${Math.random() * 2}s`;
+  
+  rainContainer.appendChild(drop);
+}
 })();
 
 // Play audio immediately if coming from index page
 window.onload = function() {
-  if (localStorage.getItem('musicStarted') === 'true') {
-    const backgroundMusic = document.getElementById('background-music');
-    const rainSound = document.getElementById('rain-sound');
-    
-    backgroundMusic.play().catch(function(error) {
-      console.log('Audio playback prevented: User interaction required');
-    });
-    
-    rainSound.play().catch(function(error) {
-      console.log('Audio playback prevented: User interaction required');
-    });
-    
-    // Set rain sound volume lower to balance with music
-    rainSound.volume = 0.3;
-  }
-};
-
-// Play audio on interaction if not already playing
-document.addEventListener('click', function() {
+if (localStorage.getItem('musicStarted') === 'true') {
   const backgroundMusic = document.getElementById('background-music');
   const rainSound = document.getElementById('rain-sound');
   
-  if (backgroundMusic.paused) {
-    backgroundMusic.play().catch(function(error) {
-      console.log('Audio playback prevented: User interaction required');
+  backgroundMusic.play().catch(function(error) {
+    console.log('Audio playback prevented: User interaction required');
+    
+    // Create a silent audio context to unlock audio
+    const silentAudio = new Audio("data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV");
+    silentAudio.play().then(() => {
+      backgroundMusic.play();
+      rainSound.play();
+      rainSound.volume = 0.3;
     });
+  });
+  
+  // Set rain sound volume lower to balance with music
+  rainSound.volume = 0.3;
+}
+};
+
+// Volume control
+const volumeSlider = document.getElementById('volume-slider');
+const backgroundMusic = document.getElementById('background-music');
+const rainSound = document.getElementById('rain-sound');
+
+volumeSlider.addEventListener('input', function() {
+  const value = this.value;
+  backgroundMusic.volume = value;
+  rainSound.volume = value * 0.6; // Keep rain sound a bit quieter
+});
+
+// Play audio on interaction if not already playing
+document.addEventListener('click', function() {
+  if (backgroundMusic.paused) {
+    backgroundMusic.play();
   }
   
   if (rainSound.paused) {
-    rainSound.play().catch(function(error) {
-      console.log('Audio playback prevented: User interaction required');
-    });
-    rainSound.volume = 0.3;
+    rainSound.play();
+    rainSound.volume = backgroundMusic.volume * 0.6;
   }
+});
+
+// Add fullscreen functionality to member links
+document.querySelectorAll('.member-link').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const href = this.getAttribute('href');
+    
+    // Request fullscreen before navigating
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().then(() => {
+        window.location.href = href;
+      }).catch(() => {
+        // If fullscreen fails, still navigate
+        window.location.href = href;
+      });
+    } else {
+      // Fallback for browsers that don't support fullscreen
+      window.location.href = href;
+    }
+  });
 });
 </script>
 </body>
