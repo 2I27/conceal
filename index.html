@@ -216,6 +216,84 @@ display: block;
     opacity: 0;
   }
 }
+
+/* Animated background */
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -3;
+  background: radial-gradient(circle at center, rgba(15, 15, 15, 0.5) 0%, rgba(0, 0, 0, 0.8) 70%);
+  animation: pulse-bg 8s infinite alternate;
+}
+
+@keyframes pulse-bg {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+/* Glitch lines */
+.glitch-lines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.glitch-line {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-50%);
+  animation: glitch-line-move 3s infinite linear;
+}
+
+@keyframes glitch-line-move {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 200%;
+  }
+}
+
+/* Digital distortion */
+.digital-distortion {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+.distortion-element {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.05);
+  animation: distortion-flicker 0.2s infinite alternate;
+}
+
+@keyframes distortion-flicker {
+  0% {
+    opacity: 0.05;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
 </style>
 <link rel="icon" href="https://files.catbox.moe/9kp7pc.png" type="image/png">
 </head>
@@ -224,6 +302,9 @@ display: block;
 <div class="noise"></div>
 <div class="vignette"></div>
 <div class="particles" id="particles"></div>
+<div class="animated-bg"></div>
+<div class="glitch-lines" id="glitch-lines"></div>
+<div class="digital-distortion" id="digital-distortion"></div>
 <h1 class="enter-title">CONCEAL.LOL</h1>
 <div class="glitch-effect"></div>
 <p class="enter-subtitle">life is a fleeting, symbolic representation or a mere echo of something else, rather than a concrete or real entity.</p>
@@ -291,6 +372,57 @@ if (
     particle.style.animationDelay = `${Math.random() * 10}s`;
     
     particlesContainer.appendChild(particle);
+  }
+})();
+
+// Create glitch lines
+(function createGlitchLines() {
+  const glitchLinesContainer = document.getElementById('glitch-lines');
+  const lineCount = 10;
+  
+  for (let i = 0; i < lineCount; i++) {
+    const line = document.createElement('div');
+    line.className = 'glitch-line';
+    
+    // Random delay
+    const delay = Math.random() * 5;
+    line.style.animationDelay = `${delay}s`;
+    
+    // Random duration
+    const duration = Math.random() * 3 + 2;
+    line.style.animationDuration = `${duration}s`;
+    
+    // Random opacity
+    line.style.opacity = Math.random() * 0.1 + 0.05;
+    
+    glitchLinesContainer.appendChild(line);
+  }
+})();
+
+// Create digital distortion elements
+(function createDigitalDistortion() {
+  const distortionContainer = document.getElementById('digital-distortion');
+  const elementCount = 20;
+  
+  for (let i = 0; i < elementCount; i++) {
+    const element = document.createElement('div');
+    element.className = 'distortion-element';
+    
+    // Random positioning
+    element.style.left = `${Math.random() * 100}%`;
+    element.style.top = `${Math.random() * 100}%`;
+    
+    // Random size
+    const width = Math.random() * 100 + 50;
+    const height = Math.random() * 2 + 1;
+    element.style.width = `${width}px`;
+    element.style.height = `${height}px`;
+    
+    // Random animation duration
+    const duration = Math.random() * 0.3 + 0.1;
+    element.style.animationDuration = `${duration}s`;
+    
+    distortionContainer.appendChild(element);
   }
 })();
 
