@@ -156,7 +156,7 @@ body {
       <img src="https://files.catbox.moe/x74b3x.jpg" alt="carmi">
     </div>
     <div class="profile-info">
-      <div class="profile-name">carmi♥</div>
+      <div class="profile-name">carm♥</div>
       <div class="profile-bio">digital princess</div>
     </div>
   </div>
@@ -173,7 +173,7 @@ body {
   
   <div class="social-links">
     <a href="https://www.instagram.com/crrmii/" target="_blank" class="social-link">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-lin  height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
         <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
@@ -198,6 +198,29 @@ body {
 </audio>
 
 <script>
+// Tab title rotation
+(function() {
+  const titles = ["carmi.lol", "conceal.lol", "digital princess"];
+  let currentTitleIndex = 0;
+
+  setInterval(() => {
+    document.title = titles[currentTitleIndex];
+    currentTitleIndex = (currentTitleIndex + 1) % titles.length;
+  }, 3000);
+})();
+
+// Bio rotation
+(function() {
+  const bioElement = document.querySelector('.profile-bio');
+  const bios = ["fashion nigga", "haiii :3", "follow crrmii on all socials", "play roblox with me"];
+  let currentBioIndex = 0;
+
+  setInterval(() => {
+    bioElement.textContent = bios[currentBioIndex];
+    currentBioIndex = (currentBioIndex + 1) % bios.length;
+  }, 3000);
+})();
+
 // View counter
 (function() {
   const viewCountElement = document.getElementById('view-count');
