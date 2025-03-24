@@ -1,4 +1,4 @@
-&lt;!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -97,6 +97,23 @@ body {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
+  position: relative;
+  cursor: help;
+}
+
+.profile-name:hover::after {
+  content: attr(title);
+  position: absolute;
+  top: -30px;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  z-index: 10;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .profile-bio {
@@ -204,11 +221,11 @@ body {
       <img src="https://files.catbox.moe/iygu2a.jpg" alt="mikey">
     </div>
     <div class="profile-info">
-      <div class="profile-name">m!key</div>
+      <div class="profile-name" title="UID: 1">m!key</div>
       <div class="profile-bio">founder / developer</div>
     </div>
   </div>
-  
+
   <div class="profile-stats">
     <div class="view-count">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -218,7 +235,7 @@ body {
       <span id="view-count">0</span>
     </div>
   </div>
-  
+
   <div class="social-links">
     <a href="https://www.instagram.com/asthoics/" target="_blank" class="social-link">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -228,13 +245,7 @@ body {
       </svg>
       <span>Instagram</span>
     </a>
-    <a href="https://twitter.com/asthoics" target="_blank" class="social-link">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
-      </svg>
-      <span>Twitter</span>
-    </a>
-    <a href="https://discord.gg/conceal" target="_blank" class="social-link">
+    <a href="https://tiktok.com/@forgetmikey" target="_blank" class="social-link">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
         <path d="M15 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
@@ -242,18 +253,37 @@ body {
         <line x1="9" y1="12" x2="9" y2="20"></line>
         <path d="M12 16v-8a4 4 0 0 1 4-4"></path>
       </svg>
-      <span>Discord</span>
+      <span>TikTok</span>
     </a>
   </div>
-  
+
   <div class="member-url">conceal.lol/mikey</div>
 </div>
 
 <audio id="background-music" loop>
-  <source src="https://files.catbox.moe/x9so10.mp3" type="audio/mpeg">
+  <source src="https://files.catbox.moe/x65bmc.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+// Disable right-click
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+  return false;
+});
+
+// Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+document.addEventListener('keydown', function(e) {
+  if (
+    e.keyCode === 123 || // F12
+    (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
+    (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
+    (e.ctrlKey && e.keyCode === 85) // Ctrl+U
+  ) {
+    e.preventDefault();
+    return false;
+  }
+});
+
 // View counter
 (function() {
   const viewCountElement = document.getElementById('view-count');
@@ -267,8 +297,8 @@ body {
 (function() {
   const snowContainer = document.getElementById('snow');
   const snowFlakeCount = 100;
-  
-  for (let i = 0; i &lt; snowFlakeCount; i++) {
+
+  for (let i = 0; i < snowFlakeCount; i++) {
     const flake = document.createElement('div');
     flake.className = 'snow-flake';
     
@@ -291,11 +321,24 @@ body {
   }
 })();
 
-// Play audio on interaction
+// Play audio immediately if coming from index page
+window.onload = function() {
+  if (localStorage.getItem('musicStarted') === 'true') {
+    document.getElementById('background-music').play().catch(function(error) {
+      console.log('Audio playback prevented: User interaction required');
+    });
+  }
+};
+
+// Play audio on interaction if not already playing
 document.addEventListener('click', function() {
-  document.getElementById('background-music').play().catch(function(error) {
-    console.log('Audio playback prevented: User interaction required');
-  });
+  const backgroundMusic = document.getElementById('background-music');
+  
+  if (backgroundMusic.paused) {
+    backgroundMusic.play().catch(function(error) {
+      console.log('Audio playback prevented: User interaction required');
+    });
+  }
 });
 </script>
 </body>
