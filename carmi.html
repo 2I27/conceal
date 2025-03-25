@@ -142,6 +142,29 @@ cursor: help;
 z-index: 2;
 }
 
+.uid-tooltip {
+position: absolute;
+top: -30px;
+left: 0;
+background: rgba(0, 0, 0, 0.8);
+color: rgb(249, 168, 212);
+padding: 5px 10px;
+border-radius: 4px;
+font-size: 0.8rem;
+white-space: nowrap;
+z-index: 10;
+border: 1px solid rgba(236, 72, 153, 0.3);
+opacity: 0;
+transform: translateY(10px);
+transition: opacity 0.3s ease, transform 0.3s ease;
+pointer-events: none;
+}
+
+.profile-name:hover + .uid-tooltip {
+opacity: 1;
+transform: translateY(0);
+}
+
 .heart-dot {
 display: inline-block;
 color: #ec4899;
@@ -172,21 +195,6 @@ transform: scale(1) rotate(10deg);
 opacity: 0;
 transform: scale(0) rotate(20deg);
 }
-}
-
-.profile-name:hover::after {
-content: attr(title);
-position: absolute;
-top: -30px;
-left: 0;
-background: rgba(0, 0, 0, 0.8);
-color: rgb(249, 168, 212);
-padding: 5px 10px;
-border-radius: 4px;
-font-size: 0.8rem;
-white-space: nowrap;
-z-index: 10;
-border: 1px solid rgba(236, 72, 153, 0.3);
 }
 
 .profile-bio {
@@ -396,7 +404,8 @@ BACK
 <div class="profile-info">
   <div class="profile-name-wrapper">
     <div class="profile-name-container">
-      <div class="profile-name" title="UID: 2" style="color: rgb(249, 168, 212);">carmi</div>
+      <div class="profile-name">carmi</div>
+      <div class="uid-tooltip">UID: 2</div>
       <div id="hearts-container"></div>
     </div>
     <div class="profile-badges">
