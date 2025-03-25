@@ -80,10 +80,10 @@ animation: shimmer 3s infinite;
 
 @keyframes shimmer {
 0% {
-  transform: translateX(-100%);
+transform: translateX(-100%);
 }
 100% {
-  transform: translateX(100%);
+transform: translateX(100%);
 }
 }
 
@@ -161,16 +161,16 @@ animation: heart-animation 3s infinite;
 
 @keyframes heart-animation {
 0% {
-  opacity: 0;
-  transform: scale(0) rotate(0deg);
+opacity: 0;
+transform: scale(0) rotate(0deg);
 }
 50% {
-  opacity: 1;
-  transform: scale(1) rotate(10deg);
+opacity: 1;
+transform: scale(1) rotate(10deg);
 }
 100% {
-  opacity: 0;
-  transform: scale(0) rotate(20deg);
+opacity: 0;
+transform: scale(0) rotate(20deg);
 }
 }
 
@@ -180,13 +180,13 @@ position: absolute;
 top: -30px;
 left: 0;
 background: rgba(0, 0, 0, 0.8);
-color: white;
+color: rgb(249, 168, 212);
 padding: 5px 10px;
 border-radius: 4px;
 font-size: 0.8rem;
 white-space: nowrap;
 z-index: 10;
-border: 1px solid rgba(255, 255, 255, 0.2);
+border: 1px solid rgba(236, 72, 153, 0.3);
 }
 
 .profile-bio {
@@ -297,12 +297,12 @@ animation: heartFall linear forwards;
 
 @keyframes heartFall {
 0% {
-  transform: translateY(-10vh);
-  opacity: 1;
+transform: translateY(-10vh);
+opacity: 1;
 }
 100% {
-  transform: translateY(100vh);
-  opacity: 0;
+transform: translateY(100vh);
+opacity: 0;
 }
 }
 
@@ -321,16 +321,16 @@ animation: cursor-sparkle-fade 1s forwards;
 
 @keyframes cursor-sparkle-fade {
 0% {
-  opacity: 1;
-  transform: scale(0);
+opacity: 1;
+transform: scale(0);
 }
 50% {
-  opacity: 1;
-  transform: scale(1);
+opacity: 1;
+transform: scale(1);
 }
 100% {
-  opacity: 0;
-  transform: scale(0);
+opacity: 0;
+transform: scale(0);
 }
 }
 
@@ -382,69 +382,69 @@ border: none;
 <body>
 <a href="members.html" class="back-button">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="m12 19-7-7 7-7"></path>
-  <path d="M19 12H5"></path>
+<path d="m12 19-7-7 7-7"></path>
+<path d="M19 12H5"></path>
 </svg>
 BACK
 </a>
 
 <div class="profile-card">
 <div class="profile-header">
-  <div class="profile-image">
-    <img src="https://files.catbox.moe/x74b3x.jpg" alt="carmi">
-  </div>
-  <div class="profile-info">
-    <div class="profile-name-wrapper">
-      <div class="profile-name-container">
-        <div class="profile-name" title="UID: 666" style="color: rgb(249, 168, 212);">carmi</div>
-        <div id="hearts-container"></div>
+<div class="profile-image">
+  <img src="https://files.catbox.moe/x74b3x.jpg" alt="carmi">
+</div>
+<div class="profile-info">
+  <div class="profile-name-wrapper">
+    <div class="profile-name-container">
+      <div class="profile-name" title="UID: 2" style="color: rgb(249, 168, 212);">carmi</div>
+      <div id="hearts-container"></div>
+    </div>
+    <div class="profile-badges">
+      <div class="profile-badge" title="Loved">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#ec4899" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+        </svg>
       </div>
-      <div class="profile-badges">
-        <div class="profile-badge" title="Loved">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#ec4899" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
-          </svg>
-        </div>
-        <div class="profile-badge" title="Verified">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-          </svg>
-        </div>
+      <div class="profile-badge" title="Verified">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
       </div>
     </div>
-    <div class="profile-bio">digital princess</div>
-    <div class="blinkie-container">
-      <img src="https://files.catbox.moe/85l5u5.gif" alt="blinkie" class="blinkie">
-    </div>
   </div>
+  <div class="profile-bio">digital princess</div>
+  <div class="blinkie-container">
+    <img src="https://files.catbox.moe/85l5u5.gif" alt="blinkie" class="blinkie">
+  </div>
+</div>
 </div>
 
 <div class="icons-container">
-  <div class="social-icons">
-    <a href="https://www.instagram.com/crrmii/" target="_blank" class="icon-link" title="Instagram">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-      </svg>
-    </a>
-    <a href="https://www.tiktok.com/@crrmii" target="_blank" class="icon-link" title="TikTok">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
-        <path d="M15 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
-        <path d="M15 8v8a4 4 0 0 1-4 4"></path>
-        <line x1="9" y1="12" x2="9" y2="20"></line>
-        <path d="M12 16v-8a4 4 0 0 1 4-4"></path>
-      </svg>
-    </a>
-  </div>
-  <div class="view-count">
+<div class="social-icons">
+  <a href="https://www.instagram.com/crrmii/" target="_blank" class="icon-link" title="Instagram">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-      <circle cx="12" cy="12" r="3"></circle>
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
     </svg>
-    <span id="view-count">0</span>
-  </div>
+  </a>
+  <a href="https://www.tiktok.com/@crrmii" target="_blank" class="icon-link" title="TikTok">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
+      <path d="M15 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
+      <path d="M15 8v8a4 4 0 0 1-4 4"></path>
+      <line x1="9" y1="12" x2="9" y2="20"></line>
+      <path d="M12 16v-8a4 4 0 0 1 4-4"></path>
+    </svg>
+  </a>
+</div>
+<div class="view-count">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+    <circle cx="12" cy="12" r="3"></circle>
+  </svg>
+  <span id="view-count">0</span>
+</div>
 </div>
 
 <div class="copyright">© Conceal.lol all rights reserved 2025</div>
@@ -452,9 +452,9 @@ BACK
 
 <div class="volume-control">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-  <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+<path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+<path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
 </svg>
 <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider" id="volume-slider">
 </div>
@@ -473,13 +473,13 @@ return false;
 // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
 document.addEventListener('keydown', function(e) {
 if (
-  e.keyCode === 123 || // F12
-  (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
-  (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
-  (e.ctrlKey && e.keyCode === 85) // Ctrl+U
+e.keyCode === 123 || // F12
+(e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
+(e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
+(e.ctrlKey && e.keyCode === 85) // Ctrl+U
 ) {
-  e.preventDefault();
-  return false;
+e.preventDefault();
+return false;
 }
 });
 
@@ -489,8 +489,8 @@ const titles = ["carmi.lol", "conceal.lol", "digital princess"];
 let currentTitleIndex = 0;
 
 setInterval(() => {
-  document.title = titles[currentTitleIndex];
-  currentTitleIndex = (currentTitleIndex + 1) % titles.length;
+document.title = titles[currentTitleIndex];
+currentTitleIndex = (currentTitleIndex + 1) % titles.length;
 }, 3000);
 })();
 
@@ -501,8 +501,8 @@ const bios = ["fashion nigga", "haiii :3", "follow crrmii on all socials", "play
 let currentBioIndex = 0;
 
 setInterval(() => {
-  bioElement.textContent = bios[currentBioIndex];
-  currentBioIndex = (currentBioIndex + 1) % bios.length;
+bioElement.textContent = bios[currentBioIndex];
+currentBioIndex = (currentBioIndex + 1) % bios.length;
 }, 3000);
 })();
 
@@ -525,23 +525,23 @@ const heartCount = 12;
 heartsContainer.innerHTML = '';
 
 for (let i = 0; i < heartCount; i++) {
-  const heart = document.createElement('div');
-  heart.className = 'heart';
-  heart.innerHTML = '♥';
-  
-  // Position hearts in a circle around the name
-  const angle = (i / heartCount) * Math.PI * 2;
-  const distance = 30;
-  const x = Math.cos(angle) * distance;
-  const y = Math.sin(angle) * distance;
-  
-  heart.style.left = `calc(50% + ${x}px)`;
-  heart.style.top = `calc(50% + ${y}px)`;
-  
-  // Random delay for animation
-  heart.style.animationDelay = `${Math.random() * 3}s`;
-  
-  heartsContainer.appendChild(heart);
+const heart = document.createElement('div');
+heart.className = 'heart';
+heart.innerHTML = '♥';
+
+// Position hearts in a circle around the name
+const angle = (i / heartCount) * Math.PI * 2;
+const distance = 30;
+const x = Math.cos(angle) * distance;
+const y = Math.sin(angle) * distance;
+
+heart.style.left = `calc(50% + ${x}px)`;
+heart.style.top = `calc(50% + ${y}px)`;
+
+// Random delay for animation
+heart.style.animationDelay = `${Math.random() * 3}s`;
+
+heartsContainer.appendChild(heart);
 }
 }
 
@@ -560,7 +560,7 @@ heart.style.animationDuration = Math.random() * 3 + 2 + 's';
 document.body.appendChild(heart);
 
 setTimeout(() => {
-  heart.remove();
+heart.remove();
 }, 5000);
 }
 
@@ -569,27 +569,27 @@ setInterval(createFallingHeart, 300);
 // Cursor sparkles
 document.addEventListener('mousemove', function(e) {
 if (Math.random() > 0.9) { // Only create sparkles occasionally for performance
-  const sparkle = document.createElement('div');
-  sparkle.className = 'cursor-sparkle';
-  sparkle.style.left = `${e.clientX}px`;
-  sparkle.style.top = `${e.clientY}px`;
-  
-  // Random size
-  const size = Math.random() * 4 + 2;
-  sparkle.style.width = `${size}px`;
-  sparkle.style.height = `${size}px`;
-  
-  // Pink sparkles for Carmi's page
-  sparkle.style
+const sparkle = document.createElement('div');
+sparkle.className = 'cursor-sparkle';
+sparkle.style.left = `${e.clientX}px`;
+sparkle.style.top = `${e.clientY}px`;
+
+// Random size
+const size = Math.random() * 4 + 2;
+sparkle.style.width = `${size}px`;
+sparkle.style.height = `${size}px`;
+
+// Pink sparkles for Carmi's page
+sparkle.style
 .backgroundColor = '#ec4899';
-  sparkle.style.boxShadow = '0 0 5px #ec4899';
-  
-  document.body.appendChild(sparkle);
-  
-  // Remove sparkle after animation completes
-  setTimeout(() => {
-    sparkle.remove();
-  }, 1000);
+sparkle.style.boxShadow = '0 0 5px #ec4899';
+
+document.body.appendChild(sparkle);
+
+// Remove sparkle after animation completes
+setTimeout(() => {
+  sparkle.remove();
+}, 1000);
 }
 });
 
@@ -602,20 +602,20 @@ localStorage.setItem('musicStarted', 'true');
 
 // Try to play music immediately
 backgroundMusic.play().catch(function(error) {
-  console.log('Audio playback prevented: User interaction required');
-  
-  // Create a silent audio context to unlock audio
-  const silentAudio = new Audio("data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV");
-  silentAudio.play().then(() => {
-    backgroundMusic.play().catch(e => console.log('Still cannot play audio'));
-  });
+console.log('Audio playback prevented: User interaction required');
+
+// Create a silent audio context to unlock audio
+const silentAudio = new Audio("data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV");
+silentAudio.play().then(() => {
+  backgroundMusic.play().catch(e => console.log('Still cannot play audio'));
+});
 });
 
 // Try to play again on any user interaction
 document.addEventListener('click', function() {
-  if (backgroundMusic.paused) {
-    backgroundMusic.play();
-  }
+if (backgroundMusic.paused) {
+  backgroundMusic.play();
+}
 });
 
 // Volume control initialization
