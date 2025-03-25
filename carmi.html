@@ -150,7 +150,7 @@ z-index: 2;
 }
 
 .profile-name:hover::after {
-content: "UID: 2";
+content: attr(title);
 position: absolute;
 top: -30px;
 left: 0;
@@ -403,7 +403,7 @@ BACK
 <div class="profile-info">
   <div class="profile-name-wrapper">
     <div class="profile-name-container">
-      <div class="profile-name">carmi</div>
+      <div class="profile-name" title="UID: 2">carmi</div>
       <div id="hearts-container"></div>
     </div>
     <div class="profile-badges">
