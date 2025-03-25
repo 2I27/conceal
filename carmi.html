@@ -100,6 +100,13 @@ border-bottom: 1px solid rgba(236, 72, 153, 0.05);
 width: 90px;
 height: 90px;
 border-radius: 50%;
+overflow: hidden;72,153,0.05);
+}
+
+.profile-image {
+width: 90px;
+height: 90px;
+border-radius: 50%;
 overflow: hidden;
 border: 2px solid rgba(236, 72, 153, 0.3);
 transition: transform 0.3s ease;
@@ -142,7 +149,8 @@ cursor: help;
 z-index: 2;
 }
 
-.uid-tooltip {
+.profile-name:hover::after {
+content: "UID: 2";
 position: absolute;
 top: -30px;
 left: 0;
@@ -154,15 +162,6 @@ font-size: 0.8rem;
 white-space: nowrap;
 z-index: 10;
 border: 1px solid rgba(236, 72, 153, 0.3);
-opacity: 0;
-transform: translateY(10px);
-transition: opacity 0.3s ease, transform 0.3s ease;
-pointer-events: none;
-}
-
-.profile-name:hover + .uid-tooltip {
-opacity: 1;
-transform: translateY(0);
 }
 
 .heart-dot {
@@ -405,7 +404,6 @@ BACK
   <div class="profile-name-wrapper">
     <div class="profile-name-container">
       <div class="profile-name">carmi</div>
-      <div class="uid-tooltip">UID: 2</div>
       <div id="hearts-container"></div>
     </div>
     <div class="profile-badges">
@@ -589,8 +587,7 @@ sparkle.style.width = `${size}px`;
 sparkle.style.height = `${size}px`;
 
 // Pink sparkles for Carmi's page
-sparkle.style
-.backgroundColor = '#ec4899';
+sparkle.style.backgroundColor = '#ec4899';
 sparkle.style.boxShadow = '0 0 5px #ec4899';
 
 document.body.appendChild(sparkle);
