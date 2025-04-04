@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>conceal.lol - Members</title>
+<title>conceal.lol - Exclusives</title>
 <style>
 * {
 margin: 0;
@@ -41,8 +41,27 @@ position: absolute;
 bottom: -1px;
 left: 0;
 width: 100%;
-height: 1px;
+height: 2px;
 background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+animation: borderGradient 8s infinite alternate;
+}
+
+@keyframes borderGradient {
+0% {
+  background: linear-gradient(90deg, transparent, rgba(20, 20, 20, 0.8), transparent);
+}
+25% {
+  background: linear-gradient(90deg, transparent, rgba(50, 50, 50, 0.8), transparent);
+}
+50% {
+  background: linear-gradient(90deg, transparent, rgba(120, 120, 120, 0.8), transparent);
+}
+75% {
+  background: linear-gradient(90deg, transparent, rgba(180, 180, 180, 0.8), transparent);
+}
+100% {
+  background: linear-gradient(90deg, transparent, rgba(220, 220, 220, 0.8), transparent);
+}
 }
 
 .header-title {
@@ -50,7 +69,75 @@ font-size: 1.8rem;
 font-weight: bold;
 letter-spacing: 6px;
 text-transform: uppercase;
-text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+animation: rainbow 8s linear infinite, rainbow-glow 8s linear infinite;
+position: relative;
+}
+
+@keyframes rainbow {
+0% {
+  background-position: 0% 50%;
+}
+50% {
+  background-position: 100% 50%;
+}
+100% {
+  background-position: 0% 50%;
+}
+}
+
+@keyframes rainbow-glow {
+0% {
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8),
+               0 0 20px rgba(255, 0, 0, 0.6),
+               0 0 30px rgba(255, 0, 0, 0.4),
+               0 0 40px rgba(255, 0, 0, 0.2);
+}
+14% {
+  text-shadow: 0 0 10px rgba(255, 127, 0, 0.8),
+               0 0 20px rgba(255, 127, 0, 0.6),
+               0 0 30px rgba(255, 127, 0, 0.4),
+               0 0 40px rgba(255, 127, 0, 0.2);
+}
+28% {
+  text-shadow: 0 0 10px rgba(255, 255, 0, 0.8),
+               0 0 20px rgba(255, 255, 0, 0.6),
+               0 0 30px rgba(255, 255, 0, 0.4),
+               0 0 40px rgba(255, 255, 0, 0.2);
+}
+42% {
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.8),
+               0 0 20px rgba(0, 255, 0, 0.6),
+               0 0 30px rgba(0, 255, 0, 0.4),
+               0 0 40px rgba(0, 255, 0, 0.2);
+}
+57% {
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8),
+               0 0 20px rgba(0, 255, 255, 0.6),
+               0 0 30px rgba(0, 255, 255, 0.4),
+               0 0 40px rgba(0, 255, 255, 0.2);
+}
+71% {
+  text-shadow: 0 0 10px rgba(0, 0, 255, 0.8),
+               0 0 20px rgba(0, 0, 255, 0.6),
+               0 0 30px rgba(0, 0, 255, 0.4),
+               0 0 40px rgba(0, 0, 255, 0.2);
+}
+85% {
+  text-shadow: 0 0 10px rgba(148, 0, 211, 0.8),
+               0 0 20px rgba(148, 0, 211, 0.6),
+               0 0 30px rgba(148, 0, 211, 0.4),
+               0 0 40px rgba(148, 0, 211, 0.2);
+}
+100% {
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8),
+               0 0 20px rgba(255, 0, 0, 0.6),
+               0 0 30px rgba(255, 0, 0, 0.4),
+               0 0 40px rgba(255, 0, 0, 0.2);
+}
 }
 
 .back-button {
@@ -398,7 +485,7 @@ animation: ambient-shift 20s infinite alternate;
 <div class="ambient-bg"></div>
 
 <header class="header">
-<h1 class="header-title">MEMBERS</h1>
+<h1 class="header-title">EXCLUSIVES</h1>
 <a href="index.html" class="back-button">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="m12 19-7-7 7-7"></path>
@@ -567,4 +654,3 @@ if (rainSound.paused) {
 </script>
 </body>
 </html>
-
