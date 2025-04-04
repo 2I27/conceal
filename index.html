@@ -32,12 +32,12 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #000000;
+      background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent to show snow */
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
+      z-index: 10;
       transition: opacity 1.5s ease;
     }
 
@@ -54,6 +54,8 @@
                   0 0 40px rgba(255, 255, 255, 0.4);
       animation: pulse 2s infinite;
       margin-bottom: 20px;
+      position: relative;
+      z-index: 15;
     }
 
     .sub-text {
@@ -62,6 +64,8 @@
       color: rgba(255, 255, 255, 0.5);
       letter-spacing: 1px;
       text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+      position: relative;
+      z-index: 15;
     }
 
     @keyframes pulse {
@@ -99,9 +103,12 @@
       );
       pointer-events: none;
       transform: translate(-50%, -50%);
-      z-index: 999;
+      z-index: 20; /* Higher than enter-screen to ensure visibility */
       mix-blend-mode: screen;
       opacity: 1; /* Ensure it's visible */
+      /* Initial position at center of screen */
+      left: 50%;
+      top: 50%;
     }
 
     /* Snow canvas */
@@ -111,7 +118,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: 1;
+      z-index: 5;
       pointer-events: none;
     }
   </style>
@@ -166,85 +173,83 @@
     // Cursor light effect - ensure it's visible immediately
     const cursorLight = document.querySelector('.cursor-light');
     
-    // Set initial position to center of screen to ensure it's visible before mouse movement
+    // Set initial position to center of screen
     cursorLight.style.left = window.innerWidth / 2 + 'px';
     cursorLight.style.top = window.innerHeight / 2 + 'px';
     
+    // Move cursor light with mouse
     document.addEventListener('mousemove', function(e) {
       cursorLight.style.left = e.clientX + 'px';
       cursorLight.style.top = e.clientY + 'px';
     });
 
-    // Snow effect
+    // Optimized snow effect using canvas
     const canvas = document.getElementById('snow-canvas');
     const ctx = canvas.getContext('2d');
     
     // Set canvas size to window size
-    function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    // Resize canvas when window is resized
+    window.addEventListener('resize', function() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-    }
-    
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    
-    // Snowflake class
-    class Snowflake {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height * -1; // Start above the screen
-        this.radius = Math.random() * 2 + 0.5; // Size between 0.5 and 2.5
-        this.speed = Math.random() * 1 + 0.5; // Speed between 0.5 and 1.5
-        this.wind = Math.random() * 0.5 - 0.25; // Wind effect
-        this.opacity = Math.random() * 0.5 + 0.3; // Opacity between 0.3 and 0.8
-      }
-      
-      update() {
-        this.y += this.speed;
-        this.x += this.wind;
-        
-        // Reset if off screen
-        if (this.y > canvas.height) {
-          this.y = Math.random() * canvas.height * -1;
-          this.x = Math.random() * canvas.width;
-        }
-        
-        if (this.x < 0) {
-          this.x = canvas.width;
-        } else if (this.x > canvas.width) {
-          this.x = 0;
-        }
-      }
-      
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-        ctx.fill();
-      }
-    }
+    });
     
     // Create snowflakes
     const snowflakes = [];
-    const snowflakeCount = 150; // Adjust for more or fewer snowflakes
+    const snowflakeCount = 80; // Reduced count for better performance
     
     for (let i = 0; i < snowflakeCount; i++) {
-      snowflakes.push(new Snowflake());
+      snowflakes.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 2 + 1, // Size between 1 and 3
+        speed: Math.random() * 0.5 + 0.2, // Slower speed for better performance
+        wind: Math.random() * 0.2 - 0.1, // Less wind for better performance
+        opacity: Math.random() * 0.5 + 0.3 // Opacity between 0.3 and 0.8
+      });
     }
     
     // Animation loop
-    function animate() {
+    function drawSnow() {
+      // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      snowflakes.forEach(snowflake => {
-        snowflake.update();
-        snowflake.draw();
-      });
+      // Draw each snowflake
+      for (let i = 0; i < snowflakes.length; i++) {
+        const flake = snowflakes[i];
+        
+        // Update position
+        flake.y += flake.speed;
+        flake.x += flake.wind;
+        
+        // Reset if off screen
+        if (flake.y > canvas.height) {
+          flake.y = -5;
+          flake.x = Math.random() * canvas.width;
+        }
+        
+        if (flake.x < 0) {
+          flake.x = canvas.width;
+        } else if (flake.x > canvas.width) {
+          flake.x = 0;
+        }
+        
+        // Draw snowflake
+        ctx.beginPath();
+        ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${flake.opacity})`;
+        ctx.fill();
+      }
       
-      requestAnimationFrame(animate);
+      // Continue animation
+      requestAnimationFrame(drawSnow);
     }
     
-    animate();
+    // Start snow animation immediately
+    drawSnow();
 
     // Enter functionality
     document.querySelector('.enter-text').addEventListener('click', function() {
