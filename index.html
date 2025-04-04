@@ -1,140 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>conceal.lol</title>
-<style>
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: 'Courier New', monospace;
-cursor: crosshair;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>conceal.lol</title>
+  <!-- Import pixel font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      cursor: crosshair;
+    }
 
-body {
-background-color: #050505;
-color: #fff;
-min-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
-overflow: hidden;
-}
+    body {
+      background-color: #000000;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
 
-#enter-screen {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: #050505;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-z-index: 1000;
-transition: opacity 1.5s ease;
-}
+    #enter-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: opacity 1.5s ease;
+    }
 
-.enter-button {
-background: rgba(0, 0, 0, 0.3);
-border: 1px solid rgba(255, 255, 255, 0.1);
-color: white;
-padding: 12px 30px;
-font-size: 14px;
-border-radius: 2px;
-cursor: pointer;
-transition: all 0.3s ease;
-margin-top: 30px;
-letter-spacing: 2px;
-text-transform: uppercase;
-font-family: 'Arial', sans-serif;
-}
+    .enter-text {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      color: #ffffff;
+      text-transform: lowercase;
+      cursor: pointer;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                  0 0 20px rgba(255, 255, 255, 0.8),
+                  0 0 30px rgba(255, 255, 255, 0.6),
+                  0 0 40px rgba(255, 255, 255, 0.4);
+      animation: pulse 2s infinite;
+      margin-bottom: 20px;
+    }
 
-.enter-button:hover {
-background: rgba(255, 255, 255, 0.05);
-}
+    .sub-text {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.5rem;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 1px;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
 
-.enter-title {
-font-size: 3rem;
-margin-bottom: 1rem;
-letter-spacing: 8px;
-text-transform: uppercase;
-font-weight: bold;
-color: #fff;
-}
+    @keyframes pulse {
+      0% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                    0 0 20px rgba(255, 255, 255, 0.8),
+                    0 0 30px rgba(255, 255, 255, 0.6),
+                    0 0 40px rgba(255, 255, 255, 0.4);
+      }
+      50% {
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.9),
+                    0 0 25px rgba(255, 255, 255, 0.9),
+                    0 0 35px rgba(255, 255, 255, 0.7),
+                    0 0 45px rgba(255, 255, 255, 0.5);
+      }
+      100% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                    0 0 20px rgba(255, 255, 255, 0.8),
+                    0 0 30px rgba(255, 255, 255, 0.6),
+                    0 0 40px rgba(255, 255, 255, 0.4);
+      }
+    }
 
-.enter-subtitle {
-font-size: 0.8rem;
-margin-bottom: 1.5rem;
-opacity: 0.6;
-letter-spacing: 1px;
-color: rgba(255, 255, 255, 0.7);
-max-width: 80%;
-text-align: center;
-line-height: 1.5;
-}
-</style>
-<link rel="icon" href="https://files.catbox.moe/9kp7pc.png" type="image/png">
+    /* Cursor light effect */
+    .cursor-light {
+      position: fixed;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.05) 40%,
+        rgba(255, 255, 255, 0) 70%
+      );
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 999;
+      mix-blend-mode: screen;
+      opacity: 1; /* Ensure it's visible */
+    }
+
+    /* Snow canvas */
+    #snow-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+  </style>
+  <link rel="icon" href="https://files.catbox.moe/9kp7pc.png" type="image/png">
 </head>
 <body>
-<div id="enter-screen">
-<h1 class="enter-title">CONCEAL.LOL</h1>
-<p class="enter-subtitle">life is a fleeting, symbolic representation or a mere echo of something else, rather than a concrete or real entity.</p>
-<button id="enter-button" class="enter-button">Enter</button>
-</div>
+  <!-- Snow canvas -->
+  <canvas id="snow-canvas"></canvas>
+  
+  <!-- Cursor light element -->
+  <div class="cursor-light"></div>
+  
+  <div id="enter-screen">
+    <div class="enter-text">click to enter</div>
+    <div class="sub-text">mikey creates art</div>
+  </div>
 
-<!-- Audio elements for preloading -->
-<audio id="members-music" preload="auto">
-<source src="https://files.catbox.moe/b0f1bu.mp3" type="audio/mpeg">
-</audio>
-<audio id="rain-sound" preload="auto">
-<source src="https://files.catbox.moe/yab6kg.mp3" type="audio/mpeg">
-</audio>
-<audio id="carmi-music" preload="auto">
-<source src="https://files.catbox.moe/x9so10.mp3" type="audio/mpeg">
-</audio>
-<audio id="mikey-music" preload="auto">
-<source src="https://files.catbox.moe/jubaaz.mp3" type="audio/mpeg">
-</audio>
+  <!-- Audio elements for preloading -->
+  <audio id="members-music" preload="auto">
+    <source src="https://files.catbox.moe/b0f1bu.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="rain-sound" preload="auto">
+    <source src="https://files.catbox.moe/yab6kg.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="carmi-music" preload="auto">
+    <source src="https://files.catbox.moe/x9so10.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="mikey-music" preload="auto">
+    <source src="https://files.catbox.moe/jubaaz.mp3" type="audio/mpeg">
+  </audio>
 
-<script>
-// Disable right-click
-document.addEventListener('contextmenu', function(e) {
-e.preventDefault();
-return false;
-});
+  <script>
+    // Disable right-click
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      return false;
+    });
 
-// Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
-document.addEventListener('keydown', function(e) {
-if (
-  e.keyCode === 123 || // F12
-  (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
-  (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
-  (e.ctrlKey && e.keyCode === 85) // Ctrl+U
-) {
-  e.preventDefault();
-  return false;
-}
-});
+    // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+    document.addEventListener('keydown', function(e) {
+      if (
+        e.keyCode === 123 || // F12
+        (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
+        (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
+        (e.ctrlKey && e.keyCode === 85) // Ctrl+U
+      ) {
+        e.preventDefault();
+        return false;
+      }
+    });
 
-// Enter button functionality
-document.getElementById('enter-button').addEventListener('click', function() {
-// Don't play music yet - we'll play it on the members page
-// Just store the flag that we want to play music
-localStorage.setItem('musicStarted', 'true');
+    // Cursor light effect - ensure it's visible immediately
+    const cursorLight = document.querySelector('.cursor-light');
+    
+    // Set initial position to center of screen to ensure it's visible before mouse movement
+    cursorLight.style.left = window.innerWidth / 2 + 'px';
+    cursorLight.style.top = window.innerHeight / 2 + 'px';
+    
+    document.addEventListener('mousemove', function(e) {
+      cursorLight.style.left = e.clientX + 'px';
+      cursorLight.style.top = e.clientY + 'px';
+    });
 
-// Fade out enter screen
-document.getElementById('enter-screen').style.opacity = '0';
+    // Snow effect
+    const canvas = document.getElementById('snow-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Set canvas size to window size
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    // Snowflake class
+    class Snowflake {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height * -1; // Start above the screen
+        this.radius = Math.random() * 2 + 0.5; // Size between 0.5 and 2.5
+        this.speed = Math.random() * 1 + 0.5; // Speed between 0.5 and 1.5
+        this.wind = Math.random() * 0.5 - 0.25; // Wind effect
+        this.opacity = Math.random() * 0.5 + 0.3; // Opacity between 0.3 and 0.8
+      }
+      
+      update() {
+        this.y += this.speed;
+        this.x += this.wind;
+        
+        // Reset if off screen
+        if (this.y > canvas.height) {
+          this.y = Math.random() * canvas.height * -1;
+          this.x = Math.random() * canvas.width;
+        }
+        
+        if (this.x < 0) {
+          this.x = canvas.width;
+        } else if (this.x > canvas.width) {
+          this.x = 0;
+        }
+      }
+      
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+        ctx.fill();
+      }
+    }
+    
+    // Create snowflakes
+    const snowflakes = [];
+    const snowflakeCount = 150; // Adjust for more or fewer snowflakes
+    
+    for (let i = 0; i < snowflakeCount; i++) {
+      snowflakes.push(new Snowflake());
+    }
+    
+    // Animation loop
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      snowflakes.forEach(snowflake => {
+        snowflake.update();
+        snowflake.draw();
+      });
+      
+      requestAnimationFrame(animate);
+    }
+    
+    animate();
 
-// Navigate to members page after fade
-setTimeout(function() {
-  window.location.href = 'members.html';
-}, 1500);
-});
-</script>
+    // Enter functionality
+    document.querySelector('.enter-text').addEventListener('click', function() {
+      // Don't play music yet - we'll play it on the members page
+      // Just store the flag that we want to play music
+      localStorage.setItem('musicStarted', 'true');
+
+      // Fade out enter screen
+      document.getElementById('enter-screen').style.opacity = '0';
+
+      // Navigate to members page after fade
+      setTimeout(function() {
+        window.location.href = 'members.html';
+      }, 1500);
+    });
+  </script>
 </body>
 </html>
-
