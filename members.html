@@ -271,6 +271,40 @@ animation: glow-white 2s infinite alternate;
 }
 }
 
+.admin-badge {
+border-color: rgba(59, 130, 246, 0.3);
+background-color: rgba(59, 130, 246, 0.05);
+color: rgba(147, 197, 253, 0.9);
+box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+animation: glow-blue 2s infinite alternate;
+}
+
+@keyframes glow-blue {
+0% {
+  box-shadow: 0 0 5px rgba(59, 130, 246, 0.2);
+}
+100% {
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+}
+
+.mod-badge {
+border-color: rgba(16, 185, 129, 0.3);
+background-color: rgba(16, 185, 129, 0.05);
+color: rgba(110, 231, 183, 0.9);
+box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+animation: glow-green 2s infinite alternate;
+}
+
+@keyframes glow-green {
+0% {
+  box-shadow: 0 0 5px rgba(16, 185, 129, 0.2);
+}
+100% {
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+}
+}
+
 .princess-badge {
 border-color: rgba(236, 72, 153, 0.3);
 background-color: rgba(236, 72, 153, 0.05);
@@ -512,7 +546,38 @@ BACK
 </div>
 </div>
 
-<!-- Carmi's card has been removed as requested -->
+<!-- Member 2: snuff -->
+<div class="member-card">
+<div class="member-image-container">
+  <img src="https://files.catbox.moe/73za8v.png" alt="snuff" class="member-image">
+  <div class="member-overlay"></div>
+</div>
+<div class="member-info">
+  <div class="member-name">
+    <span title="UID: 2">snuff</span>
+    <span class="member-badge admin-badge">ADMIN</span>
+  </div>
+  <div class="member-role">xX_femboyware_420_blaze_it_Xx</div>
+  <a href="https://conceal.lol/snuff" class="member-link">View Profile</a>
+</div>
+</div>
+
+<!-- Member 3: sxoul -->
+<div class="member-card">
+<div class="member-image-container">
+  <img src="https://files.catbox.moe/8x8yku.png" alt="sxoul" class="member-image">
+  <div class="member-overlay"></div>
+</div>
+<div class="member-info">
+  <div class="member-name">
+    <span title="UID: 3">sxoul</span>
+    <span class="member-badge mod-badge">MOD</span>
+  </div>
+  <div class="member-role">PUSHING COIN</div>
+  <a href="https://conceal.lol/sxoul" class="member-link">View Profile</a>
+</div>
+</div>
+
 </div>
 
 <div class="volume-control">
@@ -613,7 +678,7 @@ if (localStorage.getItem('musicStarted') === 'true') {
     rainSound.play().catch(error => console.log('Rain sound playback prevented: User interaction required'))
   ]).catch(() => {
     // If autoplay fails, create a silent audio context to unlock audio on first interaction
-    const silentAudio = new Audio("data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV");
+    const silentAudio = new Audio("data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU4LjdXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV");
     silentAudio.play().then(() => {
       backgroundMusic.play();
       rainSound.play();
