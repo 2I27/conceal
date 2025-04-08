@@ -1,270 +1,283 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>conceal.lol</title>
-  <!-- Import pixel font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      cursor: crosshair;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>conceal.lol</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Courier New', monospace;
+  cursor: crosshair;
+  /* Prevent text selection */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
-    body {
-      background-color: #000000;
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+body {
+  background-color: #000;
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
 
-    #enter-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent to show snow */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-      transition: opacity 1.5s ease;
-    }
+.enter-container {
+  text-align: center;
+  z-index: 10;
+  position: relative;
+}
 
-    .enter-text {
-      font-family: 'Press Start 2P', cursive;
-      font-size: 1.2rem;
-      letter-spacing: 2px;
-      color: #ffffff;
-      text-transform: lowercase;
-      cursor: pointer;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-                  0 0 20px rgba(255, 255, 255, 0.8),
-                  0 0 30px rgba(255, 255, 255, 0.6),
-                  0 0 40px rgba(255, 255, 255, 0.4);
-      animation: pulse 2s infinite;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 15;
-    }
+.enter-text {
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeIn 2s forwards 1s;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
 
-    .sub-text {
-      font-family: 'Press Start 2P', cursive;
-      font-size: 0.5rem;
-      color: rgba(255, 255, 255, 0.5);
-      letter-spacing: 1px;
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-      position: relative;
-      z-index: 15;
-    }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
-    @keyframes pulse {
-      0% {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-                    0 0 20px rgba(255, 255, 255, 0.8),
-                    0 0 30px rgba(255, 255, 255, 0.6),
-                    0 0 40px rgba(255, 255, 255, 0.4);
-      }
-      50% {
-        text-shadow: 0 0 15px rgba(255, 255, 255, 0.9),
-                    0 0 25px rgba(255, 255, 255, 0.9),
-                    0 0 35px rgba(255, 255, 255, 0.7),
-                    0 0 45px rgba(255, 255, 255, 0.5);
-      }
-      100% {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-                    0 0 20px rgba(255, 255, 255, 0.8),
-                    0 0 30px rgba(255, 255, 255, 0.6),
-                    0 0 40px rgba(255, 255, 255, 0.4);
-      }
-    }
+.enter-button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
 
-    /* Cursor light effect */
-    .cursor-light {
-      position: fixed;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      background: radial-gradient(
-        circle,
-        rgba(255, 255, 255, 0.15) 0%,
-        rgba(255, 255, 255, 0.05) 40%,
-        rgba(255, 255, 255, 0) 70%
-      );
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      z-index: 20; /* Higher than enter-screen to ensure visibility */
-      mix-blend-mode: screen;
-      opacity: 1; /* Ensure it's visible */
-      /* Initial position at center of screen */
-      left: 50%;
-      top: 50%;
-    }
+.enter-button:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
 
-    /* Snow canvas */
-    #snow-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 5;
-      pointer-events: none;
-    }
-  </style>
-  <link rel="icon" href="https://files.catbox.moe/9kp7pc.png" type="image/png">
+.enter-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s ease;
+}
+
+.enter-button:hover::before {
+  left: 100%;
+}
+
+.noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAFVklEQVR4XpWWB67c2BUFb3g557T/hRo9/WUMZHlgr4Bg8Z4qQgQJlHI4A8SzFVrapvmTF9O7dmYRFZ60YiBhJRCgh1FYhiLAmdvX0CzTOpNE77ME0Zty/nWWzchDtiqrmQDeuv3powQ5ta2eN0FY0InkqDD73lT9c9lEzwUNqgFHs9VQce3TVClFCQrSTfOiYkVJQBmpbq2L6iZavPnAPcoU0dSw0SUTqz/GtrGuXfbyyBniKykOWQWGqwwMA7QiYAxi+IlPdqo+hYHnUt5ZPfnsHJyNiDtnpJyayNBkF6cWoYGAMY92U2hXHF/C1M8uP/ZtYdiuj26UdAdQQSXQErwSOMzt/XWRWAz5GuSBIkwG1H3FabJ2OsUOUhGC6tK4EMtJO0ttC6IBD3kM0ve0tJwMdSfjZo+EEISaeTr9P3wYrGjXqyC1krcKdhMpxEnt5JetoulscpyzhXN5FRpuPHvbeQaKxFAEB6EN+cYN6xD7RYGpXpNndMmZgM5Dcs3YSNFDHUo2LGfZuukSWyUYirJAdYbF3MfqEKmjM+I2EfhA94iG3L7uKrR+GdWD73ydlIB+6hgref1QTlmgmbM3/LeX5GI1Ux1RWpgxpLuZ2+I+IjzZ8wqE4nilvQdkUdfhzI5QDWy+kw5Wgg2pGpeEVeCCA7b85BO3F9DzxB3cdqvBzWcmzbyMiqhzuYqtHRVG2y4x+KOlnyqla8AoWWpuBoYRxzXrfKuILl6SfiWCbjxoZJUaCBj1CjH7GIaDbc9kqBY3W-Rgjda1iqQcOJu2WW+76pZC9QG7M00dffe9hNnseupFL53r8F7YHSwJWUKP2q+k7RdsxyOB11n0xtOvnW4irMMFNV4H0uqwS5ExsmP9AxbDTc9JwgneAT5vTiUSm1E7BSflSt3bfa1tv8Di3R8n3Af7MNWzs49hmauE2wP+ttrq+AsWpFG2awvsuOqbipWHgtuvuaAE+A1Z/7gC9hesnr+7wqCwG8c5yAg3AL1fm8T9AZtp/bbJGwl1pNrE7RuOX7PeMRUERVaPpEs+yqeoSmuOlokqw49pgomjLeh7icHNlG19yjs6XXOMedYm5xH2YxpV2tc0Ro2jJfxC50ApuxGob7lMsxfTbeUv07TyYxpeLucEH1gNd4IKH2LAg5TdVhlCafZvpskfncCfx8pOhJzd76bJWeYFnFciwcYfubRc12Ip_ppIhA1/mSZ/RxjFDrJC5xifFjJpY2Xl5zXdguFqYyTR1zSp1Y9p+tktDYYSNflcxI0iyO4TPBdlRcpeqjK_piF5bklq77VSEaA+z8qmJTFzIWiitbnzR794USKBUaT0NTEsVjZqLaFVqJoPN9ODG70IPbfBHKK+/q/AWR0tJzYHRULOa4MP+W/H");
+  opacity: 0.05;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.vignette {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cursor-light {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.snow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.snowflake {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  pointer-events: none;
+}
+</style>
+<link rel="icon" href="https://files.catbox.moe/9kp7pc.png" type="image/png">
 </head>
 <body>
-  <!-- Snow canvas -->
-  <canvas id="snow-canvas"></canvas>
+<div class="noise"></div>
+<div class="vignette"></div>
+<div class="cursor-light" id="cursor-light"></div>
+<div id="snow" class="snow"></div>
+
+<div class="enter-container">
+  <div class="enter-text">WELCOME TO CONCEAL.LOL</div>
+  <button class="enter-button" id="enter-button">CLICK TO ENTER</button>
+</div>
+
+<audio id="background-music" loop>
+  <source src="https://files.catbox.moe/b0f1bu.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="rain-sound" loop>
+  <source src="https://files.catbox.moe/yab6kg.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Disable right-click
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+  return false;
+});
+
+// Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+document.addEventListener('keydown', function(e) {
+  if (
+    e.keyCode === 123 || // F12
+    (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
+    (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
+    (e.ctrlKey && e.keyCode === 85) // Ctrl+U
+  ) {
+    e.preventDefault();
+    return false;
+  }
+});
+
+// Create cursor light effect
+const cursorLight = document.getElementById('cursor-light');
+
+document.addEventListener('mousemove', function(e) {
+  cursorLight.style.left = e.clientX + 'px';
+  cursorLight.style.top = e.clientY + 'px';
   
-  <!-- Cursor light element -->
-  <div class="cursor-light"></div>
+  if (cursorLight.style.opacity === '0') {
+    cursorLight.style.opacity = '1';
+  }
+});
+
+// Create snow effect
+function createSnowflakes() {
+  const snowContainer = document.getElementById('snow');
+  const snowflakeCount = 100;
   
-  <div id="enter-screen">
-    <div class="enter-text">click to enter</div>
-    <div class="sub-text">mikey creates art</div>
-  </div>
-
-  <!-- Audio elements for preloading -->
-  <audio id="members-music" preload="auto">
-    <source src="https://files.catbox.moe/b0f1bu.mp3" type="audio/mpeg">
-  </audio>
-  <audio id="rain-sound" preload="auto">
-    <source src="https://files.catbox.moe/yab6kg.mp3" type="audio/mpeg">
-  </audio>
-  <audio id="carmi-music" preload="auto">
-    <source src="https://files.catbox.moe/x9so10.mp3" type="audio/mpeg">
-  </audio>
-  <audio id="mikey-music" preload="auto">
-    <source src="https://files.catbox.moe/jubaaz.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    // Disable right-click
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-      return false;
-    });
-
-    // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
-    document.addEventListener('keydown', function(e) {
-      if (
-        e.keyCode === 123 || // F12
-        (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
-        (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
-        (e.ctrlKey && e.keyCode === 85) // Ctrl+U
-      ) {
-        e.preventDefault();
-        return false;
-      }
-    });
-
-    // Cursor light effect - ensure it's visible immediately
-    const cursorLight = document.querySelector('.cursor-light');
+  for (let i = 0; i < snowflakeCount; i++) {
+    const snowflake = document.createElement('div');
+    snowflake.className = 'snowflake';
     
-    // Set initial position to center of screen
-    cursorLight.style.left = window.innerWidth / 2 + 'px';
-    cursorLight.style.top = window.innerHeight / 2 + 'px';
+    // Random size
+    const size = Math.random() * 3 + 1;
+    snowflake.style.width = `${size}px`;
+    snowflake.style.height = `${size}px`;
     
-    // Move cursor light with mouse
-    document.addEventListener('mousemove', function(e) {
-      cursorLight.style.left = e.clientX + 'px';
-      cursorLight.style.top = e.clientY + 'px';
-    });
-
-    // Optimized snow effect using canvas
-    const canvas = document.getElementById('snow-canvas');
-    const ctx = canvas.getContext('2d');
+    // Random position
+    snowflake.style.left = `${Math.random() * 100}%`;
+    snowflake.style.top = `-${size}px`;
     
-    // Set canvas size to window size
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Random opacity
+    snowflake.style.opacity = Math.random() * 0.7 + 0.3;
     
-    // Resize canvas when window is resized
-    window.addEventListener('resize', function() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
+    // Animation
+    const duration = Math.random() * 10 + 5;
+    const delay = Math.random() * 5;
     
-    // Create snowflakes
-    const snowflakes = [];
-    const snowflakeCount = 80; // Reduced count for better performance
+    snowflake.style.animation = `fall ${duration}s linear ${delay}s infinite`;
     
-    for (let i = 0; i < snowflakeCount; i++) {
-      snowflakes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 2 + 1, // Size between 1 and 3
-        speed: Math.random() * 0.5 + 0.2, // Slower speed for better performance
-        wind: Math.random() * 0.2 - 0.1, // Less wind for better performance
-        opacity: Math.random() * 0.5 + 0.3 // Opacity between 0.3 and 0.8
-      });
-    }
+    // Add keyframes for this specific snowflake
+    const style = document.createElement('style');
+    const horizontalMovement = Math.random() * 200 - 100; // -100px to 100px
     
-    // Animation loop
-    function drawSnow() {
-      // Clear canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Draw each snowflake
-      for (let i = 0; i < snowflakes.length; i++) {
-        const flake = snowflakes[i];
-        
-        // Update position
-        flake.y += flake.speed;
-        flake.x += flake.wind;
-        
-        // Reset if off screen
-        if (flake.y > canvas.height) {
-          flake.y = -5;
-          flake.x = Math.random() * canvas.width;
+    style.textContent = `
+      @keyframes fall {
+        0% {
+          transform: translateY(0) translateX(0);
+          opacity: ${snowflake.style.opacity};
         }
-        
-        if (flake.x < 0) {
-          flake.x = canvas.width;
-        } else if (flake.x > canvas.width) {
-          flake.x = 0;
+        50% {
+          transform: translateY(50vh) translateX(${horizontalMovement}px);
+          opacity: ${snowflake.style.opacity};
         }
-        
-        // Draw snowflake
-        ctx.beginPath();
-        ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${flake.opacity})`;
-        ctx.fill();
+        100% {
+          transform: translateY(100vh) translateX(${horizontalMovement * 2}px);
+          opacity: 0;
+        }
       }
-      
-      // Continue animation
-      requestAnimationFrame(drawSnow);
-    }
+    `;
     
-    // Start snow animation immediately
-    drawSnow();
+    document.head.appendChild(style);
+    snowContainer.appendChild(snowflake);
+  }
+}
 
-    // Enter functionality
-    document.querySelector('.enter-text').addEventListener('click', function() {
-      // Don't play music yet - we'll play it on the members page
-      // Just store the flag that we want to play music
-      localStorage.setItem('musicStarted', 'true');
+// Enter button click event
+document.getElementById('enter-button').addEventListener('click', function() {
+  // Start music
+  const backgroundMusic = document.getElementById('background-music');
+  const rainSound = document.getElementById('rain-sound');
+  
+  // Set flag for music started
+  localStorage.setItem('musicStarted', 'true');
+  
+  // Play music and rain sounds
+  backgroundMusic.play().catch(error => console.log('Audio playback prevented: User interaction required'));
+  rainSound.play().catch(error => console.log('Rain sound playback prevented: User interaction required'));
+  
+  // Set rain sound volume lower to balance with music
+  rainSound.volume = 0.3;
+  
+  // Redirect to members page
+  window.location.href = 'https://conceal.lol/members';
+});
 
-      // Fade out enter screen
-      document.getElementById('enter-screen').style.opacity = '0';
-
-      // Navigate to members page after fade
-      setTimeout(function() {
-        window.location.href = 'members.html';
-      }, 1500);
-    });
-  </script>
+// Initialize on page load
+window.onload = function() {
+  // Create snow effect
+  createSnowflakes();
+  
+  // Show cursor light
+  setTimeout(() => {
+    cursorLight.style.opacity = '1';
+  }, 1000);
+};
+</script>
 </body>
 </html>
