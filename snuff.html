@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>snuff</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Courier New', monospace;
+cursor: url('https://files.catbox.moe/gfvxoa.ani'), auto;
+}
+
+body {
+background-color: #000000;
+color: #fff;
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+}
+
+.back-button {
+position: fixed;
+top: 20px;
+left: 20px;
+background: rgba(0, 0, 0, 0.5);
+border: 1px solid rgba(0, 255, 0, 0.3);
+color: white;
+padding: 0.5rem 1rem;
+font-size: 0.9rem;
+border-radius: 4px;
+cursor: url('https://files.catbox.moe/gfvxoa.ani'), auto;
+text-decoration: none;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+z-index: 100;
+transition: all 0.3s ease;
+}
+
+.back-button:hover {
+background: rgba(0, 255, 0, 0.1);
+transform: translateY(-2px);
+}
+
+.profile-card {
+background: rgba(0, 0, 0, 0.7);
+border-radius: 12px;
+width: 100%;
+max-width: 380px;
+margin: 0 1rem;
+overflow: hidden;
+box-shadow: 0 0 30px rgba(0, 255, 0, 0.1);
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+backdrop-filter: blur(10px);
+border: 1px solid rgba(0, 255, 0, 0.1);
+position: relative;
+}
+
+.profile-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 40px rgba(0, 255, 0, 0.15);
+}
+
+.profile-card::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.6), transparent);
+animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+0% {
+transform: translateX(-100%);
+}
+100% {
+transform: translateX(100%);
+}
+}
+
+.profile-header {
+display: flex;
+align-items: center;
+gap: 1.5rem;
+padding: 1.5rem;
+background: rgba(0, 0, 0, 0.2);
+border-bottom: 1px solid rgba(0, 255, 0, 0.05);
+}
+
+.profile-image {
+width: 90px;
+height: 90px;
+border-radius: 50%;
+overflow: hidden;
+border: 2px solid rgba(0, 255, 0, 0.3);
+transition: transform 0.3s ease;
+box-shadow: 0 0 15px rgba(0, 255, 0, 0.1);
+}
+
+.profile-image:hover {
+transform: scale(1.05);
+}
+
+.profile-image img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.profile-info {
+flex: 1;
+}
+
+.profile-name-container {
+position: relative;
+display: inline-block;
+margin-bottom: 0.5rem;
+}
+
+.profile-name {
+font-size: 1.8rem;
+font-weight: bold;
+position: relative;
+cursor: url('https://files.catbox.moe/gfvxoa.ani'), auto;
+z-index: 2;
+color: #7fff7f;
+}
+
+.name-smoke {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 150%; /* Reduced from 200% */
+height: 150%; /* Reduced from 200% */
+pointer-events: none;
+z-index: 3; /* Increased z-index to be above the name */
+}
+
+.smoke-particle {
+position: absolute;
+background-color: rgba(128, 128, 128, 0.3);
+border-radius: 50%;
+opacity: 0.6;
+animation: smoke-float 4s infinite ease-out;
+}
+
+@keyframes smoke-float {
+0% {
+transform: translate(0, 0) scale(1);
+opacity: 0.6;
+}
+100% {
+transform: translate(var(--tx), var(--ty)) scale(2);
+opacity: 0;
+}
+}
+
+.profile-name:hover::after {
+content: attr(title);
+position: absolute;
+top: -30px;
+left: 0;
+background: rgba(0, 0, 0, 0.8);
+color: white;
+padding: 5px 10px;
+border-radius: 4px;
+font-size: 0.8rem;
+white-space: nowrap;
+z-index: 10;
+border: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.profile-bio {
+color: rgb(209, 213, 219);
+font-size: 0.9rem;
+height: 1.2em; /* Fixed height to prevent warping */
+max-width: 100%;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+margin-bottom: 0.5rem; /* Add some space below */
+}
+
+.profile-badges {
+display: flex;
+gap: 0.3rem;
+}
+
+.profile-badge {
+background: rgba(0, 0, 0, 0.3);
+border: 1px solid rgba(0, 255, 0, 0.1);
+border-radius: 4px;
+width: 28px;
+height: 28px;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+transition: all 0.3s ease;
+}
+
+.profile-badge:hover {
+transform: translateY(-2px);
+background: rgba(0, 255, 0, 0.05);
+}
+
+.profile-badge:hover::after {
+content: attr(title);
+position: absolute;
+bottom: -30px;
+left: 50%;
+transform: translateX(-50%);
+background: rgba(0, 0, 0, 0.8);
+color: white;
+padding: 5px 10px;
+border-radius: 4px;
+font-size: 0.8rem;
+white-space: nowrap;
+z-index: 10;
+border: 1px solid rgba(0, 255, 0, 0.1);
+}
+
+.profile-stats {
+display: flex;
+justify-content: center;
+padding: 1rem 1.5rem;
+border-top: 1px solid rgba(0, 255, 0, 0.05);
+background: rgba(0, 0, 0, 0.2);
+}
+
+.view-count {
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+
+.social-links {
+display: flex;
+justify-content: center;
+gap: 2rem;
+padding: 1.5rem 0;
+background: rgba(0, 0, 0, 0.1);
+}
+
+.social-link {
+color: white;
+text-decoration: none;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 0.5rem;
+font-size: 0.8rem;
+transition: all 0.3s ease;
+}
+
+.social-link:hover {
+transform: translateY(-3px);
+color: rgba(255, 255, 255, 0.8);
+}
+
+.copyright {
+text-align: center;
+font-size: 0.8rem;
+color: #00ff00;
+margin-top: 1rem;
+padding: 1rem;
+background: rgba(0, 0, 0, 0.2);
+border-top: 1px solid rgba(0, 255, 0, 0.05);
+}
+
+/* Cursor smoke */
+.cursor-smoke {
+position: absolute;
+width: 6px;
+height: 6px;
+background-color: rgba(200, 200, 200, 0.3);
+border-radius: 50%;
+pointer-events: none;
+z-index: 9999;
+opacity: 0;
+animation: cursor-smoke-fade 2s forwards;
+}
+
+@keyframes cursor-smoke-fade {
+0% {
+opacity: 0.7;
+transform: scale(0.5) translate(0, 0);
+}
+100% {
+opacity: 0;
+transform: scale(1.5) translate(var(--tx), var(--ty));
+}
+}
+
+/* Volume control */
+.volume-control {
+position: fixed;
+bottom: 20px;
+right: 20px;
+background: rgba(0, 0, 0, 0.5);
+border: 1px solid rgba(0, 255, 0, 0.1);
+border-radius: 5px;
+padding: 10px;
+display: flex;
+align-items: center;
+gap: 10px;
+z-index: 100;
+}
+
+.volume-slider {
+-webkit-appearance: none;
+width: 100px;
+height: 4px;
+background: rgba(0, 255, 0, 0.1);
+border-radius: 2px;
+outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 12px;
+height: 12px;
+background: #00ff00;
+border-radius: 50%;
+cursor: url('https://files.catbox.moe/gfvxoa.ani'), auto;
+}
+
+.volume-slider::-moz-range-thumb {
+width: 12px;
+height: 12px;
+background: #00ff00;
+border-radius: 50%;
+cursor: url('https://files.catbox.moe/gfvxoa.ani'), auto;
+border: none;
+}
+
+.profile-name-wrapper {
+display: flex;
+align-items: center;
+gap: 0.75rem;
+margin-bottom: 0.5rem;
+}
+
+/* Typewriter effect */
+.typewriter {
+overflow: hidden;
+border-right: 2px solid rgba(0, 255, 0, 0.75);
+white-space: nowrap;
+margin: 0;
+letter-spacing: 0.05em;
+animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+from { width: 0 }
+to { width: 100% }
+}
+
+@keyframes blink-caret {
+from, to { border-color: transparent }
+50% { border-color: rgba(0, 255, 0, 0.75) }
+}
+
+/* Icons container */
+.icons-container {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 1rem 1.5rem;
+background: rgba(0, 0, 0, 0.15);
+border-top: 1px solid rgba(0, 255, 0, 0.05);
+}
+
+.social-icons {
+display: flex;
+gap: 1rem;
+}
+
+.icon-link {
+color: #7fff7f;
+text-decoration: none;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.3s ease;
+}
+
+.icon-link:hover {
+transform: translateY(-2px);
+color: #00ff00;
+}
+
+/* Fullscreen styles */
+.fullscreen-container {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 1;
+}
+
+/* Weed-themed background */
+.background {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: -3;
+background: radial-gradient(circle at center, #0a2a0a 0%, #051505 50%, #000800 100%);
+}
+
+/* Enhanced weed leaf pattern overlay with movement */
+.weed-pattern {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: -2;
+background-image: url('https://files.catbox.moe/hctkhe.png');
+background-size: 50px 50px;
+background-repeat: repeat;
+opacity: 0.08; /* Slightly increased opacity */
+animation: weed-pattern-drift 30s infinite linear;
+}
+
+@keyframes weed-pattern-drift {
+0% {
+  background-position: 0 0;
+}
+25% {
+  background-position: 25px 10px;
+}
+50% {
+  background-position: 50px 0px;
+}
+75% {
+  background-position: 25px -10px;
+}
+100% {
+  background-position: 0 0;
+}
+}
+
+/* Second weed pattern layer for depth */
+.weed-pattern-2 {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: -2;
+background-image: url('https://files.catbox.moe/hctkhe.png');
+background-size: 70px 70px;
+background-repeat: repeat;
+opacity: 0.05;
+animation: weed-pattern-drift-2 40s infinite linear reverse;
+}
+
+@keyframes weed-pattern-drift-2 {
+0% {
+  background-position: 0 0;
+}
+25% {
+  background-position: -15px 15px;
+}
+50% {
+  background-position: -30px 0px;
+}
+75% {
+  background-position: -15px -15px;
+}
+100% {
+  background-position: 0 0;
+}
+}
+
+/* Green filter for hvher badge */
+.hvher-badge {
+filter: brightness(0.8) sepia(1) hue-rotate(60deg) saturate(3);
+}
+
+/* Bloodshot eye effect */
+.bloodshot-eye {
+position: relative;
+}
+
+/* Discord logo style */
+.discord-logo {
+fill: currentColor;
+width: 20px;
+height: 20px;
+}
+</style>
+<link rel="icon" href="https://files.catbox.moe/9kp7pc.png" type="image/png">
+</head>
+<body>
+<div class="background"></div>
+<div class="weed-pattern"></div>
+<div class="weed-pattern-2"></div>
+
+<div class="fullscreen-container">
+  <a href="members.html" class="back-button">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m12 19-7-7 7-7"></path>
+  <path d="M19 12H5"></path>
+  </svg>
+  BACK
+  </a>
+
+  <div class="profile-card">
+  <div class="profile-header">
+  <div class="profile-image">
+    <img src="https://files.catbox.moe/73za8v.png" alt="snuff">
+  </div>
+  <div class="profile-info">
+    <div class="profile-name-wrapper">
+      <div class="profile-name-container">
+        <div class="profile-name" title="UID: 2">snuff</div>
+        <div class="name-smoke" id="name-smoke"></div>
+      </div>
+      <div class="profile-badges">
+        <div class="profile-badge" title="Verified">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L9.5 9H2l6 4.5L5.5 22 12 18l6.5 4-2.5-8.5L22 9h-7.5L12 2z"></path>
+          </svg>
+        </div>
+        <div class="profile-badge" title="Stoner">
+          <img src="https://files.catbox.moe/hctkhe.png" alt="Weed Leaf" width="16" height="16">
+        </div>
+        <div class="profile-badge" title="hvher">
+          <img src="https://files.catbox.moe/3fys2k.png" alt="hvher" width="16" height="16" class="hvher-badge">
+        </div>
+      </div>
+    </div>
+    <div class="profile-bio" id="profile-bio"></div>
+  </div>
+  </div>
+
+  <div class="icons-container">
+  <div class="social-icons">
+    <a href="https://www.instagram.com/negazitravu?igsh=cHpiMjF4MG51dTh2" target="_blank" class="icon-link" title="Instagram">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+      </svg>
+    </a>
+    <a href="https://discord.gg/suppose" target="_blank" class="icon-link" title="Discord">
+      <!-- Actual Discord logo -->
+      <svg class="discord-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36" fill="currentColor">
+        <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+      </svg>
+    </a>
+  </div>
+  <div class="view-count">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+      <circle cx="12" cy="12" r="3" fill="#000000" stroke="#00ff00"></circle>
+      <!-- Enhanced bloodshot effect with more visible pink -->
+      <circle cx="12" cy="12" r="5" fill="none" stroke="#ff6eb4" stroke-width="1.5" opacity="0.9"></circle>
+      <circle cx="12" cy="12" r="7" fill="none" stroke="#ff6eb4" stroke-width="0.8" opacity="0.7"></circle>
+      <!-- Add some veins for bloodshot look -->
+      <path d="M6 10 L9 11" stroke="#ff6eb4" stroke-width="0.7" opacity="0.8"></path>
+      <path d="M6 14 L9 13" stroke="#ff6eb4" stroke-width="0.7" opacity="0.8"></path>
+      <path d="M18 10 L15 11" stroke="#ff6eb4" stroke-width="0.7" opacity="0.8"></path>
+      <path d="M18 14 L15 13" stroke="#ff6eb4" stroke-width="0.7" opacity="0.8"></path>
+    </svg>
+    <span id="view-count">0</span>
+  </div>
+  </div>
+
+  <div class="copyright">© Conceal.lol all rights reserved 2025</div>
+  </div>
+</div>
+
+<div class="volume-control">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+<path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+<path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+</svg>
+<input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider" id="volume-slider">
+</div>
+
+<audio id="background-music" loop>
+<source src="https://files.catbox.moe/41geds.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Disable right-click
+document.addEventListener('contextmenu', function(e) {
+e.preventDefault();
+return false;
+});
+
+// Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+document.addEventListener('keydown', function(e) {
+if (
+e.keyCode === 123 || // F12
+(e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
+(e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
+(e.ctrlKey && e.keyCode === 85) // Ctrl+U
+) {
+e.preventDefault();
+return false;
+}
+});
+
+// Create cleaner smoke around name
+function createNameSmoke() {
+  const smokeContainer = document.getElementById('name-smoke');
+  const smokeParticleCount = 30; // Reduced particle count for cleaner look
+  
+  // Clear existing smoke
+  smokeContainer.innerHTML = '';
+  
+  // Cleaner smoke colors - more transparent and subtle
+  const smokeColors = [
+    'rgba(220, 220, 220, 0.25)',
+    'rgba(200, 200, 200, 0.2)',
+    'rgba(180, 180, 180, 0.15)'
+  ];
+  
+  for (let i = 0; i < smokeParticleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'smoke-particle';
+    
+    // Smaller size for cleaner smoke
+    const size = Math.random() * 12 + 4; // Reduced size
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    
+    // Use more transparent colors for cleaner look
+    const colorIndex = Math.floor(Math.random() * smokeColors.length);
+    particle.style.backgroundColor = smokeColors[colorIndex];
+    
+    // Position particles closer to the name
+    const angle = Math.random() * Math.PI * 2;
+    const distance = Math.random() * 20 + 10; // Reduced distance
+    const x = Math.cos(angle) * distance;
+    const y = Math.sin(angle) * distance;
+    
+    particle.style.left = `calc(50% + ${x}px)`;
+    particle.style.top = `calc(50% + ${y}px)`;
+    
+    // More subtle movement
+    const tx = Math.random() * 40 - 20; // Reduced movement range
+    const ty = Math.random() * 40 - 20;
+    particle.style.setProperty('--tx', `${tx}px`);
+    particle.style.setProperty('--ty', `${ty}px`);
+    
+    // Slightly faster animation for more realistic smoke
+    const duration = Math.random() * 2.5 + 1.5;
+    particle.style.animationDuration = `${duration}s`;
+    
+    // Random delay for staggered effect
+    const delay = Math.random() * 1;
+    particle.style.animationDelay = `${delay}s`;
+    
+    // Varied opacity for depth
+    const opacity = Math.random() * 0.3 + 0.1;
+    particle.style.opacity = opacity.toString();
+    
+    smokeContainer.appendChild(particle);
+  }
+}
+
+// Cursor smoke effect
+document.addEventListener('mousemove', function(e) {
+  // Create smoke particles at a controlled rate
+  if (Math.random() > 0.7) { // Adjust frequency of smoke particles
+    const smoke = document.createElement('div');
+    smoke.className = 'cursor-smoke';
+    
+    // Position smoke slightly in front of cursor (adjust these offsets as needed)
+    // For the animated cursor, we position the smoke at the front
+    smoke.style.left = `${e.clientX - 5}px`;
+    smoke.style.top = `${e.clientY - 5}px`;
+    
+    // Random size for varied smoke effect
+    const size = Math.random() * 5 + 3;
+    smoke.style.width = `${size}px`;
+    smoke.style.height = `${size}px`;
+    
+    // Smoke color variations
+    const opacity = Math.random() * 0.3 + 0.1;
+    smoke.style.backgroundColor = `rgba(200, 200, 200, ${opacity})`;
+    
+    // Random movement direction
+    const tx = Math.random() * 30 - 15;
+    const ty = Math.random() * 30 - 15;
+    smoke.style.setProperty('--tx', `${tx}px`);
+    smoke.style.setProperty('--ty', `${ty}px`);
+    
+    document.body.appendChild(smoke);
+    
+    // Remove smoke after animation completes
+    setTimeout(() => {
+      smoke.remove();
+    }, 2000);
+  }
+});
+
+// Typewriter effect for bio rotation
+function typewriterEffect(text, element, callback) {
+  element.textContent = '';
+  element.classList.add('typewriter');
+
+  let i = 0;
+  const speed = 70; // typing speed in milliseconds
+
+  function type() {
+    if (i < text.length) {
+      element.textContent += text.charAt(i);
+      i++;
+      setTimeout(type, speed);
+    } else {
+      // Remove typewriter class after typing is complete
+      setTimeout(() => {
+        element.classList.remove('typewriter');
+        if (callback) callback();
+      }, 1500);
+    }
+  }
+
+  type();
+}
+
+// Bio rotation with typewriter effect
+function rotateBios() {
+  const bioElement = document.getElementById('profile-bio');
+  const bios = ["blaze it", "weed enthusiast", "sex demon"];
+  let currentBioIndex = 0;
+
+  function updateBio() {
+    typewriterEffect(bios[currentBioIndex], bioElement, () => {
+      currentBioIndex = (currentBioIndex + 1) % bios.length;
+      setTimeout(updateBio, 3000);
+    });
+  }
+
+  updateBio();
+}
+
+// Force audio to play
+window.onload = function() {
+  const backgroundMusic = document.getElementById('background-music');
+
+  // Create name smoke
+  createNameSmoke();
+  setInterval(createNameSmoke, 1000); // Refresh smoke particles frequently
+
+  // Set localStorage flag for music
+  localStorage.setItem('musicStarted', 'true');
+
+  // Try to play music immediately
+  backgroundMusic.play().catch(function(error) {
+    console.log('Audio playback prevented: User interaction required');
+  });
+
+  // Try to play again on any user interaction
+  document.addEventListener('click', function() {
+    if (backgroundMusic.paused) {
+      backgroundMusic.play();
+    }
+  });
+
+  // View counter
+  const viewCountElement = document.getElementById('view-count');
+  let count = localStorage.getItem('snuffViewCount') || 0;
+  count = parseInt(count) + 1;
+  localStorage.setItem('snuffViewCount', count);
+  viewCountElement.textContent = count;
+
+  // Start bio rotation
+  rotateBios();
+
+  // Volume control initialization
+  const volumeSlider = document.getElementById('volume-slider');
+  backgroundMusic.volume = volumeSlider.value;
+};
+
+// Volume control
+const volumeSlider = document.getElementById('volume-slider');
+const backgroundMusic = document.getElementById('background-music');
+
+volumeSlider.addEventListener('input', function() {
+  backgroundMusic.volume = this.value;
+});
+
+// Refresh smoke effects periodically
+setInterval(function() {
+  createNameSmoke();
+}, 1000);
+</script>
+</body>
+</html>
