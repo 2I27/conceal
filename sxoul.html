@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sxoul</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Courier New', monospace;
+  cursor: url('https://files.catbox.moe/gfvxoa.ani'), auto;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Clean, modern background with red particles */
+.particles-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background: #080808;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: rgba(255, 0, 0, 0.5);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+/* Red pulse effect */
+.pulse-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: radial-gradient(circle at center, transparent 0%, #080808 70%);
+  opacity: 0;
+  animation: pulse-animation 15s infinite;
+}
+
+@keyframes pulse-animation {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.2; }
+}
+
+/* Digital scan line effect */
+.scan-lines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(255, 0, 0, 0.02) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: rgba(20, 0, 0, 0.7);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  color: #ff0000;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  cursor: url('https://files.catbox.moe/gfvxoa.ani'), auto;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 100;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(255, 0, 0, 0.2);
+}
+
+.back-button:hover {
+  background: rgba(40, 0, 0, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 0, 0, 0.3);
+}
+
+.profile-card {
+  background: linear-gradient(to bottom, #1a0000, #000000);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2), 0 0 0 1px rgba(255, 0, 0, 0.1);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(255, 0, 0, 0.3), 0 0 0 1px rgba(255, 0, 0, 0.2);
+}
+
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.5), transparent);
+  z-index: 10;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(20, 0, 0, 0.6);
+  border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+  position: relative;
+}
+
+.profile-image-container {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(255, 0, 0, 0.4);
+  background-color: #0a0000;
+  flex-shrink: 0;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-image-container:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 0, 0, 0.4);
+  border-color: rgba(255, 0, 0, 0.6);
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.3s ease;
+}
+
+.profile-image:hover {
+  filter: brightness(1.1);
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.profile-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff0000;
+  text-shadow: 0 2px 4px rgba(255, 0, 0, 0.3);
+  position: relative;
+  cursor: pointer;
+}
+
+/* UID Popup */
+.profile-name::after {
+  content: 'UID: 3';
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  background: rgba(20, 0, 0, 0.9);
+  color: #ff0000;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 0 4px 8px rgba(255, 0, 0, 0.3);
+  pointer-events: none;
+  z-index: 100;
+}
+
+.profile-name:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+  top: -35px;
+}
+
+/* Sparkle animation around name */
+.sparkle-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #ff0000;
+  box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+  animation: sparkle-anim 2s linear infinite;
+  opacity: 0;
+}
+
+@keyframes sparkle-anim {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+.profile-badges {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.profile-badge {
+  background: rgba(20, 0, 0, 0.6);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 4px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(255, 0, 0, 0.2);
+}
+
+.profile-badge:hover {
+  transform: translateY(-3px);
+  background: rgba(40, 0, 0, 0.7);
+  box-shadow: 0 5px 10px rgba(255, 0, 0, 0.3);
+}
+
+.profile-badge:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20, 0, 0, 0.9);
+  color: #ff0000;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  z-index: 10;
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 0 4px 8px rgba(255, 0, 0, 0.3);
+}
+
+.profile-badge svg {
+  width: 16px;
+  height: 16px;
+  stroke: #ff0000;
+}
+
+.profile-bio {
+  color: #cc0000;
+  font-size: 1rem;
+  height: 1.2em;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: rgba(15, 0, 0, 0.7);
+  border-top: 1px solid rgba(255, 0, 0, 0.2);
+  position: relative;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.icon-link {
+  color: #ff0000;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  opacity: 0.8;
+}
+
+.icon-link:hover {
+  transform: translateY(-3px) scale(1.1);
+  color: #ff3333;
+  opacity: 1;
+}
+
+.view-count {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: #cc0000;
+}
+
+.view-count-number {
+  font-weight: bold;
+  transition: all 0.3s ease;
+  color: #ff0000;
+}
+
+.copyright {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #990000;
+  padding: 1rem;
+  background: rgba(10, 0, 0, 0.7);
+  border-top: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+/* Cursor smoke */
+.cursor-smoke {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: rgba(255, 0, 0, 0.3);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  animation: cursor-smoke-fade 2s forwards;
+}
+
+@keyframes cursor-smoke-fade {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.5) translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5) translate(var(--tx), var(--ty));
+  }
+}
+
+/* Volume control */
+.volume-control {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(20, 0, 0, 0.7);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(255, 0, 0, 0.2);
+}
+
+.volume-control:hover {
+  background: rgba(40, 0, 0, 0.8);
+  box-shadow: 0 4px 8px rgba(255, 0, 0, 0.3);
+}
+
+.volume-control svg {
+  stroke: #ff0000;
+}
+
+.volume-slider {
+  -webkit-appearance: none;
+  width: 100px;
+  height: 4px;
+  background: rgba(255, 0, 0, 0.2);
+  border-radius: 2px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.volume-slider:hover {
+  background: rgba(255, 0, 0, 0.3);
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: #ff0000;
+  border-radius: 50%;
+  cursor: url('https://files.catbox.moe/gfvxoa.ani'), auto;
+  transition: all 0.3s ease;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+  width: 14px;
+  height: 14px;
+  background: #ff3333;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: #ff0000;
+  border-radius: 50%;
+  cursor: url('https://files.catbox.moe/gfvxoa.ani'), auto;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.volume-slider::-moz-range-thumb:hover {
+  width: 14px;
+  height: 14px;
+  background: #ff3333;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+/* Typewriter effect */
+.typewriter {
+  overflow: hidden;
+  border-right: 2px solid rgba(255, 0, 0, 0.75);
+  white-space: nowrap;
+  margin: 0;
+  letter-spacing: 0.05em;
+  animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: rgba(255, 0, 0, 0.75) }
+}
+
+/* Fullscreen styles */
+.fullscreen-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Enhanced bloodshot eye effect */
+.bloodshot-eye {
+  position: relative;
+}
+
+.bloodshot-eye-svg {
+  filter: drop-shadow(0 0 2px rgba(255, 0, 0, 0.5));
+}
+
+/* Pulse animation for view count */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+.back-button svg {
+  stroke: #ff0000;
+}
+
+/* Red glow effect */
+.red-glow {
+  text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000;
+}
+
+/* Red circuit lines effect */
+.circuit-lines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.circuit-line {
+  position: absolute;
+  background: linear-gradient(90deg, transparent, #ff0000, transparent);
+  height: 1px;
+  width: 100%;
+  opacity: 0;
+  animation: circuit-line-animation 8s infinite;
+}
+
+@keyframes circuit-line-animation {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+</style>
+<link rel="icon" href="https://files.catbox.moe/9kp7pc.png" type="image/png">
+</head>
+<body>
+<div class="particles-container" id="particles-container"></div>
+<div class="pulse-overlay"></div>
+<div class="scan-lines"></div>
+<div class="circuit-lines" id="circuit-lines"></div>
+
+<div class="fullscreen-container">
+<a href="members.html" class="back-button">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="m12 19-7-7 7-7"></path>
+<path d="M19 12H5"></path>
+</svg>
+BACK
+</a>
+
+<div class="profile-card">
+<div class="profile-header">
+<div class="profile-image-container">
+  <img src="https://files.catbox.moe/8x8yku.png" alt="sxoul" id="profile-img" class="profile-image">
+</div>
+<div class="profile-info">
+  <div class="profile-name-wrapper">
+    <div class="profile-name-row">
+      <div class="profile-name red-glow" id="profile-name">sxoul</div>
+      <div class="sparkle-container" id="sparkle-container"></div>
+      <div class="profile-badges">
+        <div class="profile-badge" title="Verified">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L9.5 9H2l6 4.5L5.5 22 12 18l6.5 4-2.5-8.5L22 9h-7.5L12 2z"></path>
+          </svg>
+        </div>
+        <div class="profile-badge" title="Premium Member">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="profile-bio" id="profile-bio"></div>
+  </div>
+</div>
+</div>
+
+<div class="footer">
+<div class="social-icons">
+  <a href="https://www.instagram.com/rotting76/" target="_blank" class="icon-link" title="Instagram">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+    </svg>
+  </a>
+</div>
+<div class="view-count">
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bloodshot-eye-svg">
+    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+    <circle cx="12" cy="12" r="3" fill="#000000" stroke="#ff0000"></circle>
+    
+    <!-- Enhanced bloodshot effect with more visible red around pupil -->
+    <circle cx="12" cy="12" r="4" fill="rgba(255, 0, 0, 0.15)" stroke="none"></circle>
+    <circle cx="12" cy="12" r="5" fill="none" stroke="#ff0000" stroke-width="1.5" opacity="0.9"></circle>
+    <circle cx="12" cy="12" r="7" fill="none" stroke="#ff0000" stroke-width="0.8" opacity="0.7"></circle>
+    
+    <!-- More prominent veins for bloodshot look -->
+    <path d="M6 10 L9 11" stroke="#ff0000" stroke-width="1" opacity="0.9"></path>
+    <path d="M6 14 L9 13" stroke="#ff0000" stroke-width="1" opacity="0.9"></path>
+    <path d="M18 10 L15 11" stroke="#ff0000" stroke-width="1" opacity="0.9"></path>
+    <path d="M18 14 L15 13" stroke="#ff0000" stroke-width="1" opacity="0.9"></path>
+    
+    <!-- Additional veins for more realistic bloodshot effect -->
+    <path d="M5 12 L8 12" stroke="#ff0000" stroke-width="0.8" opacity="0.8"></path>
+    <path d="M19 12 L16 12" stroke="#ff0000" stroke-width="0.8" opacity="0.8"></path>
+    <path d="M7 9 L9 10" stroke="#ff0000" stroke-width="0.8" opacity="0.8"></path>
+    <path d="M17 9 L15 10" stroke="#ff0000" stroke-width="0.8" opacity="0.8"></path>
+    <path d="M7 15 L9 14" stroke="#ff0000" stroke-width="0.8" opacity="0.8"></path>
+    <path d="M17 15 L15 14" stroke="#ff0000" stroke-width="0.8" opacity="0.8"></path>
+  </svg>
+  <span id="view-count" class="view-count-number">0</span>
+</div>
+</div>
+
+<div class="copyright">© Conceal.lol all rights reserved 2025</div>
+</div>
+</div>
+
+<div class="volume-control">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+<path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+<path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+</svg>
+<input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider" id="volume-slider">
+</div>
+
+<audio id="background-music" loop>
+<source src="https://files.catbox.moe/wf046h.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Disable right-click
+document.addEventListener('contextmenu', function(e) {
+e.preventDefault();
+return false;
+});
+
+// Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+document.addEventListener('keydown', function(e) {
+if (
+e.keyCode === 123 || // F12
+(e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
+(e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
+(e.ctrlKey && e.keyCode === 85) // Ctrl+U
+) {
+e.preventDefault();
+return false;
+}
+});
+
+// Create particles for background
+function createParticles() {
+  const container = document.getElementById('particles-container');
+  container.innerHTML = '';
+  
+  const particleCount = 50;
+  
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    
+    // Random position
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    particle.style.left = `${x}%`;
+    particle.style.top = `${y}%`;
+    
+    // Random size
+    const size = Math.random() * 3 + 1;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    
+    // Random opacity
+    const opacity = Math.random() * 0.5 + 0.2;
+    particle.style.opacity = opacity;
+    
+    // Animation
+    const duration = Math.random() * 20 + 10;
+    particle.style.animation = `float ${duration}s infinite ease-in-out`;
+    
+    // Random animation delay
+    const delay = Math.random() * 10;
+    particle.style.animationDelay = `${delay}s`;
+    
+    container.appendChild(particle);
+    
+    // Add floating animation
+    const keyframes = `
+      @keyframes float {
+        0%, 100% {
+          transform: translate(0, 0);
+        }
+        50% {
+          transform: translate(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px);
+        }
+      }
+    `;
+    
+    const style = document.createElement('style');
+    style.textContent = keyframes;
+    document.head.appendChild(style);
+  }
+}
+
+// Create circuit lines
+function createCircuitLines() {
+  const container = document.getElementById('circuit-lines');
+  container.innerHTML = '';
+  
+  const lineCount = 10;
+  
+  for (let i = 0; i < lineCount; i++) {
+    const line = document.createElement('div');
+    line.className = 'circuit-line';
+    
+    // Position at random heights
+    const y = Math.random() * 100;
+    line.style.top = `${y}%`;
+    
+    // Random animation delay
+    const delay = Math.random() * 8;
+    line.style.animationDelay = `${delay}s`;
+    
+    container.appendChild(line);
+  }
+}
+
+// Create sparkles around the name
+function createSparkles() {
+  const container = document.getElementById('sparkle-container');
+  const nameElement = document.getElementById('profile-name');
+  const nameRect = nameElement.getBoundingClientRect();
+  const containerRect = container.getBoundingClientRect();
+  
+  // Clear existing sparkles
+  container.innerHTML = '';
+  
+  // Create 20 sparkles
+  for (let i = 0; i < 20; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    
+    // Position sparkles in a circle around the name
+    const angle = (i / 20) * Math.PI * 2;
+    const radius = 30 + Math.random() * 20; // Random radius between 30-50px
+    const x = Math.cos(angle) * radius + nameRect.width / 2;
+    const y = Math.sin(angle) * radius + nameRect.height / 2;
+    
+    sparkle.style.left = `${x}px`;
+    sparkle.style.top = `${y}px`;
+    
+    // Random delay for animation
+    sparkle.style.animationDelay = `${Math.random() * 2}s`;
+    
+    container.appendChild(sparkle);
+  }
+}
+
+// Typewriter effect for bio rotation
+function typewriterEffect(text, element, callback) {
+element.textContent = '';
+element.classList.add('typewriter');
+
+let i = 0;
+const speed = 70; // typing speed in milliseconds
+
+function type() {
+  if (i < text.length) {
+    element.textContent += text.charAt(i);
+    i++;
+    setTimeout(type, speed);
+  } else {
+    // Remove typewriter class after typing is complete
+    setTimeout(() => {
+      element.classList.remove('typewriter');
+      if (callback) callback();
+    }, 1500);
+  }
+}
+
+type();
+}
+
+// Bio rotation with typewriter effect
+function rotateBios() {
+const bioElement = document.getElementById('profile-bio');
+const bios = ["im sxoul", "egirl method on instagram"];
+let currentBioIndex = 0;
+
+function updateBio() {
+  typewriterEffect(bios[currentBioIndex], bioElement, () => {
+    currentBioIndex = (currentBioIndex + 1) % bios.length;
+    setTimeout(updateBio, 3000);
+  });
+}
+
+updateBio();
+}
+
+// Force audio to play
+window.onload = function() {
+const backgroundMusic = document.getElementById('background-music');
+
+// Set localStorage flag for music
+localStorage.setItem('musicStarted', 'true');
+
+// Try to play music immediately
+backgroundMusic.play().catch(function(error) {
+  console.log('Audio playback prevented: User interaction required');
+});
+
+// Try to play again on any user interaction
+document.addEventListener('click', function() {
+  if (backgroundMusic.paused) {
+    backgroundMusic.play();
+  }
+});
+
+// View counter
+const viewCountElement = document.getElementById('view-count');
+let count = localStorage.getItem('sxoulViewCount') || 0;
+count = parseInt(count) + 1;
+localStorage.setItem('sxoulViewCount', count);
+viewCountElement.textContent = count;
+
+// Add pulse animation to view count
+setTimeout(() => {
+  viewCountElement.classList.add('pulse');
+}, 2000);
+
+// Start bio rotation
+rotateBios();
+
+// Initialize sparkles
+createSparkles();
+// Refresh sparkles periodically
+setInterval(createSparkles, 3000);
+
+// Initialize particles
+createParticles();
+
+// Initialize circuit lines
+createCircuitLines();
+
+// Volume control initialization
+const volumeSlider = document.getElementById('volume-slider');
+backgroundMusic.volume = volumeSlider.value;
+};
+
+// Volume control
+const volumeSlider = document.getElementById('volume-slider');
+const backgroundMusic = document.getElementById('background-music');
+
+volumeSlider.addEventListener('input', function() {
+backgroundMusic.volume = this.value;
+});
+
+// Cursor smoke effect
+document.addEventListener('mousemove', function(e) {
+// Create smoke particles at a controlled rate
+if (Math.random() > 0.7) { // Adjust frequency of smoke particles
+  const smoke = document.createElement('div');
+  smoke.className = 'cursor-smoke';
+  
+  // Position smoke slightly in front of cursor (adjust these offsets as needed)
+  // For the animated cursor, we position the smoke at the front
+  smoke.style.left = `${e.clientX - 5}px`;
+  smoke.style.top = `${e.clientY - 5}px`;
+  
+  // Random size for varied smoke effect
+  const size = Math.random() * 5 + 3;
+  smoke.style.width = `${size}px`;
+  smoke.style.height = `${size}px`;
+  
+  // Smoke color variations - red for dark theme
+  const opacity = Math.random() * 0.3 + 0.1;
+  smoke.style.backgroundColor = `rgba(255, 0, 0, ${opacity})`;
+  
+  // Random movement direction
+  const tx = Math.random() * 30 - 15;
+  const ty = Math.random() * 30 - 15;
+  smoke.style.setProperty('--tx', `${tx}px`);
+  smoke.style.setProperty('--ty', `${ty}px`);
+  
+  document.body.appendChild(smoke);
+  
+  // Remove smoke after animation completes
+  setTimeout(() => {
+    smoke.remove();
+  }, 2000);
+}
+});
+
+// Add pulsing red glow effect to elements
+function addPulsingGlow() {
+  const elements = document.querySelectorAll('.red-glow');
+  elements.forEach(el => {
+    let intensity = 0.5;
+    let increasing = true;
+    
+    setInterval(() => {
+      if (increasing) {
+        intensity += 0.02;
+        if (intensity >= 1) {
+          increasing = false;
+        }
+      } else {
+        intensity -= 0.02;
+        if (intensity <= 0.5) {
+          increasing = true;
+        }
+      }
+      
+      el.style.textShadow = `0 0 ${5 * intensity}px #ff0000, 0 0 ${10 * intensity}px #ff0000`;
+    }, 50);
+  });
+}
+
+// Initialize pulsing glow effect
+document.addEventListener('DOMContentLoaded', function() {
+  addPulsingGlow();
+});
+</script>
+</body>
+</html>
